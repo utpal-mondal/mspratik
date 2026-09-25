@@ -145,8 +145,8 @@ const LoginPage = () => {
           {/* Logo */}
           <div className="mb-4 flex justify-center">
             <img
-              src="/images/a-unique-logo.png"
-              alt="a-unique-logo"
+              src="/images/pratik-transport-logo.png"
+              alt="pratik-transport-logo"
               className="h-10 w-auto object-contain"
             />
           </div>
