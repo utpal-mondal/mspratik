@@ -1,0 +1,67 @@
+# =========================
+# Dependencies
+# =========================
+node_modules/
+vendor/
+appbuild
+# =========================
+# Build outputs
+# =========================
+.next/
+out/
+dist/
+build/
+bin/
+pkg/
+*.exe
+*.out
+ecosystem.config.js
+backend/uploads/
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Database files
+# =========================
+*.db
+*.sqlite
+*.sqlite3
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# =========================
+# Go test & cache
+# =========================
+coverage.out
+*.test
+backend/storage/*

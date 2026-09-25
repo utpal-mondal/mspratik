@@ -1,0 +1,1512 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="EmXHVlwbaiHs5KUwC3qi0mK005WGhb6APb4lwJlP">
+    
+    <title>
+        
+                     Welcome to Company Dashboard
+            </title>    
+    <noscript>
+        <meta http-equiv="refresh" content="http://staging.shipquickk.com/browsererror.html" />
+    </noscript>
+    <!-- Favicons -->
+    <link href="/images/a-unique-logo-mini.png" rel="icon">
+    <link href="/images/a-unique-logo-mini.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="http://staging.shipquickk.com/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://staging.shipquickk.com/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="http://staging.shipquickk.com/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+   
+
+    <!-- Template Main CSS File -->
+    <link href="http://staging.shipquickk.com/assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://staging.shipquickk.com/assets/vendor/pace-progress/themes/blue/pace-theme-flat-top.css">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" href="http://staging.shipquickk.com/assets/css/chartist.min.css">
+    <link href="http://staging.shipquickk.com/assets/css/datepicker.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+    
+    <script>
+        var base_url = 'http://staging.shipquickk.com';
+    </script>
+    <link rel='stylesheet' type='text/css' property='stylesheet' href='//staging.shipquickk.com/_debugbar/assets/stylesheets?v=1757317756&theme=auto' data-turbolinks-eval='false' data-turbo-eval='false'><script src='//staging.shipquickk.com/_debugbar/assets/javascript?v=1757317756' data-turbolinks-eval='false' data-turbo-eval='false'></script><script data-turbo-eval="false">jQuery.noConflict(true);</script>
+<script> Sfdump = window.Sfdump || (function (doc) { var refStyle = doc.createElement('style'), rxEsc = /([.*+?^${}()|\[\]\/\\])/g, idRx = /\bsf-dump-\d+-ref[012]\w+\b/, keyHint = 0 <= navigator.platform.toUpperCase().indexOf('MAC') ? 'Cmd' : 'Ctrl', addEventListener = function (e, n, cb) { e.addEventListener(n, cb, false); }; refStyle.innerHTML = '.phpdebugbar pre.sf-dump .sf-dump-compact, .sf-dump-str-collapse .sf-dump-str-collapse, .sf-dump-str-expand .sf-dump-str-expand { display: none; }'; doc.head.appendChild(refStyle); refStyle = doc.createElement('style'); doc.head.appendChild(refStyle); if (!doc.addEventListener) { addEventListener = function (element, eventName, callback) { element.attachEvent('on' + eventName, function (e) { e.preventDefault = function () {e.returnValue = false;}; e.target = e.srcElement; callback(e); }); }; } function toggle(a, recursive) { var s = a.nextSibling || {}, oldClass = s.className, arrow, newClass; if (/\bsf-dump-compact\b/.test(oldClass)) { arrow = '▼'; newClass = 'sf-dump-expanded'; } else if (/\bsf-dump-expanded\b/.test(oldClass)) { arrow = '▶'; newClass = 'sf-dump-compact'; } else { return false; } if (doc.createEvent && s.dispatchEvent) { var event = doc.createEvent('Event'); event.initEvent('sf-dump-expanded' === newClass ? 'sfbeforedumpexpand' : 'sfbeforedumpcollapse', true, false); s.dispatchEvent(event); } a.lastChild.innerHTML = arrow; s.className = s.className.replace(/\bsf-dump-(compact|expanded)\b/, newClass); if (recursive) { try { a = s.querySelectorAll('.'+oldClass); for (s = 0; s < a.length; ++s) { if (-1 == a[s].className.indexOf(newClass)) { a[s].className = newClass; a[s].previousSibling.lastChild.innerHTML = arrow; } } } catch (e) { } } return true; }; function collapse(a, recursive) { var s = a.nextSibling || {}, oldClass = s.className; if (/\bsf-dump-expanded\b/.test(oldClass)) { toggle(a, recursive); return true; } return false; }; function expand(a, recursive) { var s = a.nextSibling || {}, oldClass = s.className; if (/\bsf-dump-compact\b/.test(oldClass)) { toggle(a, recursive); return true; } return false; }; function collapseAll(root) { var a = root.querySelector('a.sf-dump-toggle'); if (a) { collapse(a, true); expand(a); return true; } return false; } function reveal(node) { var previous, parents = []; while ((node = node.parentNode || {}) && (previous = node.previousSibling) && 'A' === previous.tagName) { parents.push(previous); } if (0 !== parents.length) { parents.forEach(function (parent) { expand(parent); }); return true; } return false; } function highlight(root, activeNode, nodes) { resetHighlightedNodes(root); Array.from(nodes||[]).forEach(function (node) { if (!/\bsf-dump-highlight\b/.test(node.className)) { node.className = node.className + ' sf-dump-highlight'; } }); if (!/\bsf-dump-highlight-active\b/.test(activeNode.className)) { activeNode.className = activeNode.className + ' sf-dump-highlight-active'; } } function resetHighlightedNodes(root) { Array.from(root.querySelectorAll('.sf-dump-str, .sf-dump-key, .sf-dump-public, .sf-dump-protected, .sf-dump-private')).forEach(function (strNode) { strNode.className = strNode.className.replace(/\bsf-dump-highlight\b/, ''); strNode.className = strNode.className.replace(/\bsf-dump-highlight-active\b/, ''); }); } return function (root, x) { root = doc.getElementById(root); var indentRx = new RegExp('^('+(root.getAttribute('data-indent-pad') || ' ').replace(rxEsc, '\\$1')+')+', 'm'), options = {"maxDepth":1,"maxStringLength":160,"fileLinkFormat":false}, elt = root.getElementsByTagName('A'), len = elt.length, i = 0, s, h, t = []; while (i < len) t.push(elt[i++]); for (i in x) { options[i] = x[i]; } function a(e, f) { addEventListener(root, e, function (e, n) { if ('A' == e.target.tagName) { f(e.target, e); } else if ('A' == e.target.parentNode.tagName) { f(e.target.parentNode, e); } else { n = /\bsf-dump-ellipsis\b/.test(e.target.className) ? e.target.parentNode : e.target; if ((n = n.nextElementSibling) && 'A' == n.tagName) { if (!/\bsf-dump-toggle\b/.test(n.className)) { n = n.nextElementSibling || n; } f(n, e, true); } } }); }; function isCtrlKey(e) { return e.ctrlKey || e.metaKey; } function xpathString(str) { var parts = str.match(/[^'"]+|['"]/g).map(function (part) { if ("'" == part) { return '"\'"'; } if ('"' == part) { return "'\"'"; } return "'" + part + "'"; }); return "concat(" + parts.join(",") + ", '')"; } function xpathHasClass(className) { return "contains(concat(' ', normalize-space(@class), ' '), ' " + className +" ')"; } addEventListener(root, 'mouseover', function (e) { if ('' != refStyle.innerHTML) { refStyle.innerHTML = ''; } }); a('mouseover', function (a, e, c) { if (c) { e.target.style.cursor = "pointer"; } else if (a = idRx.exec(a.className)) { try { refStyle.innerHTML = '.phpdebugbar pre.sf-dump .'+a[0]+'{background-color: #B729D9; color: #FFF !important; border-radius: 2px}'; } catch (e) { } } }); a('click', function (a, e, c) { if (/\bsf-dump-toggle\b/.test(a.className)) { e.preventDefault(); if (!toggle(a, isCtrlKey(e))) { var r = doc.getElementById(a.getAttribute('href').slice(1)), s = r.previousSibling, f = r.parentNode, t = a.parentNode; t.replaceChild(r, a); f.replaceChild(a, s); t.insertBefore(s, r); f = f.firstChild.nodeValue.match(indentRx); t = t.firstChild.nodeValue.match(indentRx); if (f && t && f[0] !== t[0]) { r.innerHTML = r.innerHTML.replace(new RegExp('^'+f[0].replace(rxEsc, '\\$1'), 'mg'), t[0]); } if (/\bsf-dump-compact\b/.test(r.className)) { toggle(s, isCtrlKey(e)); } } if (c) { } else if (doc.getSelection) { try { doc.getSelection().removeAllRanges(); } catch (e) { doc.getSelection().empty(); } } else { doc.selection.empty(); } } else if (/\bsf-dump-str-toggle\b/.test(a.className)) { e.preventDefault(); e = a.parentNode.parentNode; e.className = e.className.replace(/\bsf-dump-str-(expand|collapse)\b/, a.parentNode.className); } }); elt = root.getElementsByTagName('SAMP'); len = elt.length; i = 0; while (i < len) t.push(elt[i++]); len = t.length; for (i = 0; i < len; ++i) { elt = t[i]; if ('SAMP' == elt.tagName) { a = elt.previousSibling || {}; if ('A' != a.tagName) { a = doc.createElement('A'); a.className = 'sf-dump-ref'; elt.parentNode.insertBefore(a, elt); } else { a.innerHTML += ' '; } a.title = (a.title ? a.title+'\n[' : '[')+keyHint+'+click] Expand all children'; a.innerHTML += elt.className == 'sf-dump-compact' ? '<span>▶</span>' : '<span>▼</span>'; a.className += ' sf-dump-toggle'; x = 1; if ('sf-dump' != elt.parentNode.className) { x += elt.parentNode.getAttribute('data-depth')/1; } } else if (/\bsf-dump-ref\b/.test(elt.className) && (a = elt.getAttribute('href'))) { a = a.slice(1); elt.className += ' '+a; if (/[\[{]$/.test(elt.previousSibling.nodeValue)) { a = a != elt.nextSibling.id && doc.getElementById(a); try { s = a.nextSibling; elt.appendChild(a); s.parentNode.insertBefore(a, s); if (/^[@#]/.test(elt.innerHTML)) { elt.innerHTML += ' <span>▶</span>'; } else { elt.innerHTML = '<span>▶</span>'; elt.className = 'sf-dump-ref'; } elt.className += ' sf-dump-toggle'; } catch (e) { if ('&' == elt.innerHTML.charAt(0)) { elt.innerHTML = '…'; elt.className = 'sf-dump-ref'; } } } } } if (doc.evaluate && Array.from && root.children.length > 1) { root.setAttribute('tabindex', 0); SearchState = function () { this.nodes = []; this.idx = 0; }; SearchState.prototype = { next: function () { if (this.isEmpty()) { return this.current(); } this.idx = this.idx < (this.nodes.length - 1) ? this.idx + 1 : 0; return this.current(); }, previous: function () { if (this.isEmpty()) { return this.current(); } this.idx = this.idx > 0 ? this.idx - 1 : (this.nodes.length - 1); return this.current(); }, isEmpty: function () { return 0 === this.count(); }, current: function () { if (this.isEmpty()) { return null; } return this.nodes[this.idx]; }, reset: function () { this.nodes = []; this.idx = 0; }, count: function () { return this.nodes.length; }, }; function showCurrent(state) { var currentNode = state.current(), currentRect, searchRect; if (currentNode) { reveal(currentNode); highlight(root, currentNode, state.nodes); if ('scrollIntoView' in currentNode) { currentNode.scrollIntoView(true); currentRect = currentNode.getBoundingClientRect(); searchRect = search.getBoundingClientRect(); if (currentRect.top < (searchRect.top + searchRect.height)) { window.scrollBy(0, -(searchRect.top + searchRect.height + 5)); } } } counter.textContent = (state.isEmpty() ? 0 : state.idx + 1) + ' of ' + state.count(); } var search = doc.createElement('div'); search.className = 'sf-dump-search-wrapper sf-dump-search-hidden'; search.innerHTML = ' <input type="text" class="sf-dump-search-input"> <span class="sf-dump-search-count">0 of 0<\/span> <button type="button" class="sf-dump-search-input-previous" tabindex="-1"> <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1683 1331l-166 165q-19 19-45 19t-45-19L896 965l-531 531q-19 19-45 19t-45-19l-166-165q-19-19-19-45.5t19-45.5l742-741q19-19 45-19t45 19l742 741q19 19 19 45.5t-19 45.5z"\/><\/svg> <\/button> <button type="button" class="sf-dump-search-input-next" tabindex="-1"> <svg viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1683 808l-742 741q-19 19-45 19t-45-19L109 808q-19-19-19-45.5t19-45.5l166-165q19-19 45-19t45 19l531 531 531-531q19-19 45-19t45 19l166 165q19 19 19 45.5t-19 45.5z"\/><\/svg> <\/button> '; root.insertBefore(search, root.firstChild); var state = new SearchState(); var searchInput = search.querySelector('.sf-dump-search-input'); var counter = search.querySelector('.sf-dump-search-count'); var searchInputTimer = 0; var previousSearchQuery = ''; addEventListener(searchInput, 'keyup', function (e) { var searchQuery = e.target.value; /* Don't perform anything if the pressed key didn't change the query */ if (searchQuery === previousSearchQuery) { return; } previousSearchQuery = searchQuery; clearTimeout(searchInputTimer); searchInputTimer = setTimeout(function () { state.reset(); collapseAll(root); resetHighlightedNodes(root); if ('' === searchQuery) { counter.textContent = '0 of 0'; return; } var classMatches = [ "sf-dump-str", "sf-dump-key", "sf-dump-public", "sf-dump-protected", "sf-dump-private", ].map(xpathHasClass).join(' or '); var xpathResult = doc.evaluate('.//span[' + classMatches + '][contains(translate(child::text(), ' + xpathString(searchQuery.toUpperCase()) + ', ' + xpathString(searchQuery.toLowerCase()) + '), ' + xpathString(searchQuery.toLowerCase()) + ')]', root, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null); while (node = xpathResult.iterateNext()) state.nodes.push(node); showCurrent(state); }, 400); }); Array.from(search.querySelectorAll('.sf-dump-search-input-next, .sf-dump-search-input-previous')).forEach(function (btn) { addEventListener(btn, 'click', function (e) { e.preventDefault(); -1 !== e.target.className.indexOf('next') ? state.next() : state.previous(); searchInput.focus(); collapseAll(root); showCurrent(state); }) }); addEventListener(root, 'keydown', function (e) { var isSearchActive = !/\bsf-dump-search-hidden\b/.test(search.className); if ((114 === e.keyCode && !isSearchActive) || (isCtrlKey(e) && 70 === e.keyCode)) { /* F3 or CMD/CTRL + F */ if (70 === e.keyCode && document.activeElement === searchInput) { /* * If CMD/CTRL + F is hit while having focus on search input, * the user probably meant to trigger browser search instead. * Let the browser execute its behavior: */ return; } e.preventDefault(); search.className = search.className.replace(/\bsf-dump-search-hidden\b/, ''); searchInput.focus(); } else if (isSearchActive) { if (27 === e.keyCode) { /* ESC key */ search.className += ' sf-dump-search-hidden'; e.preventDefault(); resetHighlightedNodes(root); searchInput.value = ''; } else if ( (isCtrlKey(e) && 71 === e.keyCode) /* CMD/CTRL + G */ || 13 === e.keyCode /* Enter */ || 114 === e.keyCode /* F3 */ ) { e.preventDefault(); e.shiftKey ? state.previous() : state.next(); collapseAll(root); showCurrent(state); } } }); } if (0 >= options.maxStringLength) { return; } try { elt = root.querySelectorAll('.sf-dump-str'); len = elt.length; i = 0; t = []; while (i < len) t.push(elt[i++]); len = t.length; for (i = 0; i < len; ++i) { elt = t[i]; s = elt.innerText || elt.textContent; x = s.length - options.maxStringLength; if (0 < x) { h = elt.innerHTML; elt[elt.innerText ? 'innerText' : 'textContent'] = s.substring(0, options.maxStringLength); elt.className += ' sf-dump-str-collapse'; elt.innerHTML = '<span class=sf-dump-str-collapse>'+h+'<a class="sf-dump-ref sf-dump-str-toggle" title="Collapse"> ◀</a></span>'+ '<span class=sf-dump-str-expand>'+elt.innerHTML+'<a class="sf-dump-ref sf-dump-str-toggle" title="'+x+' remaining characters"> ▶</a></span>'; } } } catch (e) { } }; })(document); </script><style> .phpdebugbar pre.sf-dump { display: block; white-space: pre; padding: 5px; overflow: initial !important; } .phpdebugbar pre.sf-dump:after { content: ""; visibility: hidden; display: block; height: 0; clear: both; } .phpdebugbar pre.sf-dump span { display: inline; } .phpdebugbar pre.sf-dump a { text-decoration: none; cursor: pointer; border: 0; outline: none; color: inherit; } .phpdebugbar pre.sf-dump img { max-width: 50em; max-height: 50em; margin: .5em 0 0 0; padding: 0; background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAHUlEQVQY02O8zAABilCaiQEN0EeA8QuUcX9g3QEAAjcC5piyhyEAAAAASUVORK5CYII=) #D3D3D3; } .phpdebugbar pre.sf-dump .sf-dump-ellipsis { display: inline-block; overflow: visible; text-overflow: ellipsis; max-width: 5em; white-space: nowrap; overflow: hidden; vertical-align: top; } .phpdebugbar pre.sf-dump .sf-dump-ellipsis+.sf-dump-ellipsis { max-width: none; } .phpdebugbar pre.sf-dump code { display:inline; padding:0; background:none; } .sf-dump-public.sf-dump-highlight, .sf-dump-protected.sf-dump-highlight, .sf-dump-private.sf-dump-highlight, .sf-dump-str.sf-dump-highlight, .sf-dump-key.sf-dump-highlight { background: rgba(111, 172, 204, 0.3); border: 1px solid #7DA0B1; border-radius: 3px; } .sf-dump-public.sf-dump-highlight-active, .sf-dump-protected.sf-dump-highlight-active, .sf-dump-private.sf-dump-highlight-active, .sf-dump-str.sf-dump-highlight-active, .sf-dump-key.sf-dump-highlight-active { background: rgba(253, 175, 0, 0.4); border: 1px solid #ffa500; border-radius: 3px; } .phpdebugbar pre.sf-dump .sf-dump-search-hidden { display: none !important; } .phpdebugbar pre.sf-dump .sf-dump-search-wrapper { font-size: 0; white-space: nowrap; margin-bottom: 5px; display: flex; position: -webkit-sticky; position: sticky; top: 5px; } .phpdebugbar pre.sf-dump .sf-dump-search-wrapper > * { vertical-align: top; box-sizing: border-box; height: 21px; font-weight: normal; border-radius: 0; background: #FFF; color: #757575; border: 1px solid #BBB; } .phpdebugbar pre.sf-dump .sf-dump-search-wrapper > input.sf-dump-search-input { padding: 3px; height: 21px; font-size: 12px; border-right: none; border-top-left-radius: 3px; border-bottom-left-radius: 3px; color: #000; min-width: 15px; width: 100%; } .phpdebugbar pre.sf-dump .sf-dump-search-wrapper > .sf-dump-search-input-next, .phpdebugbar pre.sf-dump .sf-dump-search-wrapper > .sf-dump-search-input-previous { background: #F2F2F2; outline: none; border-left: none; font-size: 0; line-height: 0; } .phpdebugbar pre.sf-dump .sf-dump-search-wrapper > .sf-dump-search-input-next { border-top-right-radius: 3px; border-bottom-right-radius: 3px; } .phpdebugbar pre.sf-dump .sf-dump-search-wrapper > .sf-dump-search-input-next > svg, .phpdebugbar pre.sf-dump .sf-dump-search-wrapper > .sf-dump-search-input-previous > svg { pointer-events: none; width: 12px; height: 12px; } .phpdebugbar pre.sf-dump .sf-dump-search-wrapper > .sf-dump-search-count { display: inline-block; padding: 0 5px; margin: 0; border-left: none; line-height: 21px; font-size: 12px; }.phpdebugbar pre.sf-dump, .phpdebugbar pre.sf-dump .sf-dump-default{word-wrap: break-word; white-space: pre-wrap; word-break: normal}.phpdebugbar pre.sf-dump .sf-dump-num{font-weight:bold; color:#1299DA}.phpdebugbar pre.sf-dump .sf-dump-const{font-weight:bold}.phpdebugbar pre.sf-dump .sf-dump-str{font-weight:bold; color:#3A9B26}.phpdebugbar pre.sf-dump .sf-dump-note{color:#1299DA}.phpdebugbar pre.sf-dump .sf-dump-ref{color:#7B7B7B}.phpdebugbar pre.sf-dump .sf-dump-public{color:#000000}.phpdebugbar pre.sf-dump .sf-dump-protected{color:#000000}.phpdebugbar pre.sf-dump .sf-dump-private{color:#000000}.phpdebugbar pre.sf-dump .sf-dump-meta{color:#B729D9}.phpdebugbar pre.sf-dump .sf-dump-key{color:#3A9B26}.phpdebugbar pre.sf-dump .sf-dump-index{color:#1299DA}.phpdebugbar pre.sf-dump .sf-dump-ellipsis{color:#A0A000}.phpdebugbar pre.sf-dump .sf-dump-ns{user-select:none;}.phpdebugbar pre.sf-dump .sf-dump-ellipsis-note{color:#1299DA}</style>
+</head>
+
+<body class="pace-info ">
+
+            
+    
+    
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="http://staging.shipquickk.com/dashboard" class="logo d-flex align-items-center">
+                
+                <img src="http://staging.shipquickk.com/assets/img/Shipquickk-logo.png" alt="">
+                
+                            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
+
+        <div class="search-bar mx-auto">
+            <!--<form class="search-form d-flex align-items-center" action="#"> <input type="text" name="query"
+          placeholder="Search" title="Enter search keyword"></form>-->
+        </div>
+        <nav class="header-nav">
+
+            <ul class="d-flex align-items-center">
+                <!-- End Notification Nav -->
+
+                                    <li class="nav-item">
+                        <a class="nav-link" href="http://staging.shipquickk.com/products">
+                            Product
+                        </a>
+                    </li>
+                
+                                    <li class="nav-item">
+                        <a class="nav-link" href="http://staging.shipquickk.com/customers">
+                            Customer
+                        </a>
+                    </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        Help
+                    </a>
+                </li>
+                
+
+                <li class="nav-item" style="position: relative;">
+                    <a href="http://staging.shipquickk.com/comment/all" class="nav-link nav-icon"><i class="bi bi-chat"></i>
+                                            </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge badge-number ">
+                                                            0
+                                                    </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications py-0">
+                        <li class="dropdown-header fs-14">
+                            You have 0 new notifications
+                            <a href="http://staging.shipquickk.com/notifications">
+                                <span class="badge rounded-pill bg-primary p-2 ms-2">
+                                    View all
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                                            </ul>
+                </li>
+
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img src="http://staging.shipquickk.com/assets/img/en.png" alt="lang" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">English</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <li>
+                            <a class="dropdown-item d-flex justify-content-center"
+                                href="http://staging.shipquickk.com/lang-tran/nl">Dutch</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown pe-3">
+
+                <li class="nav-item dropdown header-profile">
+                                            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                            data-bs-toggle="dropdown">
+
+                            <div class="header-info ">
+                                <span>Hello, <strong>DutchFix Import</strong></span>
+                            </div>
+                            <img class="circlearancione" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAFYUlEQVR4nO2dzWsjZRzHv/PiJGmS7bZotlu1u6TColbBwl4K4knQ68LiTejNk+Af4ElxPfhyUQ8eBU+yIIp4WVFX6EUpHsRVlhxatxTTZpvmtXmZmT2UlHQ6M8lknueZ50l/H+jpSdpffp9+n9/M5E1zXReEPJhJFxCVzdJa5P+g1eUNjUctPNBkTsgkzR8XWSVJJYSngFHIIkgKIUmK8JK0mMSEyCQhiCTkCBeigggvIsXoov4QoKYMQGzdQhKiqgg/eKeFq5BpEuGFlxguQqZZhBfWYoTOEGI0TBNynpLhhVVSmCXkPMsA2D1+JkLOu4wBLPoQWwjJOE3cfsQSQjL8idOXiYWQjHAm7c9EQkjGeEzSp8hCSEY0ovaLTgwlY+wTQ0pGfMY5eaSESMZYQigdbBinj5QQyRgphNLBllH9pIRIRqgQSgcfwvoaKIRk8CWov7RlSYavEEqHGPz6TAmRDBIiGWeuZfHaroqXbuFi7pWxbuu6fThuF7bTQLdfRqe3jXbnPurtP9DulrjWUj78Bg/2P439N6IwfI1LyjfsaJoJQzNh6DOwzAJy6RUgf7zW7ZdRqf2Avdpt9O2HyRbKgVNblgrD3DILuDy/jpWl21icfwuaZiVdUmyG+67sDNH1FBbm3sSzT32F1GNXki6HGcoKGZC2lnDtyS+RTb2QdClMkEKI4/ZgO62TH8fpRLq/aeTxzOInSFtFThWK42SoJzk/9mvfnjmy0WDCNOaQTT+HfOY65vOvwdBnAn+HoWdRvPQ+7j1Yh+tGEyoDm6U1d3V5Q5MiIX646KNn76Ha/BX/7X+Ev7ZuYL/2Xeh90tZVXJ5bF1QhH6QV4sV2atje+xA7lc9Db1eYfQOmMSeoKvYoI2TA/9WvcdC4E7iu6yk8ceGGwIrYopwQANje+zh08M/lXhVYDVt0QI0TwmFs5xDV5i+B62lrCZa5KK4gRmyW1lwlEwIAB82fQ9ez6RVBlbBFWSGto3uh62nrqphCGKOskJ69B9tpBq5b5oLAatihrBAAsO164Jqp5wRWwg6lhfSdRuCaqleBlRaia8FP57iwBVbCDqWFGHo+cM1x2gIrYYfCQjQYIXOiZ1cE1sIOZYVkrCJ0PRW43u3tCqyGHcoKyaZfDF1vdf4VVAlblBUyn389cM1xe2h1/hFYDTuUFJJNPX/8SpQAGu1NOK7CQz3pD36MgqalcKXwbuhtKvUfBVXDFqmfMfRD1zIoLnyAtLUUeJtuv4yDxk8Cq2KLlC+U8yOfuY6nH39n5EXDncpngKInhYCkQnQtA8O4gJS5iFzmJVzMvoyZ1LWR96s2fwt9NlEFpBBSmL2JwuzNWL+j3Slhq/weo4qS42SGqDTYvbQ7JdzffRt2yMVG2Rn0X4qExOGgcQdb5VvKHuZ6UVbIUXcbOw+/wGHzbtKlMEUpIY7bQ731Oyr171Ft3gWg1GszxuKUkNXlDS3pV6C4bh+u24ftNNGz99Hp7eKoW0Kz8zca7T+nZmsaZnh+C3sHFRHMsJAzZ+oqH22piLffSl06OQ+QEMnwFULblhj8+kwJkYxAIZQSvgT1NzQhJIUPYX2lLUsyRgqhlLBlVD8pIZIxlhBKCRvog5QVJPJ3UNHFx+hE2WEoIZIRWQjNk2hE7ddECSEp4zFJnybeskhKOJP2J9YMISn+xOlL7KFOUk4Ttx9MjrJIyjEs+sDssPe8S2H1+Onru2NCX9895XBJyIBpTgqvLZqrkAHTJIb3rBQiZIDKYkQdtAidIaoeiYmsW2hChlEhLUn8AyUmZBiZ5CSdYimEDEhSTNIiBkglxAtPQbII8CK1ED8mkSRr8/14BMwbHyx11fDbAAAAAElFTkSuQmCC" />
+                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+
+                        <a href="http://staging.shipquickk.com/package-station" class="dropdown-item ai-icon">
+                            <span class="text-primary bi bi-printer"></span>
+                            <span class="ml-2">No packing station selected</span>
+
+                        </a>
+                        <a href="http://staging.shipquickk.com/change-pass" class="dropdown-item ai-icon">
+                            <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary"
+                                width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            <span class="ml-2">Change Password</span>
+                        </a>
+
+                        <a href="http://staging.shipquickk.com/exit" title="Exit" class="dropdown-item ai-icon">
+                            <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger"
+                                width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            <span class="ml-2">Logout</span>
+                        </a>
+                    </div>
+                </li>
+
+            </ul><!-- End Profile Dropdown Items -->
+            </li><!-- End Profile Nav -->
+
+            </ul>
+
+
+        </nav><!-- End Icons Navigation -->
+
+    </header><!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+                            <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item active">
+        <a class="nav-link collapsed" href="http://staging.shipquickk.com/dashboard">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+        <i class="bi bi-chevron-down " data-bs-target="#dashboard-nav" data-bs-toggle="collapse"></i>
+        <ul id="dashboard-nav" class="nav-content collapse show">
+          <li> <a href="http://staging.shipquickk.com/dashboard/analytics" class=""> <i class="bi bi-circle"></i><span>Analytics</span> </a></li>
+        </ul>
+      </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item ">
+        <a class="nav-link collapsed" href="#" data-bs-target="#ordertab-nav" data-bs-toggle="collapse">
+          <i class="bi bi-sort-up-alt"></i>
+          <span>Orders</span>
+        </a>
+        <i class="bi bi-chevron-down collapsed" data-bs-target="#ordertab-nav" data-bs-toggle="collapse"></i>
+        <ul id="ordertab-nav" class="nav-content collapse ">
+          <li> <a href="http://staging.shipquickk.com/orders" class=""> <i class="bi bi-circle"></i><span>Orders</span> </a></li>
+
+          <li> <a href="http://staging.shipquickk.com/order/fulfillment" class="">
+              <i class="bi bi-circle"></i>
+              <span>Fulfillment</span>
+          </a>
+          </li>
+        </ul>
+      </li>
+      
+
+      
+
+      
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-bs-target="#order-nav" data-bs-toggle="collapse">
+              <i class="bi bi-cart"></i>
+              <span>OWS management</span>
+          </a>
+          <i class="bi bi-chevron-down collapsed" data-bs-target="#order-nav" data-bs-toggle="collapse"></i>
+
+            <ul id="order-nav" class="nav-content collapse ">
+                                <li> <a href="http://staging.shipquickk.com/picklists" class=""> <i class="bi bi-circle"></i><span>Picklist</span> </a></li>
+                
+                                <li> <a href="http://staging.shipquickk.com/backorders" class=""> <i class="bi bi-circle"></i><span>Backorders</span> </a></li>
+                
+                                <li> <a href="http://staging.shipquickk.com/purchasing" class=""> <i class="bi bi-circle"></i><span>Purchasing</span> </a></li>
+                
+                                <li> <a href="http://staging.shipquickk.com/returns" class=""> <i class="bi bi-circle"></i><span>Returns</span> </a></li>
+                
+                                <li> <a href="http://staging.shipquickk.com/shipments" class=""> <i class="bi bi-circle"></i><span>Shipments</span> </a></li>
+                
+                                <li> <a href="http://staging.shipquickk.com/invoice" class=""> <i class="bi bi-circle"></i><span>Invoice</span> </a></li>
+                
+                                <li> <a href="http://staging.shipquickk.com/request/invoice" class=""> <i class="bi bi-circle"></i><span>Invoice Request</span> </a></li>
+                
+                                <li> <a href="http://staging.shipquickk.com/warehouses" class=""> <i class="bi bi-circle"></i><span>Warehouses</span> </a></li>
+                
+                                <li> <a href="http://staging.shipquickk.com/locations" class=""> <i class="bi bi-circle"></i><span>Locations</span> </a></li>
+                            </ul>
+        </li>
+
+      
+
+      
+      <li class="nav-item ">
+        <a class="nav-link collapsed" href="http://staging.shipquickk.com/products">
+          <i class="bi bi-image"></i>
+          <span>Products</span>
+        </a>
+      </li>
+      
+      
+      <li class="nav-item ">
+        <a class="nav-link collapsed" href="http://staging.shipquickk.com/categories">
+          <i class="bi bi-list"></i>
+          <span>Category</span>
+        </a>
+      </li>
+      
+      
+      <li class="nav-item ">
+        <a class="nav-link collapsed" href="http://staging.shipquickk.com/brands">
+          <i class="bi bi-tag"></i>
+          <span>Brands</span>
+        </a>
+      </li>
+      
+      
+            
+      <li class="nav-item ">
+        <a class="nav-link collapsed" href="#" data-bs-target="#payment-nav" data-bs-toggle="collapse">
+          <i class="bi bi-credit-card"></i>
+          <span>Payments</span>
+        </a>
+        <i class="bi bi-chevron-down collapsed" data-bs-target="#payment-nav" data-bs-toggle="collapse"></i>
+        <ul id="payment-nav" class="nav-content collapse ">
+           
+          
+            <li> <a href="http://staging.shipquickk.com/payment/incoming/invoice/list" class=""> <i class="bi bi-circle"></i><span>Incoming payments</span> </a></li>
+                              
+            <li> <a href="http://staging.shipquickk.com/payment/outgoing/invoice/list" class=""> <i class="bi bi-circle"></i><span>Outgoing payments</span> </a></li>
+                  </ul>
+      </li>
+      
+      
+
+            <li class="nav-item ">
+        <a class="nav-link collapsed" href="http://staging.shipquickk.com/customers">
+          <i class="bi bi-people"></i>
+          <span>Customers</span>
+        </a>
+      </li>
+      
+                <li class="nav-item ">
+            <a class="nav-link collapsed" href="http://staging.shipquickk.com/suppliers">
+              <i class="bi bi-globe"></i>
+              <span>Suppliers</span>
+            </a>
+          </li>
+            
+      <li class="nav-item ">
+        <a class="nav-link collapsed" href="http://staging.shipquickk.com/movements">
+          <i class="bi bi-arrow-down-up"></i>
+          <span>Movements</span>
+        </a>
+      </li>
+    
+            <li class="nav-item ">
+        <a class="nav-link collapsed" href="#" data-bs-target="#report-nav" data-bs-toggle="collapse">
+          <i class="bi bi-sort-up-alt"></i>
+          <span>Reports</span>
+        </a>
+        <i class="bi bi-chevron-down collapsed" data-bs-target="#report-nav" data-bs-toggle="collapse"></i>
+        <ul id="report-nav" class="nav-content collapse ">
+          <li> <a href="http://staging.shipquickk.com/reports/shipment" class=""> <i class="bi bi-circle"></i><span>Shipment Report</span> </a></li>
+          <li> <a href=""> <i class="bi bi-circle"></i><span>Sub2</span> </a></li>
+                      <li> <a href="http://staging.shipquickk.com/reports/profit/loss"  class=""> <i class="bi bi-circle"></i><span>Profit & Loss</span> </a></li>
+                  </ul>
+      </li>
+      
+            <li class="nav-item ">
+        <a class="nav-link collapsed" href="http://staging.shipquickk.com/settings">
+          <i class="bi bi-gear"></i>
+          <span>Settings</span>
+        </a>
+      </li>
+
+      
+      
+      
+
+    </ul>        
+
+
+
+
+
+    </aside><!-- End Sidebar-->
+
+            
+<main id="main" class="main">
+
+  <div class="page-heading mb-3">
+        
+    <div class="heading ">
+      <div class="heading-title">
+        <h1>Dashboard</h1>
+        <p class="mb-0">
+          
+            Welcome to Shipquick
+      </p>
+    </div>
+
+      <div class="heading-controls">
+
+        <div id="daterange" class="btn btn-primary daterange d-flex align-items-center">
+
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <path d="M22.4281 2.856H21.8681V1.428C21.8681 0.56 21.2801 0 20.4401 0C19.6001 0 19.0121 0.56 19.0121 1.428V2.856H9.71606V1.428C9.71606 0.56 9.15606 0 8.28806 0C7.42006 0 6.86006 0.56 6.86006 1.428V2.856H5.57206C2.85606 2.856 0.560059 5.152 0.560059 7.868V23.016C0.560059 25.732 2.85606 28.028 5.57206 28.028H22.4281C25.1441 28.028 27.4401 25.732 27.4401 23.016V7.868C27.4401 5.152 25.1441 2.856 22.4281 2.856ZM5.57206 5.712H22.4281C23.5761 5.712 24.5841 6.72 24.5841 7.868V9.856H3.41606V7.868C3.41606 6.72 4.42406 5.712 5.57206 5.712ZM22.4281 25.144H5.57206C4.42406 25.144 3.41606 24.136 3.41606 22.988V12.712H24.5561V22.988C24.5841 24.136 23.5761 25.144 22.4281 25.144Z" fill="currentColor"></path>
+            </g>
+          </svg>
+          <div class="text-start ms-3">
+            <span class="d-block fs-16 fw-500">Filter Period</span>
+            <span class="data-time fsize13 fw-normal"> December 03, 2025 - December 09, 2025</span>
+          </div>
+          <i class="bi bi-chevron-down h6 ms-3 mb-0"></i>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="row pt-3">
+
+
+      <div class="col-xl-3 col-xxl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="widget-stat card rounded-card-shadow">
+          <div class="card-body">
+            <div class="media">
+              <span class="me-3 text-primary">
+                <i class="bi bi-cup"></i>
+              </span>
+              <div class="media-body">
+                <h3 class="mb-0 text-black"><span class="counter ml-0" id="picklist-count">0</span></h3>
+                <p class="mb-0">Total Picklists</p>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-xxl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="widget-stat card rounded-card-shadow">
+          <div class="card-body">
+            <div class="media">
+              <span class="me-3 text-primary">
+                <i class="bi bi-currency-euro"></i>
+              </span>
+              <div class="media-body">
+                <h3 class="mb-0 text-black">€<span class="counter ml-0" id="order-revenue">0</span></h3>
+                <p class="mb-0">Total Revenue</p>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-xxl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="widget-stat card rounded-card-shadow">
+          <div class="card-body">
+            <div class="media">
+              <span class="me-3 text-primary">
+                <i class="bi bi-app-indicator"></i>
+              </span>
+              <div class="media-body">
+                <h3 class="mb-0 text-black"><span class="counter ml-0" id="orders-count">0</span></h3>
+                <p class="mb-0">Total Orders</p>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-xxl-3 col-lg-6 col-md-6 col-sm-6">
+        <div class="widget-stat card rounded-card-shadow">
+          <div class="card-body">
+            <div class="media">
+              <span class="me-3 text-primary">
+                <i class="bi bi-people"></i>
+              </span>
+              <div class="media-body">
+                <h3 class="mb-0 text-black"><span class="counter ml-0" id="customers-count">0</span></h3>
+                <p class="mb-0" >Total Customers</p>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- chart 1 -->
+      <div class="col-xl-6 col-xxl-6 col-lg-12 col-md-12">
+        <div class="card rounded-card-shadow px-4">
+          <div class="card-header d-sm-flex d-flex justify-content-between">
+            <div>
+              <h4 class="card-title py-0 mb-1">Orders Summary</h4>
+              
+            </div>
+            <div class="card-action card-tabs mt-3 mt-sm-0">
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active order-status" data-bs-toggle="tab" data-bs-target="#user" role="tab" aria-selected="true" id="monthly_order_status">
+                    Monthly
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link order-status" data-bs-toggle="tab" data-bs-target="#bounce" role="tab" aria-selected="false" id="weekly_order_status">
+                    Weekly
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link order-status" data-bs-toggle="tab" data-bs-target="#session-duration" role="tab" aria-selected="false" id="today_order_status">
+                    Today
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          <div class="card-body">
+            <div class="d-flex order-manage p-3 align-items-center mb-3">
+              <a href="http://staging.shipquickk.com/orders" class="btn fs-22 py-1 btn-success px-4 me-3">71</a>
+              <h4 class="mb-0">New Orders <i class="bi bi-circle-fill text-success ms-1 fsize13"></i></h4>
+              <a href="http://staging.shipquickk.com/orders" class="ms-auto text-primary fw-500">Manage orders <i class=" bi bi-chevron-right ms-1"></i></a>
+            </div>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="user" role="tabpanel">
+                <div class="row">
+                  <div class="col-sm-4 mb-4">
+                    <div class="border px-3 py-3 rounded-3" id="status1">
+                      <h2 class="fs-32 fw-bold counter mb-0" id="on_delivery_count">0</h2>
+                      <p class="fs-16 mb-0">On Delivery</p>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 mb-4">
+                    <div class="border px-3 py-3 rounded-3" id="status2">
+                      <h2 class="fs-32 fw-bold counter mb-0" id="delivered_count">0</h2>
+                      <p class="fs-16 mb-0">Delivered</p>                   
+                    </div>
+                  </div>
+                  <div class="col-sm-4 mb-4">
+                    <div class="border px-3 py-3 rounded-3" id="status3">
+                      <h2 class="fs-32 fw-bold counter mb-0" id="cancelled_count">0</h2>
+                      <p class="fs-16 mb-0">Cancelled</p>        
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row align-items-center">
+                  <div class="col-xl-4 col-lg-4 col-sm-6 text-center text-sm-start">
+                    <canvas id="doughnut" class="chartjs"></canvas>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-sm-6">
+                    <div class="d-flex align-items-center mb-3">
+                      <p class="mb-0 fs-14 me-2 col-4 px-0" id="on_delivery_percentage"></p>
+                      <div class="progress progress-sm mb-0" style="height:8px; width:100%;">
+                        <div class="progress-bar bg-primary progress-animated" id="on_delivery_progress" style="width:85%; height:8px;" role="progressbar">
+                        </div>
+                      </div>
+                      <span class="text-end ms-auto col-1 px-0 text-right" id="on_delivery_counts">0</span>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-3">
+                      <p class="mb-0 fs-14 me-2 col-4 px-0" id="delivered_percentage"></p>
+                      <div class="progress mb-0" style="height:8px; width:100%;">
+                        <div class="progress-bar bg-success progress-animated" id="delivered_progress" style="width:85%; height:8px;" role="progressbar">
+                        </div>
+                      </div>
+                      <span class="text-end ms-auto col-1px-0 text-right" id="delivered_counts">0</span>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                      <p class="mb-0 fs-14 me-2 col-4 px-0" id="cancelled_percentage"></p>
+                      <div class="progress mb-0" style="height:8px; width:100%;">
+                        <div class="progress-bar bg-secondary progress-animated" id="cancelled_progress" style="width:85%; height:8px;" role="progressbar">
+                        </div>
+                      </div>
+                      <span class="text-end ms-auto col-1 px-0 text-right" id="cancelled_counts">0</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-6 col-xxl-6 col-lg-12 col-md-12">
+        <div class="card rounded-card-shadow px-4">
+          <div class="card-header d-sm-flex d-flex justify-content-between">
+            <div>
+              <h4 class="card-title py-0 mb-1">Webshops</h4>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="page-content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card px-0 rounded-card-shadow">
+                        <div class="card-body pb-0">
+                            <div class="index-table">
+                                <div class="table-responsive">
+                                    <div id="loadrun" class="page1 All-loader" style="display:none">
+                                        <div class="loader"></div>
+                                    </div>
+                                    <table class="table table-expanded">
+                                        <thead>
+                                            <tr>
+                                                <th>Webshops</th>
+                                                <th>Name</th>
+                                                <th>Errors</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                                                            <tr>
+                                                    <td colspan="  4 "
+                                                        class="no-records text-sm-center">No Records!</td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="row text-sm-center">
+                                <div class="col-md-12 pagination justify-content-center"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- chart 2 -->
+      <div class="col-xl-6 col-xxl-6 col-lg-12 col-md-12">
+        <div class="card rounded-card-shadow px-4">
+          <div class="card-header d-sm-flex d-block">
+            <div>
+              <h4 class="card-title py-0 mb-1">Revenue</h4>
+              
+            </div>
+            <div class="dropdown ms-auto selectDropdown">
+              <button class="btn btn-primary light dropdown-toggle fs-14" type="button" id="mainDropdownButton" data-bs-toggle="dropdown" aria-expanded="false">
+                Weekly
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="mainDropdownButton">
+                <li><a class="dropdown-item fs-14" href="#" id="daily">Daily</a></li>
+                <li><a class="dropdown-item fs-14 active" href="#" id="weekly">Weekly</a></li>
+                <li><a class="dropdown-item fs-14" href="#" id="monthly">Monthly</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex align-items-end pr-3 pull-right revenue-chart-bar mb-2">
+              <div class="d-flex align-items-end me-4">
+                
+                <div>
+                  <small class="text-dark fs-14">Revenue</small>
+                  <h3 class="fw-bold mb-0">€<span class="counter" id="revenue">0</span></h3>
+                </div>
+              </div>
+              <div class="d-flex align-items-end">
+                
+                <div>
+                  <small class="text-dark fs-14">Orders</small>
+                  <h3 class="fw-bold mb-0"><span class="counter" id="order-count">0</span></h3>
+                </div>
+              </div>
+            </div>
+            <canvas id="chartBar" class="chartjs"></canvas>
+          </div>
+        </div>
+      </div>
+      <!-- chart 3 -->
+      <div class="col-md-12">
+        <div class="card rounded-card-shadow px-4" id="user-activity">
+          <div class="card-header d-sm-flex d-block justify-content-between">
+            <div>
+              <h4 class="card-title py-0 mb-1">Order Map</h4>
+              
+              
+            </div>
+            <div class="card-action card-tabs mt-3 mt-sm-0">
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#monthly" role="tab" aria-selected="true">
+                  Monthly
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-bs-toggle="tab" data-bs-target="#bounce" role="tab" aria-selected="false">
+                  Weekly
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-bs-toggle="tab" data-bs-target="#session-duration" role="tab" aria-selected="false">
+                  Today
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+          <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="monthly" role="tabpanel">
+                <canvas id="activity" class="chartjs"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end -->
+
+    </div>
+  </div>
+
+</main>
+
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+  <div class="modal fade popup-box" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" style="display:none" id="modalid">
+  <div class="modal-dialog modal-dialog-scrollable clas-modal" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body popup-content"></div>
+      <span class="loader-popup" style="margin-top:0px; margin-left:50%"></span>
+      <div class="popup-error alert alert-danger d-none" role="alert"></div>
+
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>  
+</footer><!-- End Footer -->
+<footer id="bolcomPopup" class="bolcomPopup">
+  <div class="modal fade" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" id="bolcomhowStatus" style="display:none">
+  <div class="modal-dialog modal-dialog-scrollable clas-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title text-title"></h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bolcom-status"></div>
+      
+      <span class="loader-popup" style="margin-top:0px; margin-left:50%"></span>
+      
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div></footer>
+<footer id="deletePopup" class="deletePopup">
+  <!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Delete Confirmation</h5>
+                <button type="button" class="close" id="closebtn"data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelDelete" data-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div></footer>
+<footer id="adminPopup" class="adminPopup">
+  <!-- Delete Confirmation Modal -->
+<div class="modal fade" id="setAdminConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="setAdminConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="setAdminConfirmationModalLabel">Delete Confirmation</h5>
+                <button type="button" class="close" id="closebtn"data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to set this user as Admin?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelAdmin" data-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="button" class="btn btn-success" id="setAdmin">Set</button>
+            </div>
+        </div>
+    </div>
+</div></footer>
+<footer id="lowersellingpricePopup" class="lowersellingpricePopup">
+  <!-- When selling price is lower than cost price this modl show-->
+<div class="modal fade" id="lowerSellPriceModal" tabindex="-1" role="dialog" aria-labelledby="lowerSellPriceModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lowerSellPriceModal">Selling price Confirmmation</h5>
+                <button type="button" class="close" id="closebtn"data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Selling price is lower than product price! Do you want to proceed?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="ordercheck" data-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="button" class="btn btn-danger" id="orderproceed">OK</button>
+            </div>
+        </div>
+    </div>
+</div></footer>
+<footer id="statusPopup" class="statusPopup">
+  <!-- Active/Inactive Confirmation Modal -->
+<div class="modal fade" id="activeInactiveConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="activeInactiveConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="activeInactiveConfirmationModalLabel">Active/Inactive Confirmation</h5>
+                <button type="button" class="close" id="closeActiveInactiveModal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to change the status?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelActiveInactive" data-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmActiveInactive">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="switchToFBBModal" tabindex="-1" aria-labelledby="switchToFBBModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="switchToFBBModalLabel">Confirm Switch</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to switch this order to FBB?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="confirmSwitchBtn">Yes, Switch</button>
+      </div>
+    </div>
+  </div>
+</div>
+</footer>
+
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+
+<script src="http://staging.shipquickk.com/assets/js/jquery.min.js"></script>
+<script src="http://staging.shipquickk.com/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/main-min.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/uploadFile.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/toast.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/bootstrap-datepicker.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/custom.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/brands.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/category.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/customer.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/movements.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/bank.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/invoiceTemplate.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/roles.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/ipAddress.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/locationType.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/pricelist.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/vatgroup.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/thuiskopiegroup.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/tags.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/printer.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/rules.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/setting-webshop.js"></script>
+<!-- pace-progress -->
+<script src="http://staging.shipquickk.com/assets/vendor/pace-progress/pace.min.js"></script>
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="http://staging.shipquickk.com/assets/js/Chart.bundle.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+
+    var start = moment().startOf('month') ;
+    var end = moment().endOf('month');
+
+    function cb(start, end) {
+      // console.log("start date ", start.format("Y-M-D"), " end date ",  end.format("Y-M-D"))
+      $('#daterange span.data-time').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+      $.ajax({
+            type: 'POST',
+            headers: {
+              "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            url: base_url + '/dashboard-data',
+            data: {
+              start_date: start.format("Y-M-D"),
+              end_date: end.format("Y-M-D")
+            },
+            success: function (data) 
+            { 
+              $('#picklist-count').html(data.picklist_count);
+              $('#orders-count').html(data.order_count);
+              $('#customers-count').html(data.customer_count);
+              $('#order-revenue').html(data.total_order_amounts.toFixed(2));
+            }
+          })
+    }
+  
+    $('#daterange').daterangepicker({
+      startDate: start,
+      endDate: end,
+      ranges: {
+        'Today': [moment(), moment()],
+        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month': [moment().startOf('month'), moment().endOf('month')],
+        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+      }
+    }, cb);
+
+    cb(start, end);
+
+  });
+  
+  fetchOrdersStatusPerTime("monthly_order_status");
+
+  $(".order-status").click(function() {
+        var interval = $(this).attr('id');
+        // console.log(interval)
+        fetchOrdersStatusPerTime(interval)
+    });
+
+  function fetchOrdersStatusPerTime(interval) {
+    var startDate, endDate;
+    var today = new Date();
+
+    switch(interval) {
+        case 'monthly_order_status':
+            startDate = new Date(today.getFullYear(), 0, 1); 
+            endDate = today; 
+            break;
+        case 'weekly_order_status':
+            var firstDayOfWeek = today.getDate() - today.getDay(); 
+            startDate = new Date(today.setDate(firstDayOfWeek));
+            endDate = new Date(today.setDate(firstDayOfWeek + 6));
+            break;
+        case 'today_order_status':
+            startDate = endDate = today;
+            break;
+        default:
+            break;
+    }
+
+    startDate = formatDate(startDate);
+    endDate = formatDate(endDate);
+
+    fetchOrderStatusByAPI(startDate, endDate)
+  
+  }
+
+  function formatDate(date) {
+    if (date) {
+        var year = date.getFullYear();
+        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+        var day = date.getDate().toString().padStart(2, '0');
+        return year + '-' + month + '-' + day;
+    } else {
+        return null;
+    } 
+}
+
+function fetchOrderStatusByAPI(startDate, endDate) {
+    $.ajax({
+        url: '/dashboard/order/status',
+        type: 'POST',
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: {
+            start_date: startDate,
+            end_date: endDate
+        },
+        success: function(response) {
+            $('#on_delivery_count').html(response.on_delivery_status);
+            $('#cancelled_count').html(response.cancelled_status);
+            $('#delivered_count').html(response.delivered_status);
+            $('#on_delivery_percentage').html(`On Delivery (${response.on_delivery_percentage.toFixed(2)}%)`);
+            $('#delivered_percentage').html(`Delivered (${response.delivered_percentage.toFixed(2)}%)`);
+            $('#cancelled_percentage').html(`Cancelled (${response.cancelled_percentage.toFixed(2)}%)`);
+
+            updateDoughnutChart(response);
+            updateProgressBars(response);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error fetching data:', error);
+        }
+    });
+}
+
+function updateDoughnutChart(data) {
+    doughnutChart.data.datasets[0].data = [
+        data.on_delivery_status,
+        data.delivered_status,
+        data.cancelled_status
+    ];
+
+    doughnutChart.update();
+}
+
+function updateProgressBars(data) {
+    document.getElementById('on_delivery_percentage').innerText = `On Delivery (${data.on_delivery_percentage.toFixed(2)}%)`;
+    document.getElementById('on_delivery_progress').style.width = `${data.on_delivery_percentage}%`;
+    document.getElementById('on_delivery_counts').innerText = data.on_delivery_status;
+
+    document.getElementById('delivered_percentage').innerText = `Delivered (${data.delivered_percentage.toFixed(2)}%)`;
+    document.getElementById('delivered_progress').style.width = `${data.delivered_percentage}%`;
+    document.getElementById('delivered_counts').innerText = data.delivered_status;
+
+    document.getElementById('cancelled_percentage').innerText = `Cancelled (${data.cancelled_percentage.toFixed(2)}%)`;
+    document.getElementById('cancelled_progress').style.width = `${data.cancelled_percentage}%`;
+    document.getElementById('cancelled_counts').innerText = data.cancelled_status;
+}
+
+
+
+
+function fetchOrderData() {
+    $.ajax({
+        url: '/fetch',
+        type: 'GET',
+        dataType: 'json',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            var monthlyMonths = response.monthly.map(function(data) {
+                return data.month;
+            });
+            var monthlyChartData = response.monthly.map(function(data) {
+                return data.order;
+            });
+
+            var weeklyWeeks = response.weekly.map(function(data) {
+                return data.date;
+            });
+            var weeklyChartData = response.weekly.map(function(data) {
+                return data.order;
+            });
+
+            var dailyDates = response.daily.map(function(data) {
+                return data.day;
+            });
+            var dailyChartData = response.daily.map(function(data) {
+                return data.order;
+            });
+
+            // Calculate the maximum value among all datasets
+            var maxData = Math.max(
+                Math.max.apply(null, monthlyChartData),
+                Math.max.apply(null, weeklyChartData),
+                Math.max.apply(null, dailyChartData)
+            );
+
+            // Calculate an appropriate step size
+            var stepSize = maxData > 0 ? Math.ceil(maxData / 10) : 1;
+            var roundTo = 10; // Adjust this value as needed
+            stepSize = Math.ceil(stepSize / roundTo) * roundTo;
+
+            // Initialize the chart
+            var activity = document.getElementById("activity");
+            if (activity !== null) {
+                var config = {
+                    type: "bar",
+                    data: {
+                        labels: monthlyMonths,
+                        datasets: [{
+                            label: "Monthly Orders",
+                            data: monthlyChartData,
+                            borderColor: 'rgba(47, 76, 221, 1)',
+                            borderWidth: "0",
+                            barThickness: 'flex',
+                            backgroundColor: 'rgba(47, 76, 221, 1)',
+                            minBarLength: 10
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            yAxes: [{
+                                gridLines: {
+                                    color: "rgba(233,236,255,1)",
+                                    drawBorder: true
+                                },
+                                ticks: {
+                                    fontColor: "#3e4954",
+                                    max: Math.ceil((maxData + stepSize) / stepSize) * stepSize,
+                                    min: 0,
+                                    stepSize: stepSize
+                                },
+                            }],
+                            xAxes: [{
+                                barPercentage: 0.3,
+                                gridLines: {
+                                    display: false,
+                                    zeroLineColor: "transparent"
+                                },
+                                ticks: {
+                                    stepSize: 20,
+                                    fontColor: "#3e4954",
+                                    fontFamily: "Nunito, sans-serif"
+                                }
+                            }]
+                        },
+                        tooltips: {
+                            mode: "index",
+                            intersect: false,
+                            titleFontColor: "#888",
+                            bodyFontColor: "#555",
+                            titleFontSize: 12,
+                            bodyFontSize: 15,
+                            backgroundColor: "rgba(255,255,255,1)",
+                            displayColors: true,
+                            xPadding: 10,
+                            yPadding: 7,
+                            borderColor: "rgba(220, 220, 220, 1)",
+                            borderWidth: 1,
+                            caretSize: 6,
+                            caretPadding: 10
+                        }
+                    }
+                };
+                var ctx = document.getElementById("activity").getContext("2d");
+                var myLine = new Chart(ctx, config);
+
+                // Add event listeners for tab clicks
+                var items = document.querySelectorAll("#user-activity .nav-tabs .nav-item");
+                items.forEach(function(item, index) {
+                    item.addEventListener("click", function() {
+                        if (index === 0) {
+                            config.data.labels = monthlyMonths;
+                            config.data.datasets[0].label = "Monthly Orders";
+                            config.data.datasets[0].data = monthlyChartData;
+                        } else if (index === 1) {
+                            config.data.labels = weeklyWeeks;
+                            config.data.datasets[0].label = "Weekly Orders";
+                            config.data.datasets[0].data = weeklyChartData;
+                        } else if (index === 2) {
+                            config.data.labels = dailyDates;
+                            config.data.datasets[0].label = "Daily Orders";
+                            config.data.datasets[0].data = dailyChartData;
+                        }
+                        
+                        // Recalculate the maximum value and step size for the new data
+                        maxData = Math.max.apply(null, config.data.datasets[0].data);
+                        stepSize = maxData > 0 ? Math.ceil(maxData / 10) : 1;
+                        stepSize = Math.ceil(stepSize / roundTo) * roundTo;
+
+                        config.options.scales.yAxes[0].ticks.max = Math.ceil((maxData + stepSize) / stepSize) * stepSize;
+                        config.options.scales.yAxes[0].ticks.stepSize = stepSize;
+
+                        myLine.update();
+                    });
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('error');
+        }
+    });
+}
+
+
+
+fetchOrderData();
+
+  // chart 2
+
+  // var ctx = document.getElementById("chartBar");
+  // ctx.height = 200;
+  // ctx.getContext('2d');
+  // var myChart = new Chart(ctx, {
+  //   type: 'line',
+  //   data: {
+  //     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July'],
+  //     datasets: [{
+  //         label: "Revenue",
+  //         data: [11, 32, 45, 32, 42, 52, 41],
+  //         borderColor: 'rgb(181, 25, 236)',
+  //         backgroundColor: 'rgba(181, 25, 236, 0.2)',
+  //         borderWidth: "2",
+  //       },
+  //       {
+  //         label: "Net Profit",
+  //         data: [31, 40, 28, 51, 34, 109, 100],
+  //         borderColor: 'rgba(47, 76, 221, 1)',
+  //         backgroundColor: 'rgba(47, 76, 221, 0.2)',
+  //         borderWidth: "2",
+  //       }
+  //     ]
+  //   },
+  //   options: {
+  //     responsive: true,
+  //     scales: {
+  //       yAxes: [{
+  //         ticks: {
+  //           fontColor: "#3e4954",
+  //           max: 120,
+  //           min: 0,
+  //           stepSize: 30
+  //         },
+  //       }]
+  //     },
+  //     tooltips: {
+  //       mode: "index",
+  //       intersect: false,
+  //       titleFontColor: "#888",
+  //       bodyFontColor: "#555",
+  //       titleFontSize: 12,
+  //       bodyFontSize: 15,
+  //       backgroundColor: "rgba(255,255,255,1)",
+  //       displayColors: true,
+  //       xPadding: 10,
+  //       yPadding: 7,
+  //       borderColor: "rgba(220, 220, 220, 1)",
+  //       borderWidth: 1,
+  //       caretSize: 6,
+  //       caretPadding: 10
+  //     }
+  //   }
+  // });
+
+
+  document.addEventListener('DOMContentLoaded', function() {
+  var ctx = document.getElementById("chartBar").getContext('2d');
+  ctx.height = 200;
+  
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [], // This will be updated dynamically
+      datasets: [{
+          label: "Revenue",
+          data: [],
+          borderColor: 'rgb(181, 25, 236)',
+          backgroundColor: 'rgba(181, 25, 236, 0.2)',
+          borderWidth: "2",
+        },
+        {
+          label: "Orders",
+          data: [],
+          borderColor: 'rgba(47, 76, 221, 1)',
+          backgroundColor: 'rgba(47, 76, 221, 0.2)',
+          borderWidth: "2",
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        yAxes: [{
+          ticks: {
+            fontColor: "#3e4954",
+            max: 0,
+            min: 0,
+            stepSize: 0
+          },
+        }]
+      },
+      tooltips: {
+        mode: "index",
+        intersect: false,
+        titleFontColor: "#888",
+        bodyFontColor: "#555",
+        titleFontSize: 12,
+        bodyFontSize: 15,
+        backgroundColor: "rgba(255, 255, 255, 1)",
+        displayColors: true,
+        xPadding: 10,
+        yPadding: 7,
+        borderColor: "rgba(220, 220, 220, 1)",
+        borderWidth: 1,
+        caretSize: 6,
+        caretPadding: 10
+      }
+    }
+  });
+
+  var dropdownMenu = document.getElementById('mainDropdownButton');
+    console.log(dropdownMenu)
+    if (dropdownMenu) {
+      dropdownMenu.parentElement.querySelectorAll('.dropdown-item').forEach(function(element) {
+        element.addEventListener('click', function(event) {
+          event.preventDefault();
+          var type = event.target.id;
+
+          fetchOrders(type);
+        });
+      });
+    }
+
+  function fetchOrders(type) {
+    fetch('/dashboard/revenue') 
+      .then(response => response.json())
+      .then(data => {
+        updateChart(data, type);
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }
+
+  function updateChart(data, type) {
+    var labels = [];
+    var revenueData = [];
+    var profitData = [];
+    var maxRevenue = 0;
+    var maxProfit = 0;
+    var totalRevenue = 0;
+    var totalOrderCount = 0;
+
+    switch (type) {
+      case 'daily':
+        data.daily.forEach(function(day) {
+          labels.push(day.day);
+          revenueData.push(day.order_amount);
+          profitData.push(day.order);
+          totalRevenue += day.order_amount;
+          totalOrderCount += day.order;
+          if (day.order_amount > maxRevenue) maxRevenue = day.order_amount;
+          if (day.order > maxProfit) maxProfit = day.order;
+        });
+        break;
+      case 'weekly':
+        data.weekly.forEach(function(week) {
+          labels.push(week.date);
+          revenueData.push(week.order_amount);
+          profitData.push(week.order);
+          totalRevenue += week.order_amount;
+          totalOrderCount += week.order;
+          if (week.order_amount > maxRevenue) maxRevenue = week.order_amount;
+          if (week.order > maxProfit) maxProfit = week.order;
+        });
+        break;
+      case 'monthly':
+        data.monthly.forEach(function(month) {
+          labels.push(month.month);
+          revenueData.push(month.order_amount);
+          profitData.push(month.order);
+          totalRevenue += month.order_amount;
+          totalOrderCount += month.order;
+          if (month.order_amount > maxRevenue) maxRevenue = month.order_amount;
+          if (month.order > maxProfit) maxProfit = month.order;
+        });
+        break;
+    }
+
+    var maxData = Math.max(maxRevenue, maxProfit);
+    var stepSize = maxData > 0 ? Math.ceil(maxData / 10) : 1;
+
+    var roundTo = 100;
+    stepSize = Math.ceil(stepSize / roundTo) * roundTo;
+
+    myChart.options.scales.yAxes[0].ticks.max = maxData > 0 ? Math.ceil((maxData + stepSize) / stepSize) * stepSize : 1; 
+    myChart.options.scales.yAxes[0].ticks.stepSize = stepSize; 
+
+    myChart.data.labels = labels;
+
+    myChart.data.datasets[0].data = revenueData.length ? revenueData : [0];
+    myChart.data.datasets[1].data = profitData.length ? profitData : [0];
+
+    myChart.update();
+
+    document.getElementById('order-count').innerText = totalOrderCount.toLocaleString('en', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    document.getElementById('revenue').innerText = totalRevenue.toLocaleString('en', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+  }
+
+  fetchOrders('weekly');
+});
+
+
+
+  var chart = document.getElementById("doughnut");
+  chart.height = 250;
+  chart.getContext('2d');
+  var doughnutChart = new Chart(chart, {
+    type: 'doughnut',
+    data: {
+      labels: ['On Delivery', 'Delivered', 'Cancelled'],
+      datasets: [{
+      label: "Order Status",
+      data: [0, 0, 0], // Initial dummy data
+      backgroundColor: ["#f44336", "#3f51b5", "#4caf50"],
+    }]
+    },
+    options: {
+      responsive: true,
+      legend: false,
+      tooltips: {
+        mode: "index",
+        intersect: false,
+        titleFontColor: "#888",
+        bodyFontColor: "#555",
+        titleFontSize: 12,
+        bodyFontSize: 15,
+        backgroundColor: "rgba(255,255,255,1)",
+        displayColors: true,
+        xPadding: 10,
+        yPadding: 7,
+        borderColor: "rgba(220, 220, 220, 1)",
+        borderWidth: 1,
+        caretSize: 6,
+        caretPadding: 10
+      }
+    }
+  });
+
+
+  // 
+  $(".selectDropdown li a").click(function(e) {
+    e.preventDefault();
+    $(".selectDropdown li a").removeClass('active');
+    $(this).addClass('active')
+    $(this).parents(".dropdown").find('.btn').html($(this).text());
+  })
+</script>
+
+
+<script src="http://staging.shipquickk.com/assets/js/shippingprovider.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<style>
+
+.select2-selection__rendered {
+    line-height: 42px !important;
+}
+.select2-container .select2-selection--single {
+    height: 42px !important;
+}
+.select2-selection__arrow {
+    height: 41px !important;
+}
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // $('.products_select_box').select2();
+
+        $(".searchable_dropdown_box").select2({
+            width: 'resolve' 
+        });
+    });
+
+</script>
+
+<script type="text/javascript">
+var phpdebugbar = new PhpDebugBar.DebugBar();
+phpdebugbar.addIndicator("php_version", new PhpDebugBar.DebugBar.Indicator({"icon":"code","tooltip":"PHP Version"}), "right");
+phpdebugbar.addTab("messages", new PhpDebugBar.DebugBar.Tab({"icon":"list-alt","title":"Messages", "widget": new PhpDebugBar.Widgets.MessagesWidget()}));
+phpdebugbar.addIndicator("time", new PhpDebugBar.DebugBar.Indicator({"icon":"clock-o","tooltip":"Request Duration"}), "right");
+phpdebugbar.addTab("timeline", new PhpDebugBar.DebugBar.Tab({"icon":"tasks","title":"Timeline", "widget": new PhpDebugBar.Widgets.TimelineWidget()}));
+phpdebugbar.addIndicator("memory", new PhpDebugBar.DebugBar.Indicator({"icon":"cogs","tooltip":"Memory Usage"}), "right");
+phpdebugbar.addTab("exceptions", new PhpDebugBar.DebugBar.Tab({"icon":"bug","title":"Exceptions", "widget": new PhpDebugBar.Widgets.ExceptionsWidget()}));
+phpdebugbar.addTab("views", new PhpDebugBar.DebugBar.Tab({"icon":"leaf","title":"Views", "widget": new PhpDebugBar.Widgets.TemplatesWidget()}));
+phpdebugbar.addTab("route", new PhpDebugBar.DebugBar.Tab({"icon":"share","title":"Route", "widget": new PhpDebugBar.Widgets.HtmlVariableListWidget()}));
+phpdebugbar.addIndicator("currentroute", new PhpDebugBar.DebugBar.Indicator({"icon":"share","tooltip":"Route"}), "right");
+phpdebugbar.addTab("queries", new PhpDebugBar.DebugBar.Tab({"icon":"database","title":"Queries", "widget": new PhpDebugBar.Widgets.LaravelSQLQueriesWidget()}));
+phpdebugbar.addTab("models", new PhpDebugBar.DebugBar.Tab({"icon":"cubes","title":"Models", "widget": new PhpDebugBar.Widgets.HtmlVariableListWidget()}));
+phpdebugbar.addTab("emails", new PhpDebugBar.DebugBar.Tab({"icon":"inbox","title":"Mails", "widget": new PhpDebugBar.Widgets.MailsWidget()}));
+phpdebugbar.addTab("gate", new PhpDebugBar.DebugBar.Tab({"icon":"list-alt","title":"Gate", "widget": new PhpDebugBar.Widgets.MessagesWidget()}));
+phpdebugbar.addTab("session", new PhpDebugBar.DebugBar.Tab({"icon":"archive","title":"Session", "widget": new PhpDebugBar.Widgets.VariableListWidget()}));
+phpdebugbar.addTab("request", new PhpDebugBar.DebugBar.Tab({"icon":"tags","title":"Request", "widget": new PhpDebugBar.Widgets.HtmlVariableListWidget()}));
+phpdebugbar.setDataMap({
+"php_version": ["php.version", ],
+"messages": ["messages.messages", []],
+"messages:badge": ["messages.count", null],
+"time": ["time.duration_str", '0ms'],
+"timeline": ["time", {}],
+"memory": ["memory.peak_usage_str", '0B'],
+"exceptions": ["exceptions.exceptions", []],
+"exceptions:badge": ["exceptions.count", null],
+"views": ["views", []],
+"views:badge": ["views.nb_templates", 0],
+"route": ["route", {}],
+"currentroute": ["route.uri", ],
+"queries": ["queries", []],
+"queries:badge": ["queries.nb_statements", 0],
+"models": ["models.data", {}],
+"models:badge": ["models.count", 0],
+"emails": ["swiftmailer_mails.mails", []],
+"emails:badge": ["swiftmailer_mails.count", null],
+"gate": ["gate.messages", []],
+"gate:badge": ["gate.count", null],
+"session": ["session", {}],
+"request": ["request", {}]
+});
+phpdebugbar.restoreState();
+phpdebugbar.ajaxHandler = new PhpDebugBar.AjaxHandler(phpdebugbar, undefined, true);
+phpdebugbar.ajaxHandler.bindToFetch();
+phpdebugbar.ajaxHandler.bindToXHR();
+phpdebugbar.setOpenHandler(new PhpDebugBar.OpenHandler({"url":"http:\/\/staging.shipquickk.com\/_debugbar\/open"}));
+phpdebugbar.addDataSet({"__meta":{"id":"Xde53d1c56d2ea5093531e357ccab1be0","datetime":"2025-12-09 09:51:30","utime":1765270290.327568,"method":"GET","uri":"\/dashboard","ip":"115.187.52.188"},"php":{"version":"8.1.28","interface":"fpm-fcgi"},"messages":{"count":0,"messages":[]},"time":{"start":1765270289.966296,"end":1765270290.327583,"duration":0.36128711700439453,"duration_str":"361ms","measures":[{"label":"Booting","start":1765270289.966296,"relative_start":0,"end":1765270290.010818,"relative_end":1765270290.010818,"duration":0.04452204704284668,"duration_str":"44.52ms","memory":0,"memory_str":"0B","params":[],"collector":null},{"label":"Application","start":1765270290.010829,"relative_start":0.04453301429748535,"end":1765270290.327586,"relative_end":2.86102294921875e-6,"duration":0.3167569637298584,"duration_str":"317ms","memory":0,"memory_str":"0B","params":[],"collector":null}]},"memory":{"peak_usage":10258336,"peak_usage_str":"10MB"},"exceptions":{"count":0,"exceptions":[]},"views":{"nb_templates":12,"templates":[{"name":"pages.dashboard.company-dashboard (resources\/views\/pages\/dashboard\/company-dashboard.blade.php)","param_count":4,"params":["HeadingTitle","ordersCount","renew_status","sqlWebshops"],"type":"blade"},{"name":"pagination::bootstrap-4 (vendor\/laravel\/framework\/src\/Illuminate\/Pagination\/resources\/views\/bootstrap-4.blade.php)","param_count":2,"params":["paginator","elements"],"type":"blade"},{"name":"layouts.default (resources\/views\/layouts\/default.blade.php)","param_count":9,"params":["__env","app","errors","HeadingTitle","ordersCount","renew_status","sqlWebshops","company_id","user_id"],"type":"blade"},{"name":"includes.header (resources\/views\/includes\/header.blade.php)","param_count":9,"params":["__env","app","errors","HeadingTitle","ordersCount","renew_status","sqlWebshops","company_id","user_id"],"type":"blade"},{"name":"includes.company_menu (resources\/views\/includes\/company_menu.blade.php)","param_count":13,"params":["__env","app","errors","HeadingTitle","ordersCount","renew_status","sqlWebshops","company_id","user_id","lagTitle1","lagTitle2","langIcon","langExn"],"type":"blade"},{"name":"includes.footer (resources\/views\/includes\/footer.blade.php)","param_count":9,"params":["__env","app","errors","HeadingTitle","ordersCount","renew_status","sqlWebshops","company_id","user_id"],"type":"blade"},{"name":"includes.popup (resources\/views\/includes\/popup.blade.php)","param_count":9,"params":["__env","app","errors","HeadingTitle","ordersCount","renew_status","sqlWebshops","company_id","user_id"],"type":"blade"},{"name":"includes.bolcomStatus (resources\/views\/includes\/bolcomStatus.blade.php)","param_count":9,"params":["__env","app","errors","HeadingTitle","ordersCount","renew_status","sqlWebshops","company_id","user_id"],"type":"blade"},{"name":"includes.delete_popup (resources\/views\/includes\/delete_popup.blade.php)","param_count":9,"params":["__env","app","errors","HeadingTitle","ordersCount","renew_status","sqlWebshops","company_id","user_id"],"type":"blade"},{"name":"includes.admin_role_popup (resources\/views\/includes\/admin_role_popup.blade.php)","param_count":9,"params":["__env","app","errors","HeadingTitle","ordersCount","renew_status","sqlWebshops","company_id","user_id"],"type":"blade"},{"name":"includes.lower_sell_price_order_popup (resources\/views\/includes\/lower_sell_price_order_popup.blade.php)","param_count":9,"params":["__env","app","errors","HeadingTitle","ordersCount","renew_status","sqlWebshops","company_id","user_id"],"type":"blade"},{"name":"includes.status_popup (resources\/views\/includes\/status_popup.blade.php)","param_count":9,"params":["__env","app","errors","HeadingTitle","ordersCount","renew_status","sqlWebshops","company_id","user_id"],"type":"blade"}]},"route":{"uri":"GET dashboard","middleware":"web, auth, company, Is_company_active, allowedip, available_subscription","controller":"App\\Http\\Controllers\\DashboardController@CompanyAccess","namespace":null,"prefix":"","where":[],"file":"\u003Ca href=\u0022phpstorm:\/\/open?file=\/var\/www\/staging.shipquickk.com\/app\/Http\/Controllers\/DashboardController.php\u0026line=211\u0022\u003Eapp\/Http\/Controllers\/DashboardController.php:211-300\u003C\/a\u003E"},"queries":{"nb_statements":22,"nb_failed_statements":0,"accumulated_duration":0.10202000000000001,"accumulated_duration_str":"102ms","statements":[{"sql":"select * from `users` where `id` = 27 limit 1","type":"query","params":[],"bindings":["27"],"hints":null,"show_copy":false,"backtrace":[{"index":15,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Auth\/EloquentUserProvider.php","line":53},{"index":16,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Auth\/SessionGuard.php","line":159},{"index":17,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Auth\/AuthManager.php","line":340},{"index":19,"namespace":null,"name":"\/app\/Models\/User.php","line":75},{"index":22,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Auth\/EloquentUserProvider.php","line":185}],"duration":0.00385,"duration_str":"3.85ms","stmt_id":"\/vendor\/laravel\/framework\/src\/Illuminate\/Auth\/EloquentUserProvider.php:53","connection":"staging","start_percent":0,"width_percent":3.774},{"sql":"select * from `users` where `id` = 27 and `users`.`company_id` = 7 limit 1","type":"query","params":[],"bindings":["27","7"],"hints":null,"show_copy":false,"backtrace":[{"index":15,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Auth\/EloquentUserProvider.php","line":53},{"index":16,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Auth\/SessionGuard.php","line":159},{"index":17,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Auth\/GuardHelpers.php","line":60},{"index":18,"namespace":"middleware","name":"auth","line":63},{"index":19,"namespace":"middleware","name":"auth","line":18}],"duration":0.00417,"duration_str":"4.17ms","stmt_id":"\/vendor\/laravel\/framework\/src\/Illuminate\/Auth\/EloquentUserProvider.php:53","connection":"staging","start_percent":3.774,"width_percent":4.087},{"sql":"select * from `company` where `company`.`id` = 7 and `company`.`deleted_at` is null limit 1","type":"query","params":[],"bindings":["7"],"hints":null,"show_copy":false,"backtrace":[{"index":19,"namespace":"middleware","name":"Is_company_active","line":30},{"index":20,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Cache\/Repository.php","line":391},{"index":21,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Cache\/CacheManager.php","line":418},{"index":22,"namespace":"middleware","name":"Is_company_active","line":31},{"index":23,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php","line":167}],"duration":0.0038,"duration_str":"3.8ms","stmt_id":"middleware::Is_company_active:30","connection":"staging","start_percent":7.861,"width_percent":3.725},{"sql":"select * from `company` where `company`.`id` = 7 and `company`.`deleted_at` is null limit 1","type":"query","params":[],"bindings":["7"],"hints":null,"show_copy":false,"backtrace":[{"index":16,"namespace":"middleware","name":"allowedip","line":24},{"index":17,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php","line":167},{"index":18,"namespace":"middleware","name":"Is_company_active","line":41},{"index":19,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php","line":167},{"index":20,"namespace":"middleware","name":"company","line":38}],"duration":0.00376,"duration_str":"3.76ms","stmt_id":"middleware::allowedip:24","connection":"staging","start_percent":11.586,"width_percent":3.686},{"sql":"select * from `ip_address` where `ip_address`.`company_id` in (7) and `ip_address`.`company_id` = 7","type":"query","params":[],"bindings":["7"],"hints":null,"show_copy":false,"backtrace":[{"index":21,"namespace":"middleware","name":"allowedip","line":24},{"index":22,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php","line":167},{"index":23,"namespace":"middleware","name":"Is_company_active","line":41},{"index":24,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php","line":167},{"index":25,"namespace":"middleware","name":"company","line":38}],"duration":0.00707,"duration_str":"7.07ms","stmt_id":"middleware::allowedip:24","connection":"staging","start_percent":15.272,"width_percent":6.93},{"sql":"select * from `company` where `company`.`id` = 7 and `company`.`deleted_at` is null limit 1","type":"query","params":[],"bindings":["7"],"hints":null,"show_copy":false,"backtrace":[{"index":17,"namespace":"middleware","name":"available_subscription","line":29},{"index":18,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Cache\/Repository.php","line":391},{"index":19,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Cache\/CacheManager.php","line":418},{"index":21,"namespace":"middleware","name":"available_subscription","line":30},{"index":22,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php","line":167}],"duration":0.00373,"duration_str":"3.73ms","stmt_id":"middleware::available_subscription:29","connection":"staging","start_percent":22.202,"width_percent":3.656},{"sql":"select * from `subscription` where `subscription`.`id` in (2) and `subscription`.`deleted_at` is null","type":"query","params":[],"bindings":["2"],"hints":null,"show_copy":false,"backtrace":[{"index":22,"namespace":"middleware","name":"available_subscription","line":29},{"index":23,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Cache\/Repository.php","line":391},{"index":24,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Cache\/CacheManager.php","line":418},{"index":26,"namespace":"middleware","name":"available_subscription","line":30},{"index":27,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Pipeline\/Pipeline.php","line":167}],"duration":0.00497,"duration_str":"4.97ms","stmt_id":"middleware::available_subscription:29","connection":"staging","start_percent":25.858,"width_percent":4.872},{"sql":"select `renew_date` from `company` where `id` = 7 and `company`.`deleted_at` is null limit 1","type":"query","params":[],"bindings":["7"],"hints":null,"show_copy":false,"backtrace":[{"index":15,"namespace":null,"name":"\/app\/Http\/Controllers\/DashboardController.php","line":216},{"index":16,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Controller.php","line":54},{"index":17,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/ControllerDispatcher.php","line":45},{"index":18,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Route.php","line":262},{"index":19,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Route.php","line":205}],"duration":0.00369,"duration_str":"3.69ms","stmt_id":"\/app\/Http\/Controllers\/DashboardController.php:216","connection":"staging","start_percent":30.729,"width_percent":3.617},{"sql":"select count(*) as aggregate from `orders` where `orders`.`company_id` = 7","type":"query","params":[],"bindings":["7"],"hints":null,"show_copy":false,"backtrace":[{"index":18,"namespace":null,"name":"\/app\/Http\/Controllers\/DashboardController.php","line":234},{"index":19,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Controller.php","line":54},{"index":20,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/ControllerDispatcher.php","line":45},{"index":21,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Route.php","line":262},{"index":22,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Route.php","line":205}],"duration":0.005030000000000001,"duration_str":"5.03ms","stmt_id":"\/app\/Http\/Controllers\/DashboardController.php:234","connection":"staging","start_percent":34.346,"width_percent":4.93},{"sql":"select count(*) as aggregate from `webshops` where `company_id` = 7 and `webshops`.`company_id` = 7","type":"query","params":[],"bindings":["7","7"],"hints":null,"show_copy":false,"backtrace":[{"index":15,"namespace":null,"name":"\/app\/Http\/Controllers\/DashboardController.php","line":236},{"index":16,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Controller.php","line":54},{"index":17,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/ControllerDispatcher.php","line":45},{"index":18,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Route.php","line":262},{"index":19,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Routing\/Route.php","line":205}],"duration":0.00567,"duration_str":"5.67ms","stmt_id":"\/app\/Http\/Controllers\/DashboardController.php:236","connection":"staging","start_percent":39.277,"width_percent":5.558},{"sql":"select * from `permissions`","type":"query","params":[],"bindings":[],"hints":null,"show_copy":false,"backtrace":[{"index":14,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/PermissionRegistrar.php","line":266},{"index":15,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/PermissionRegistrar.php","line":304},{"index":16,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/PermissionRegistrar.php","line":174},{"index":17,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Cache\/Repository.php","line":391},{"index":18,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/PermissionRegistrar.php","line":175}],"duration":0.004719999999999999,"duration_str":"4.72ms","stmt_id":"\/vendor\/spatie\/laravel-permission\/src\/PermissionRegistrar.php:266","connection":"staging","start_percent":44.834,"width_percent":4.627},{"sql":"select `roles`.*, `role_has_permissions`.`permission_id` as `pivot_permission_id`, `role_has_permissions`.`role_id` as `pivot_role_id` from `roles` inner join `role_has_permissions` on `roles`.`id` = `role_has_permissions`.`role_id` where `role_has_permissions`.`permission_id` in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70)","type":"query","params":[],"bindings":[],"hints":null,"show_copy":false,"backtrace":[{"index":18,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/PermissionRegistrar.php","line":266},{"index":19,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/PermissionRegistrar.php","line":304},{"index":20,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/PermissionRegistrar.php","line":174},{"index":21,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Cache\/Repository.php","line":391},{"index":22,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/PermissionRegistrar.php","line":175}],"duration":0.011779999999999999,"duration_str":"11.78ms","stmt_id":"\/vendor\/spatie\/laravel-permission\/src\/PermissionRegistrar.php:266","connection":"staging","start_percent":49.461,"width_percent":11.547},{"sql":"select `permissions`.*, `model_has_permissions`.`model_id` as `pivot_model_id`, `model_has_permissions`.`permission_id` as `pivot_permission_id`, `model_has_permissions`.`model_type` as `pivot_model_type` from `permissions` inner join `model_has_permissions` on `permissions`.`id` = `model_has_permissions`.`permission_id` where `model_has_permissions`.`model_id` = 27 and `model_has_permissions`.`model_type` = \u0027App\\Models\\User\u0027","type":"query","params":[],"bindings":["27","App\\Models\\User"],"hints":null,"show_copy":false,"backtrace":[{"index":19,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/Traits\/HasPermissions.php","line":305},{"index":20,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/Traits\/HasPermissions.php","line":193},{"index":21,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/Traits\/HasPermissions.php","line":244},{"index":22,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/PermissionRegistrar.php","line":136},{"index":23,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Auth\/Access\/Gate.php","line":554}],"duration":0.00467,"duration_str":"4.67ms","stmt_id":"\/vendor\/spatie\/laravel-permission\/src\/Traits\/HasPermissions.php:305","connection":"staging","start_percent":61.008,"width_percent":4.578},{"sql":"select `roles`.*, `model_has_roles`.`model_id` as `pivot_model_id`, `model_has_roles`.`role_id` as `pivot_role_id`, `model_has_roles`.`model_type` as `pivot_model_type` from `roles` inner join `model_has_roles` on `roles`.`id` = `model_has_roles`.`role_id` where `model_has_roles`.`model_id` in (27) and `model_has_roles`.`model_type` = \u0027App\\Models\\User\u0027","type":"query","params":[],"bindings":["App\\Models\\User"],"hints":null,"show_copy":false,"backtrace":[{"index":21,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/Traits\/HasRoles.php","line":188},{"index":22,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/Traits\/HasPermissions.php","line":291},{"index":23,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/Traits\/HasPermissions.php","line":193},{"index":24,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/Traits\/HasPermissions.php","line":244},{"index":25,"namespace":null,"name":"\/vendor\/spatie\/laravel-permission\/src\/PermissionRegistrar.php","line":136}],"duration":0.0045,"duration_str":"4.5ms","stmt_id":"\/vendor\/spatie\/laravel-permission\/src\/Traits\/HasRoles.php:188","connection":"staging","start_percent":65.585,"width_percent":4.411},{"sql":"select count(*) as aggregate from `comments_mention` where `read_status` = 0 and `user_id` = 27","type":"query","params":[],"bindings":["0","27"],"hints":null,"show_copy":false,"backtrace":[{"index":15,"namespace":null,"name":"\/app\/Helper\/HelperFacades.php","line":2894},{"index":17,"namespace":"view","name":"441173a241358d6597274b2efdf55b07c5ad19ac","line":129},{"index":19,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Filesystem\/Filesystem.php","line":108},{"index":20,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/PhpEngine.php","line":58},{"index":21,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/CompilerEngine.php","line":61}],"duration":0.00458,"duration_str":"4.58ms","stmt_id":"\/app\/Helper\/HelperFacades.php:2894","connection":"staging","start_percent":69.996,"width_percent":4.489},{"sql":"select id, CONCAT(LEFT(message, 80), \u0022..\u0022) as message, created_at from `notifications` where `read_status` = 0 and `company_id` = 7 and `notifications`.`company_id` = 7 order by `id` desc limit 11","type":"query","params":[],"bindings":["0","7","7"],"hints":null,"show_copy":false,"backtrace":[{"index":14,"namespace":null,"name":"\/app\/Helper\/HelperFacades.php","line":2882},{"index":16,"namespace":"view","name":"441173a241358d6597274b2efdf55b07c5ad19ac","line":138},{"index":18,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Filesystem\/Filesystem.php","line":108},{"index":19,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/PhpEngine.php","line":58},{"index":20,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/CompilerEngine.php","line":61}],"duration":0.00461,"duration_str":"4.61ms","stmt_id":"\/app\/Helper\/HelperFacades.php:2882","connection":"staging","start_percent":74.485,"width_percent":4.519},{"sql":"select id, CONCAT(LEFT(message, 80), \u0022..\u0022) as message, created_at from `notifications` where `read_status` = 0 and `company_id` = 7 and `notifications`.`company_id` = 7 order by `id` desc limit 11","type":"query","params":[],"bindings":["0","7","7"],"hints":null,"show_copy":false,"backtrace":[{"index":14,"namespace":null,"name":"\/app\/Helper\/HelperFacades.php","line":2882},{"index":16,"namespace":"view","name":"441173a241358d6597274b2efdf55b07c5ad19ac","line":139},{"index":18,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Filesystem\/Filesystem.php","line":108},{"index":19,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/PhpEngine.php","line":58},{"index":20,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/CompilerEngine.php","line":61}],"duration":0.00344,"duration_str":"3.44ms","stmt_id":"\/app\/Helper\/HelperFacades.php:2882","connection":"staging","start_percent":79.004,"width_percent":3.372},{"sql":"select id, CONCAT(LEFT(message, 80), \u0022..\u0022) as message, created_at from `notifications` where `read_status` = 0 and `company_id` = 7 and `notifications`.`company_id` = 7 order by `id` desc limit 11","type":"query","params":[],"bindings":["0","7","7"],"hints":null,"show_copy":false,"backtrace":[{"index":14,"namespace":null,"name":"\/app\/Helper\/HelperFacades.php","line":2882},{"index":16,"namespace":"view","name":"441173a241358d6597274b2efdf55b07c5ad19ac","line":142},{"index":18,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Filesystem\/Filesystem.php","line":108},{"index":19,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/PhpEngine.php","line":58},{"index":20,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/CompilerEngine.php","line":61}],"duration":0.00335,"duration_str":"3.35ms","stmt_id":"\/app\/Helper\/HelperFacades.php:2882","connection":"staging","start_percent":82.376,"width_percent":3.284},{"sql":"select id, CONCAT(LEFT(message, 80), \u0022..\u0022) as message, created_at from `notifications` where `read_status` = 0 and `company_id` = 7 and `notifications`.`company_id` = 7 order by `id` desc limit 11","type":"query","params":[],"bindings":["0","7","7"],"hints":null,"show_copy":false,"backtrace":[{"index":14,"namespace":null,"name":"\/app\/Helper\/HelperFacades.php","line":2882},{"index":16,"namespace":"view","name":"441173a241358d6597274b2efdf55b07c5ad19ac","line":149},{"index":18,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Filesystem\/Filesystem.php","line":108},{"index":19,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/PhpEngine.php","line":58},{"index":20,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/CompilerEngine.php","line":61}],"duration":0.00335,"duration_str":"3.35ms","stmt_id":"\/app\/Helper\/HelperFacades.php:2882","connection":"staging","start_percent":85.66,"width_percent":3.284},{"sql":"select id, CONCAT(LEFT(message, 80), \u0022..\u0022) as message, created_at from `notifications` where `read_status` = 0 and `company_id` = 7 and `notifications`.`company_id` = 7 order by `id` desc limit 11","type":"query","params":[],"bindings":["0","7","7"],"hints":null,"show_copy":false,"backtrace":[{"index":14,"namespace":null,"name":"\/app\/Helper\/HelperFacades.php","line":2882},{"index":16,"namespace":"view","name":"441173a241358d6597274b2efdf55b07c5ad19ac","line":161},{"index":18,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Filesystem\/Filesystem.php","line":108},{"index":19,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/PhpEngine.php","line":58},{"index":20,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/CompilerEngine.php","line":61}],"duration":0.00331,"duration_str":"3.31ms","stmt_id":"\/app\/Helper\/HelperFacades.php:2882","connection":"staging","start_percent":88.943,"width_percent":3.244},{"sql":"select CONCAT(fname,\u0022 \u0022,lname) AS Fullname from `users` where `id` = 27 and `users`.`company_id` = 7 limit 1","type":"query","params":[],"bindings":["27","7"],"hints":null,"show_copy":false,"backtrace":[{"index":15,"namespace":null,"name":"\/app\/Helper\/HelperFacades.php","line":261},{"index":16,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Cache\/Repository.php","line":391},{"index":17,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Cache\/CacheManager.php","line":418},{"index":19,"namespace":null,"name":"\/app\/Helper\/HelperFacades.php","line":264},{"index":21,"namespace":"view","name":"441173a241358d6597274b2efdf55b07c5ad19ac","line":201}],"duration":0.00342,"duration_str":"3.42ms","stmt_id":"\/app\/Helper\/HelperFacades.php:261","connection":"staging","start_percent":92.188,"width_percent":3.352},{"sql":"select * from `users` where `id` = 27 and `printer_package` \u003C\u003E 0 and exists (select * from `printers_packing` where `users`.`printer_package` = `printers_packing`.`id` and `package_name` \u003C\u003E \u0027\u0027 and `printers_packing`.`company_id` = 7) and `users`.`company_id` = 7 limit 1","type":"query","params":[],"bindings":["27","0","","7","7"],"hints":null,"show_copy":false,"backtrace":[{"index":15,"namespace":null,"name":"\/app\/Helper\/HelperFacades.php","line":282},{"index":17,"namespace":"view","name":"441173a241358d6597274b2efdf55b07c5ad19ac","line":215},{"index":19,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/Filesystem\/Filesystem.php","line":108},{"index":20,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/PhpEngine.php","line":58},{"index":21,"namespace":null,"name":"\/vendor\/laravel\/framework\/src\/Illuminate\/View\/Engines\/CompilerEngine.php","line":61}],"duration":0.00455,"duration_str":"4.55ms","stmt_id":"\/app\/Helper\/HelperFacades.php:282","connection":"staging","start_percent":95.54,"width_percent":4.46}]},"models":{"data":{"Spatie\\Permission\\Models\\Role":1315,"Spatie\\Permission\\Models\\Permission":70,"App\\Models\\Subscription":1,"App\\Models\\IpAddress":1,"App\\Models\\Company":4,"App\\Models\\User":3},"count":1394},"swiftmailer_mails":{"count":0,"mails":[]},"gate":{"count":23,"messages":[{"message":"[ability =\u003E View products, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-914761202 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002213 characters\u0022\u003EView products\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-914761202\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.231129,"xdebug_link":null},{"message":"[ability =\u003E View customers, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-1739095541 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002214 characters\u0022\u003EView customers\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-1739095541\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.234458,"xdebug_link":null},{"message":"[ability =\u003E View orders, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-118713421 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002211 characters\u0022\u003EView orders\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-118713421\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.306981,"xdebug_link":null},{"message":"[ability =\u003E View picklists, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-566699806 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002214 characters\u0022\u003EView picklists\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-566699806\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.307727,"xdebug_link":null},{"message":"[ability =\u003E View picklists, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-1787749077 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002214 characters\u0022\u003EView picklists\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-1787749077\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.308351,"xdebug_link":null},{"message":"[ability =\u003E View backorders, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-282187535 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002215 characters\u0022\u003EView backorders\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-282187535\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.308879,"xdebug_link":null},{"message":"[ability =\u003E View purchase orders, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-1554394669 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002220 characters\u0022\u003EView purchase orders\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-1554394669\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.309317,"xdebug_link":null},{"message":"[ability =\u003E View returns, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-46448200 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002212 characters\u0022\u003EView returns\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-46448200\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.309779,"xdebug_link":null},{"message":"[ability =\u003E View Shipment, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-2003263395 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002213 characters\u0022\u003EView Shipment\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-2003263395\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.310236,"xdebug_link":null},{"message":"[ability =\u003E View invoice, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-180237343 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002212 characters\u0022\u003EView invoice\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-180237343\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.310744,"xdebug_link":null},{"message":"[\n  ability =\u003E Create \/ Edit request invoice,\n  result =\u003E true,\n  user =\u003E 27,\n  arguments =\u003E []\n]","message_html":"\u003Cpre class=sf-dump id=sf-dump-148902249 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002229 characters\u0022\u003ECreate \/ Edit request invoice\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-148902249\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.311282,"xdebug_link":null},{"message":"[ability =\u003E View warehouses, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-1878757879 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002215 characters\u0022\u003EView warehouses\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-1878757879\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.311781,"xdebug_link":null},{"message":"[ability =\u003E View locations, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-403998531 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002214 characters\u0022\u003EView locations\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-403998531\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.312274,"xdebug_link":null},{"message":"[ability =\u003E View products, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-210529882 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002213 characters\u0022\u003EView products\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-210529882\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.312742,"xdebug_link":null},{"message":"[ability =\u003E View categories, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-527735663 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002215 characters\u0022\u003EView categories\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-527735663\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.313289,"xdebug_link":null},{"message":"[ability =\u003E View brands, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-60633578 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002211 characters\u0022\u003EView brands\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-60633578\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.313839,"xdebug_link":null},{"message":"[ability =\u003E View payments, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-1582784790 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002213 characters\u0022\u003EView payments\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-1582784790\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.314368,"xdebug_link":null},{"message":"[ability =\u003E Incoming payments, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-467358512 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002217 characters\u0022\u003EIncoming payments\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-467358512\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.314898,"xdebug_link":null},{"message":"[ability =\u003E Outgoing payments, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-711532901 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002217 characters\u0022\u003EOutgoing payments\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-711532901\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.315421,"xdebug_link":null},{"message":"[ability =\u003E View customers, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-1760633740 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002214 characters\u0022\u003EView customers\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-1760633740\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.315908,"xdebug_link":null},{"message":"[ability =\u003E View suppliers, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-41461565 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002214 characters\u0022\u003EView suppliers\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-41461565\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.316395,"xdebug_link":null},{"message":"[ability =\u003E View reports, result =\u003E true, user =\u003E 27, arguments =\u003E []]","message_html":"\u003Cpre class=sf-dump id=sf-dump-1498502317 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002212 characters\u0022\u003EView reports\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-1498502317\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.316952,"xdebug_link":null},{"message":"[\n  ability =\u003E Profit and loss report,\n  result =\u003E true,\n  user =\u003E 27,\n  arguments =\u003E []\n]","message_html":"\u003Cpre class=sf-dump id=sf-dump-242572591 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:4\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-compact\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eability\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002222 characters\u0022\u003EProfit and loss report\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Eresult\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-const\u003Etrue\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Euser\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Earguments\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E[]\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-242572591\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","is_string":false,"label":"success","time":1765270290.317496,"xdebug_link":null}]},"session":{"_token":"EmXHVlwbaiHs5KUwC3qi0mK005WGhb6APb4lwJlP","_previous":"array:1 [\n  \u0022url\u0022 =\u003E \u0022http:\/\/staging.shipquickk.com\/dashboard\u0022\n]","_flash":"array:2 [\n  \u0022old\u0022 =\u003E []\n  \u0022new\u0022 =\u003E []\n]","login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d":"27","PHPDEBUGBAR_STACK_DATA":"[]"},"request":{"telescope":"\u003Ca href=\u0022http:\/\/staging.shipquickk.com\/_debugbar\/telescope\/a08ce6db-d7d6-4c76-9e2a-7b81d5ee6f64\u0022 target=\u0022_blank\u0022\u003EView in Telescope\u003C\/a\u003E","path_info":"\/dashboard","status_code":"\u003Cpre class=sf-dump id=sf-dump-681578704 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-num\u003E200\u003C\/span\u003E\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-681578704\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","status_text":"OK","format":"html","content_type":"text\/html; charset=UTF-8","request_query":"\u003Cpre class=sf-dump id=sf-dump-919875154 data-indent-pad=\u0022  \u0022\u003E[]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-919875154\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","request_request":"\u003Cpre class=sf-dump id=sf-dump-1541595180 data-indent-pad=\u0022  \u0022\u003E[]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-1541595180\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","request_headers":"\u003Cpre class=sf-dump id=sf-dump-335560985 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:9\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-expanded\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Ecookie\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222718 characters\u0022\u003Eapi_token=eyJpdiI6InJ1WEhXM2xJVCtoOVRWa1pYYTlqdHc9PSIsInZhbHVlIjoiSW1RMGQweHArbjdNSVpxekU3Rk02dU1TVkxJa1BYdDNtcW1iSnNNQVpjbjNIeUZBYWh2Mm1uU3VrQmFtNXFSeDA2YWhuditTZ0ZkZ3pyVklMZTJ0dDJ6aE1nZTlOcFcrSGlhQzRvclJQbkJJcndENUtXUWtBcHVLaFplR1dPNVRXbTJ0bkszWnFvcktKVTREcFc5R1EvNWJoY29oNm1ZSnU4NjdmYzZGeDB6T2s3aGFoWng3Wm03OWdhcU1sRDhVa0JLeXlqUnFqWlNmTTYwdEdMN1d3enYwTXBGNnZYZmJpaU56bW5RaXpEL3hFbWNpVVA2c0dnSitHTTJsMXZXR3U5ZXdiYzZ1WHkxTzRmYmZzT0dmUkhLd042MlZEOUlCdFExVnNSWHFGRDdkSzRoemMyblVva0lBelY1QkY5OGNuNW11OEgrZTBxaHcydEtqVGx6YzNrcS9ROEorYUZGajJJVVNUZC9haW44N2tpSmExRkFhNlk5UDBkRGR0QmljbS9SNHZWV1lJSEZmZ3B6SzZCWndzSDM3RjZ5RTRTaElmVzBxUEFDRVpEMDEvdHJIMzNuVU8rWFR6WXp2ZHo0eG9sYmx3K3pITVhidGppUTk0UEtubE5wU29MVXNqVUpiOGw3dEpRTUx4WE50R2FPNHFHR0lZMG55djM4ZTlaZlVDSmZPY2p1Z2VPalh6a0NxdW5MWFA2K2QySnpHcEp4T29oRzBRUGh3ZS9FRUI2Y1lHS0piUUdXK2NXcmF3NWZRQlZRd1dZUFdSeGg3dXVaY1E0aklZbnNrWmVuelZZeWR1WDNobk90WHZGOWwyVE02VEhtemNRdHpaeVVYU2haNjZpWVBybC9UWlNHejJQRmljanlyU0pRMlllQWRXemZzazFQMndpdVo3ekU5Um41WHdVa2xVaFB2d2xmbWs5ZWJPVHplU2hieFV1UEJwb0hpN3VBQzBjZ29KSEpPeHBlWG5CNmdwYmN4dlhOWm1uaVVtNGorRGVyY2pvcUh0aHpIOVNiTW9HQS83RnlOZHFqYVR5ZTF5TldxVHVSKytwa0hhOWprZXpITHREQXZVdm8wQ2JuN3ZhQ2k1THdjSDBTcnNtRElnOER1NWhSckR2N3lqaWZQMHoxTWFaaGh2eFVmTjlBcGxGNjlTTDhuT3c5emg0OHgzMjBraEljVHRoanVaK05nOHlCbHM4ZWViNW9uK003enB4cUhmWmE3V3FxYXVBWFc1QWNSNkFlSjFlUUtIa3hXeHVmQWNheDdxS1VkSXFuYnRUZmQ1T2NtdmY2MUNvMGJqaXlCRy9kMmNZZGlwd1FMa1VBRmdUU2oyQ2hhdS9Vclp1N3JqKzJraFV3c3pxSHhxeXB2Q0JSeEZqZkZjRXJEOE5xSlRrYjVzWm5ZK2VWK0NIV1BLb2xJQzVranRhY0QrVWEzNWFNUjF2TEdMQ2tjM3ZlM1ZaL0w2dzgzdHU0NVZZN0dmTVFNcCtqKzZYQjYySGpsVWdmMit1NTAwaTdCVGVhVS8xaUNGandpUkNPYjhNcTZ1L1Z2dVhYb292ODZNcFh0aG5sSHY4cWFSaVZ4UTkwVTVoeUVLWU04UFVlb0c5VHphTGNuMmxsczY0YkZPSEVZbFBzdnNVQmkyVHBEL0loemFUSjBIK1crVmVPOE5hMWJQS3VFRGFZR0l1ajE0cjZKa3NEME9oeFozZzJGZUxVcjJDQWtGUmdaOUx4VXdaSGM2TFRsbTUxTzliaERJQW05UHJhWnVEcmZHVjhITFMxeWFXL2V4Qnptemswc0RCV2VVTCtaZ2owMFJLQm8xdz09IiwibWFjIjoiNzk3NWRhOGYzMDUxNzk0ZjYzOGRiNzkwZjcyNzgyNjYzNjUzMTJiN2E0Njc0ZjA3NjJkMDU2MzVhZGNjZWZlMCIsInRhZyI6IiJ9; XSRF-TOKEN=eyJpdiI6ImluUmlFdkF6K1dzS3JZSDJlTmFaOEE9PSIsInZhbHVlIjoieUMzd09kR2hGMjhjaWhkNTJDQ3JDRTh0UVRDRTV3cEttSFF3UW1hM0IwYkJQam9QK3NCZ1FLclJmTXNuM3ZNTHY0USsxNUZyRU9EN3duKzd4T003NHZlbFQrUVI4aS9aN2p4OFZ6YlU4QjN4bVZucFZlbE1QRVNKK0tRQ1pjbUwiLCJtYWMiOiJkMGJmMTdlYjk0OWU1MzU4NTE2ZjUyNjgwNGFjMDI3MzBhM2EyZjdkZTFjOTBmMzNkN2U1Nzk5ZjBiZWM1NDJkIiwidGFnIjoiIn0%3D; dutchfix_session=eyJpdiI6Ik5iUDdEdnFReXJwNXh5TGU4TVJwakE9PSIsInZhbHVlIjoib0d3YzBaYmQvYjVLbVNGVTZ5QXRTQkQvMWlrSzFhZDJHOHRkekJzeGJROExoa2h6ZU9NK1JzUnRkci9EUWYvVzJtWlRIY0NDUSs4eWVMNklpTGtUK0ZzZWo0WUJUdm5lTTMyNk04Zmx6V0RYSUtoTmdrMnZLRlBOMGM5V0w4SGYiLCJtYWMiOiI5OThmZDA0NTdkZjE0Y2JmYTU3NjUzOTViYjg3ZjUzMGQzNDNiNWQ0ZWUyM2E1ZjY5MzAzODkxZTliOTViM2IzIiwidGFnIjoiIn0%3D\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003Eaccept-language\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002214 characters\u0022\u003Een-US,en;q=0.9\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003Eaccept-encoding\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002213 characters\u0022\u003Egzip, deflate\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003Ereferer\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002235 characters\u0022\u003Ehttp:\/\/staging.shipquickk.com\/login\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003Eaccept\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u0022135 characters\u0022\u003Etext\/html,application\/xhtml+xml,application\/xml;q=0.9,image\/avif,image\/webp,image\/apng,*\/*;q=0.8,application\/signed-exchange;v=b3;q=0.7\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003Euser-agent\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u0022111 characters\u0022\u003EMozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/142.0.0.0 Safari\/537.36\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003Eupgrade-insecure-requests\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str\u003E1\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003Econnection\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002210 characters\u0022\u003Ekeep-alive\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003Ehost\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002222 characters\u0022\u003Estaging.shipquickk.com\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-335560985\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","request_server":"\u003Cpre class=sf-dump id=sf-dump-541402143 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:35\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-expanded\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003EUSER\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00228 characters\u0022\u003Ewww-data\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EHOME\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00228 characters\u0022\u003E\/var\/www\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EHTTP_COOKIE\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222718 characters\u0022\u003Eapi_token=eyJpdiI6InJ1WEhXM2xJVCtoOVRWa1pYYTlqdHc9PSIsInZhbHVlIjoiSW1RMGQweHArbjdNSVpxekU3Rk02dU1TVkxJa1BYdDNtcW1iSnNNQVpjbjNIeUZBYWh2Mm1uU3VrQmFtNXFSeDA2YWhuditTZ0ZkZ3pyVklMZTJ0dDJ6aE1nZTlOcFcrSGlhQzRvclJQbkJJcndENUtXUWtBcHVLaFplR1dPNVRXbTJ0bkszWnFvcktKVTREcFc5R1EvNWJoY29oNm1ZSnU4NjdmYzZGeDB6T2s3aGFoWng3Wm03OWdhcU1sRDhVa0JLeXlqUnFqWlNmTTYwdEdMN1d3enYwTXBGNnZYZmJpaU56bW5RaXpEL3hFbWNpVVA2c0dnSitHTTJsMXZXR3U5ZXdiYzZ1WHkxTzRmYmZzT0dmUkhLd042MlZEOUlCdFExVnNSWHFGRDdkSzRoemMyblVva0lBelY1QkY5OGNuNW11OEgrZTBxaHcydEtqVGx6YzNrcS9ROEorYUZGajJJVVNUZC9haW44N2tpSmExRkFhNlk5UDBkRGR0QmljbS9SNHZWV1lJSEZmZ3B6SzZCWndzSDM3RjZ5RTRTaElmVzBxUEFDRVpEMDEvdHJIMzNuVU8rWFR6WXp2ZHo0eG9sYmx3K3pITVhidGppUTk0UEtubE5wU29MVXNqVUpiOGw3dEpRTUx4WE50R2FPNHFHR0lZMG55djM4ZTlaZlVDSmZPY2p1Z2VPalh6a0NxdW5MWFA2K2QySnpHcEp4T29oRzBRUGh3ZS9FRUI2Y1lHS0piUUdXK2NXcmF3NWZRQlZRd1dZUFdSeGg3dXVaY1E0aklZbnNrWmVuelZZeWR1WDNobk90WHZGOWwyVE02VEhtemNRdHpaeVVYU2haNjZpWVBybC9UWlNHejJQRmljanlyU0pRMlllQWRXemZzazFQMndpdVo3ekU5Um41WHdVa2xVaFB2d2xmbWs5ZWJPVHplU2hieFV1UEJwb0hpN3VBQzBjZ29KSEpPeHBlWG5CNmdwYmN4dlhOWm1uaVVtNGorRGVyY2pvcUh0aHpIOVNiTW9HQS83RnlOZHFqYVR5ZTF5TldxVHVSKytwa0hhOWprZXpITHREQXZVdm8wQ2JuN3ZhQ2k1THdjSDBTcnNtRElnOER1NWhSckR2N3lqaWZQMHoxTWFaaGh2eFVmTjlBcGxGNjlTTDhuT3c5emg0OHgzMjBraEljVHRoanVaK05nOHlCbHM4ZWViNW9uK003enB4cUhmWmE3V3FxYXVBWFc1QWNSNkFlSjFlUUtIa3hXeHVmQWNheDdxS1VkSXFuYnRUZmQ1T2NtdmY2MUNvMGJqaXlCRy9kMmNZZGlwd1FMa1VBRmdUU2oyQ2hhdS9Vclp1N3JqKzJraFV3c3pxSHhxeXB2Q0JSeEZqZkZjRXJEOE5xSlRrYjVzWm5ZK2VWK0NIV1BLb2xJQzVranRhY0QrVWEzNWFNUjF2TEdMQ2tjM3ZlM1ZaL0w2dzgzdHU0NVZZN0dmTVFNcCtqKzZYQjYySGpsVWdmMit1NTAwaTdCVGVhVS8xaUNGandpUkNPYjhNcTZ1L1Z2dVhYb292ODZNcFh0aG5sSHY4cWFSaVZ4UTkwVTVoeUVLWU04UFVlb0c5VHphTGNuMmxsczY0YkZPSEVZbFBzdnNVQmkyVHBEL0loemFUSjBIK1crVmVPOE5hMWJQS3VFRGFZR0l1ajE0cjZKa3NEME9oeFozZzJGZUxVcjJDQWtGUmdaOUx4VXdaSGM2TFRsbTUxTzliaERJQW05UHJhWnVEcmZHVjhITFMxeWFXL2V4Qnptemswc0RCV2VVTCtaZ2owMFJLQm8xdz09IiwibWFjIjoiNzk3NWRhOGYzMDUxNzk0ZjYzOGRiNzkwZjcyNzgyNjYzNjUzMTJiN2E0Njc0ZjA3NjJkMDU2MzVhZGNjZWZlMCIsInRhZyI6IiJ9; XSRF-TOKEN=eyJpdiI6ImluUmlFdkF6K1dzS3JZSDJlTmFaOEE9PSIsInZhbHVlIjoieUMzd09kR2hGMjhjaWhkNTJDQ3JDRTh0UVRDRTV3cEttSFF3UW1hM0IwYkJQam9QK3NCZ1FLclJmTXNuM3ZNTHY0USsxNUZyRU9EN3duKzd4T003NHZlbFQrUVI4aS9aN2p4OFZ6YlU4QjN4bVZucFZlbE1QRVNKK0tRQ1pjbUwiLCJtYWMiOiJkMGJmMTdlYjk0OWU1MzU4NTE2ZjUyNjgwNGFjMDI3MzBhM2EyZjdkZTFjOTBmMzNkN2U1Nzk5ZjBiZWM1NDJkIiwidGFnIjoiIn0%3D; dutchfix_session=eyJpdiI6Ik5iUDdEdnFReXJwNXh5TGU4TVJwakE9PSIsInZhbHVlIjoib0d3YzBaYmQvYjVLbVNGVTZ5QXRTQkQvMWlrSzFhZDJHOHRkekJzeGJROExoa2h6ZU9NK1JzUnRkci9EUWYvVzJtWlRIY0NDUSs4eWVMNklpTGtUK0ZzZWo0WUJUdm5lTTMyNk04Zmx6V0RYSUtoTmdrMnZLRlBOMGM5V0w4SGYiLCJtYWMiOiI5OThmZDA0NTdkZjE0Y2JmYTU3NjUzOTViYjg3ZjUzMGQzNDNiNWQ0ZWUyM2E1ZjY5MzAzODkxZTliOTViM2IzIiwidGFnIjoiIn0%3D\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EHTTP_ACCEPT_LANGUAGE\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002214 characters\u0022\u003Een-US,en;q=0.9\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EHTTP_ACCEPT_ENCODING\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002213 characters\u0022\u003Egzip, deflate\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EHTTP_REFERER\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002235 characters\u0022\u003Ehttp:\/\/staging.shipquickk.com\/login\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EHTTP_ACCEPT\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u0022135 characters\u0022\u003Etext\/html,application\/xhtml+xml,application\/xml;q=0.9,image\/avif,image\/webp,image\/apng,*\/*;q=0.8,application\/signed-exchange;v=b3;q=0.7\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EHTTP_USER_AGENT\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u0022111 characters\u0022\u003EMozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/142.0.0.0 Safari\/537.36\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EHTTP_UPGRADE_INSECURE_REQUESTS\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str\u003E1\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EHTTP_CONNECTION\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002210 characters\u0022\u003Ekeep-alive\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EHTTP_HOST\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002222 characters\u0022\u003Estaging.shipquickk.com\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EREDIRECT_STATUS\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00223 characters\u0022\u003E200\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003ESERVER_NAME\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002222 characters\u0022\u003Estaging.shipquickk.com\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003ESERVER_PORT\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00222 characters\u0022\u003E80\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003ESERVER_ADDR\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002211 characters\u0022\u003E172.31.2.90\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EREMOTE_USER\u003C\/span\u003E\u0022 =\u003E \u0022\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EREMOTE_PORT\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00225 characters\u0022\u003E59030\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EREMOTE_ADDR\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002214 characters\u0022\u003E115.187.52.188\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003ESERVER_SOFTWARE\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002212 characters\u0022\u003Enginx\/1.18.0\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EGATEWAY_INTERFACE\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00227 characters\u0022\u003ECGI\/1.1\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EREQUEST_SCHEME\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00224 characters\u0022\u003Ehttp\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003ESERVER_PROTOCOL\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00228 characters\u0022\u003EHTTP\/1.1\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EDOCUMENT_ROOT\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002238 characters\u0022\u003E\/var\/www\/staging.shipquickk.com\/public\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EDOCUMENT_URI\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002210 characters\u0022\u003E\/index.php\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EREQUEST_URI\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002210 characters\u0022\u003E\/dashboard\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003ESCRIPT_NAME\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002210 characters\u0022\u003E\/index.php\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003ECONTENT_LENGTH\u003C\/span\u003E\u0022 =\u003E \u0022\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003ECONTENT_TYPE\u003C\/span\u003E\u0022 =\u003E \u0022\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EREQUEST_METHOD\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00223 characters\u0022\u003EGET\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EQUERY_STRING\u003C\/span\u003E\u0022 =\u003E \u0022\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003ESCRIPT_FILENAME\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002248 characters\u0022\u003E\/var\/www\/staging.shipquickk.com\/public\/index.php\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EFCGI_ROLE\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u00229 characters\u0022\u003ERESPONDER\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EPHP_SELF\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002210 characters\u0022\u003E\/index.php\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EREQUEST_TIME_FLOAT\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E1765270289.9663\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003EREQUEST_TIME\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E1765270289\u003C\/span\u003E\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-541402143\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","request_cookies":"\u003Cpre class=sf-dump id=sf-dump-1298816870 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:3\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-expanded\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Eapi_token\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u0022981 characters\u0022\u003EeyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5IiwianRpIjoiZTZjMWQ5MTgxNGIxMTgxZDRkOWM5ZTg1YTFmZjI5ODc1YThiMzRkNTc4OTI2MzliOWUzOTk5MzNmZTVlY2IwNzEyNDU1M2VkYjA3MDNhYjEiLCJpYXQiOjE3NjUyNzAyODkuMzcwNTgxLCJuYmYiOjE3NjUyNzAyODkuMzcwNTg0LCJleHAiOjE3ODA5OTE0ODkuMzQ3MDUyLCJzdWIiOiIyNyIsInNjb3BlcyI6W119.UiL05bmhYSZl7xHZORVPKsk_FDiM3ubPUlk4_67jKFUzbLG6atm0A8xknj8pRscVD2Pzz75CGuVW0mP4hOOaB-si132tG5eLPHqEI5vCINO4D_BfyzjKMw0gaQXxkGbF34PnoiF6idPBti3dt9ou-q9LgJ7P6EJ8NzeC1ndP8cDk6VWWA6CA6vwo_5H85T0XhF_Ny7CTLWZLbwKr9CE-49fmp-iWw6TUWTirJcuAISju4Jr1o2xA4uT4zvfW4FRQxUqjJy8Qsrp0PPlxc7xn1k8XyNk3AvuJ5b-JNDFGrMp_Z2XG-DrBVDePUTcjCw6MY6-iorHhxYQKkgSe7GeZiCRD-1c7jrfG__GboSZzV_0MyNW_rrygd5_Ba_jiQ660og-eUoJlnHkG-HfRAnNjpgzeBcoHG-hgINuI7o4NyLlgNwKf3XGf1zBquJ4OxCdKQFrhm5HA99_kJ2XgcakMFWFiL61ZPNn-jIOyHOpcu-vBogwI671-hMk83v87PdDFrnKMzpiOHjOe0hk70OQEXe8CX_VDe39pCMLPLbbfRxyzazooAKlRJJHmrHLw0r7ouGel5WyrxxVtvJRE4wswrtHtwlgj32h3D2mohtexn4Phse22x5_nuW7Uf23MzTLQPiT_ujk9PzE0DTzEpiIcxnluqNXkNzZFnNzqrmX9gBs\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003EXSRF-TOKEN\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002240 characters\u0022\u003EEmXHVlwbaiHs5KUwC3qi0mK005WGhb6APb4lwJlP\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003Edutchfix_session\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002240 characters\u0022\u003ErUlfEjozR2Rwi1PR0y1bswm1g6xj6PNyzEstvSZ4\u003C\/span\u003E\u0022\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-1298816870\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","response_headers":"\u003Cpre class=sf-dump id=sf-dump-1829896494 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:5\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-expanded\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003Econtent-type\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002224 characters\u0022\u003Etext\/html; charset=UTF-8\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003Ecache-control\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002217 characters\u0022\u003Eno-cache, private\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003Edate\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002229 characters\u0022\u003ETue, 09 Dec 2025 08:51:30 GMT\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003Eset-cookie\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:2\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u0022428 characters\u0022\u003EXSRF-TOKEN=eyJpdiI6IkRGRjk4ZDE5L2Iyb3FDSUI0cHU1a0E9PSIsInZhbHVlIjoiNVNxdHZ5Um1sWjlXdk9sV2I5N2NZNk5jT0pmV3BUVXU0elR2YWJUNGZ1TVBkV1hXcUg3S1hGVCsyV21qYnA2bUZQaWJEYmtCS25CMGdhUEc5bDdMVGVaL01peEtUNERIY1p4Ynh1eFlJc3BRKzFFdWVJSG10bUtCR1o4U3h1bTIiLCJtYWMiOiIzYjYwMDBkZmJhODBjYzhhZWE1NDM1MjQ1MGJlMDM0YTk0MWVmNDhmMjJjZjc4MTU3NzhjZWQwYWQwMTVjODE3IiwidGFnIjoiIn0%3D; expires=Tue, 09-Dec-2025 10:51:30 GMT; Max-Age=7200; path=\/; samesite=lax\u003C\/span\u003E\u0022\n    \u003Cspan class=sf-dump-index\u003E1\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u0022444 characters\u0022\u003Edutchfix_session=eyJpdiI6InpOdnkyQ0RRMVlEU1Y5aUhLQnh6OEE9PSIsInZhbHVlIjoieWVCYk1NN29mc21kMWhINEV3RlE2b1ZxNFpwNWlhRi80VFgxak5iVGFVMHhuYTZ1NzdURmwyN2lqa05rNzV6eHVId20rVi9lS1BsZ2VkMWdjWlRFamN1ZjZzcmx6cTN6MEZ3Y2tiMXZiU3FiZTFETTc0NHNXQURQSEx3N1JLWkMiLCJtYWMiOiJkZjgzZThjNmRkNjgxMTA4MjUxNzU2OGI1OTJjNjJmYjI5M2ExNDIwNTNmMDUxYTZmNjQ4YzdiMmMxMjc1OTNmIiwidGFnIjoiIn0%3D; expires=Tue, 09-Dec-2025 10:51:30 GMT; Max-Age=7200; path=\/; httponly; samesite=lax\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003ESet-Cookie\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:2\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u003Cspan class=sf-dump-index\u003E0\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u0022400 characters\u0022\u003EXSRF-TOKEN=eyJpdiI6IkRGRjk4ZDE5L2Iyb3FDSUI0cHU1a0E9PSIsInZhbHVlIjoiNVNxdHZ5Um1sWjlXdk9sV2I5N2NZNk5jT0pmV3BUVXU0elR2YWJUNGZ1TVBkV1hXcUg3S1hGVCsyV21qYnA2bUZQaWJEYmtCS25CMGdhUEc5bDdMVGVaL01peEtUNERIY1p4Ynh1eFlJc3BRKzFFdWVJSG10bUtCR1o4U3h1bTIiLCJtYWMiOiIzYjYwMDBkZmJhODBjYzhhZWE1NDM1MjQ1MGJlMDM0YTk0MWVmNDhmMjJjZjc4MTU3NzhjZWQwYWQwMTVjODE3IiwidGFnIjoiIn0%3D; expires=Tue, 09-Dec-2025 10:51:30 GMT; path=\/\u003C\/span\u003E\u0022\n    \u003Cspan class=sf-dump-index\u003E1\u003C\/span\u003E =\u003E \u0022\u003Cspan class=sf-dump-str title=\u0022416 characters\u0022\u003Edutchfix_session=eyJpdiI6InpOdnkyQ0RRMVlEU1Y5aUhLQnh6OEE9PSIsInZhbHVlIjoieWVCYk1NN29mc21kMWhINEV3RlE2b1ZxNFpwNWlhRi80VFgxak5iVGFVMHhuYTZ1NzdURmwyN2lqa05rNzV6eHVId20rVi9lS1BsZ2VkMWdjWlRFamN1ZjZzcmx6cTN6MEZ3Y2tiMXZiU3FiZTFETTc0NHNXQURQSEx3N1JLWkMiLCJtYWMiOiJkZjgzZThjNmRkNjgxMTA4MjUxNzU2OGI1OTJjNjJmYjI5M2ExNDIwNTNmMDUxYTZmNjQ4YzdiMmMxMjc1OTNmIiwidGFnIjoiIn0%3D; expires=Tue, 09-Dec-2025 10:51:30 GMT; path=\/; httponly\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-1829896494\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n","session_attributes":"\u003Cpre class=sf-dump id=sf-dump-1137741548 data-indent-pad=\u0022  \u0022\u003E\u003Cspan class=sf-dump-note\u003Earray:5\u003C\/span\u003E [\u003Csamp data-depth=1 class=sf-dump-expanded\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003E_token\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002240 characters\u0022\u003EEmXHVlwbaiHs5KUwC3qi0mK005WGhb6APb4lwJlP\u003C\/span\u003E\u0022\n  \u0022\u003Cspan class=sf-dump-key\u003E_previous\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:1\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u0022\u003Cspan class=sf-dump-key\u003Eurl\u003C\/span\u003E\u0022 =\u003E \u0022\u003Cspan class=sf-dump-str title=\u002239 characters\u0022\u003Ehttp:\/\/staging.shipquickk.com\/dashboard\u003C\/span\u003E\u0022\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003E_flash\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-note\u003Earray:2\u003C\/span\u003E [\u003Csamp data-depth=2 class=sf-dump-compact\u003E\n    \u0022\u003Cspan class=sf-dump-key\u003Eold\u003C\/span\u003E\u0022 =\u003E []\n    \u0022\u003Cspan class=sf-dump-key\u003Enew\u003C\/span\u003E\u0022 =\u003E []\n  \u003C\/samp\u003E]\n  \u0022\u003Cspan class=sf-dump-key\u003Elogin_web_59ba36addc2b2f9401580f014c7f58ea4e30989d\u003C\/span\u003E\u0022 =\u003E \u003Cspan class=sf-dump-num\u003E27\u003C\/span\u003E\n  \u0022\u003Cspan class=sf-dump-key\u003EPHPDEBUGBAR_STACK_DATA\u003C\/span\u003E\u0022 =\u003E []\n\u003C\/samp\u003E]\n\u003C\/pre\u003E\u003Cscript\u003ESfdump(\u0022sf-dump-1137741548\u0022, {\u0022maxDepth\u0022:0})\u003C\/script\u003E\n"}}, "Xde53d1c56d2ea5093531e357ccab1be0");
+
+</script>
+</body>
+
+</html>

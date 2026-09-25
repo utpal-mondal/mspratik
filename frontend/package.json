@@ -1,0 +1,51 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@tanstack/react-query": "^5.90.11",
+    "@tiptap/react": "^3.27.3",
+    "@tiptap/starter-kit": "^3.27.3",
+    "@types/chart.js": "^2.9.41",
+    "@types/jsbarcode": "^3.11.4",
+    "@types/react-datepicker": "^6.2.0",
+    "axios": "^1.13.2",
+    "bootstrap": "^5.3.8",
+    "chart.js": "^4.5.1",
+    "date-fns": "^4.4.0",
+    "jsbarcode": "^3.12.3",
+    "lucide-react": "^0.561.0",
+    "react-bootstrap-icons": "^1.11.6",
+    "react-datepicker": "^9.0.0",
+    "react-day-picker": "^10.0.1",
+    "react-icons": "^5.7.0",
+    "react-router-dom": "^6.22.3",
+    "react-toastify": "^11.1.0",
+    "recharts": "^3.9.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.25",
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
+    "autoprefixer": "^10.4.22",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "next": "^16.0.6",
+    "postcss": "^8.5.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^3.4.18",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
+}
