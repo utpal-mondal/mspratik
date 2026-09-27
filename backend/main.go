@@ -69,7 +69,7 @@ func main() {
 
 	// root route
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Order nest Backend is running successfully")
+		return c.SendString("Pratik transport Backend is running successfully")
 	})
 
 	// Start server
