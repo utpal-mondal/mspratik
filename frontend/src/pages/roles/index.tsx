@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { toast } from "react-toastify";
 import Head from "next/head";
 import Link from "next/link";
-import { Shield, Plus, Edit2, Trash2, Search, ChevronDown, ChevronRight, } from "lucide-react";
+import { Shield, Plus, Edit2, Trash2, Search, ChevronDown } from "lucide-react";
 import usePermission from "@/hook/usePermission";
 import AccessDenied from "@/components/AccessDenied";
 import { settingsApi } from "@/lib/api";
@@ -233,10 +233,12 @@ const RolesPage = () => {
         <div className="mb-3">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center gap-1 text-sm text-gray-700">
-              <Link href="/settings" className="text-blue-600 text-[12px] underline underline-offset-2 hover:text-blue-700">
+              {/* <Link href="/settings" className="text-blue-600 text-[12px] underline underline-offset-2 hover:text-blue-700">
                 Settings
-              </Link>
-              <ChevronRight size={14} className="text-gray-500" />
+              </Link> */}
+              <Link href="/dashboard" className="text-gray-500 hover:text-gray-700">
+                              <ChevronDown size={14} className="rotate-90" />
+                            </Link>
               <span className="font-medium text-gray-800">Roles</span>
             </div>
             <button

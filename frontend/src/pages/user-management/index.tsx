@@ -130,7 +130,7 @@ const UserPage = () => {
         <div className="mb-3">
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center space-x-2">
-              <Link href="/settings" className="text-gray-500 hover:text-gray-700">
+              <Link href="/dashboard" className="text-gray-500 hover:text-gray-700">
                 <ChevronDown size={14} className="rotate-90" />
               </Link>
               <div>
