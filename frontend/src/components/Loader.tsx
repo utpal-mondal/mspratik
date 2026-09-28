@@ -6,7 +6,7 @@ const Loader = () => {
     <div className={styles.loaderContainer}>
       <Image
         src="/images/pratik-transport-logo.png"
-        alt="A Unique Logo"
+        alt="Pratik Transport Logo"
         width={140}
         height={140}
         priority
