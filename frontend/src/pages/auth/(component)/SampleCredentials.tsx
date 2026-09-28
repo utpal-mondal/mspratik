@@ -10,15 +10,15 @@ interface Credential {
 
 const credentials: Credential[] = [
   {
-    role: "Company User",
-    userName: "companyUser",
+    role: "Admin User",
+    userName: "adminUser",
     password: "company@user123",
     access: "Full Access",
     color: "red",
   },
   {
-    role: "Normal User",
-    userName: "normalUser",
+    role: "Staff User",
+    userName: "staffUser",
     password: "normal@user123",
     access: "Full Access",
     color: "blue",

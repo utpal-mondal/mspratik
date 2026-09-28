@@ -7,6 +7,9 @@ import {
   LayoutDashboard,
   Settings,
   ChevronDown,
+  Building,
+  Shield ,
+  User,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -19,6 +22,7 @@ interface MenuItem {
   icon: React.ReactNode;
   path: string;
   submenu?: { name: string; path: string }[];
+  adminOnly?: boolean;
 }
 
 const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
@@ -59,6 +63,24 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         icon: <LayoutDashboard size={20} />,
         path: "/dashboard",
       },
+       {
+        name: "Company Details",
+        icon: <Building  size={20} />,
+        path: "/company-details",
+        adminOnly: true,
+      },
+       {
+        name: "User Management",
+        icon: <User size={20} />,
+        path: "/user-management",
+        adminOnly: true,
+      },
+       {
+        name: "Roles",
+        icon: <Shield  size={20} />,
+        path: "/roles",
+        adminOnly: true,
+      },
     ],
     [],
   );
@@ -85,7 +107,9 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
     });
   }, [router.pathname, menuItems]);
 
-  const visibleMenuItems = menuItems;
+  const visibleMenuItems = isCadmin()
+    ? menuItems
+    : menuItems.filter((item) => !item.adminOnly);
 
   if (!user) {
     return null;

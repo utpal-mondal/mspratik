@@ -2,6 +2,7 @@
 package handlers
 
 import (
+	"log"
 	"time"
 
 	"wms-backend/middleware"
@@ -84,7 +85,7 @@ func UpdateCompanyDetails(c *fiber.Ctx, db *gorm.DB) error {
 		"phone_number":  req.PhoneNumber,
 		"vat_number":    req.VatNumber,
 		"address":       req.Address,
-		"address_2":     req.Address2,
+		"address2":      req.Address2,
 		"post_code":     req.PostCode,
 		"region":        req.Region,
 		"city":          req.City,
@@ -102,6 +103,7 @@ func UpdateCompanyDetails(c *fiber.Ctx, db *gorm.DB) error {
 	}
 
 	if err := db.Model(&company).Updates(updates).Error; err != nil {
+		log.Printf("Failed to update company %d: %v", company.ID, err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status":  "fail",
 			"message": "Failed to update company details",

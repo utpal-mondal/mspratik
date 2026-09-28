@@ -3,12 +3,18 @@ import { toast } from "react-toastify";
 import Head from "next/head";
 import Link from "next/link";
 import { Shield, Plus, Edit2, Trash2, Search, ChevronDown, ChevronRight, } from "lucide-react";
-import withAuth from "../../../components/withAuth";
-import usePermission from "../../../hook/usePermission";
-import AccessDenied from "../../../components/AccessDenied";
+import usePermission from "@/hook/usePermission";
+import AccessDenied from "@/components/AccessDenied";
+import { settingsApi } from "@/lib/api";
 import RoleModal from "./(component)/RoleModal";
 import DeleteConfirmationModal from "./(component)/DeleteConfirmationModal";
-import { settingsApi } from "../../../lib/api";
+import withAuth from "@/components/withAuth";
+// import withAuth from "../../../components/withAuth";
+// import usePermission from "../../../hook/usePermission";
+// import AccessDenied from "../../../components/AccessDenied";
+// import RoleModal from "./(component)/RoleModal";
+// import DeleteConfirmationModal from "./(component)/DeleteConfirmationModal";
+// import { settingsApi } from "../../../lib/api";
 
 interface BackendPermission {
   id: number;

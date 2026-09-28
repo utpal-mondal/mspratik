@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { settingsApi } from '../../../lib/api'
+// import { settingsApi } from '../../../lib/api'
 import EditPasswordModal from './(component)/EditPasswordModal';
+import DeleteConfirmationModal from './(component)/DeleteConfirmationModal';
 import Link from 'next/link';
 import { 
   User,
@@ -12,9 +13,13 @@ import {
   ChevronDown,
   Key
 } from 'lucide-react';
-import withAuth from '../../../components/withAuth';
-import usePermission from '../../../hook/usePermission';
-import AccessDenied from '../../../components/AccessDenied';
+import usePermission from '@/hook/usePermission';
+import AccessDenied from '@/components/AccessDenied';
+import { settingsApi } from '@/lib/api';
+import withAuth from '@/components/withAuth';
+// import withAuth from '../../../components/withAuth';
+// import usePermission from '../../../hook/usePermission';
+// import AccessDenied from '../../../components/AccessDenied';
 
 // types for Users
 type  UsersData = 
@@ -41,6 +46,8 @@ const UserPage = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [editPasswordUser, setEditPasswordUser] = useState<{ id: number; name: string } | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<{ id: number; name: string } | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const { isCadmin } = usePermission();
 
   if (!isCadmin()) {
@@ -85,16 +92,19 @@ const UserPage = () => {
     user.role.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleDelete = async (userId: number) => {
-    if (confirm('Are you sure you want to delete this user?')) {
-      try {
-        await settingsApi.deleteUser(userId);
-        setUsers(users.filter(user => user.id !== userId));
-        toast.success('User deleted successfully');
-      } catch (error) {
-        console.error('Error deleting user:', error);
-        toast.error('Failed to delete user');
-      }
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
+    try {
+      setDeleting(true);
+      await settingsApi.deleteUser(deleteTarget.id);
+      setUsers(users.filter(user => user.id !== deleteTarget.id));
+      toast.success('User deleted successfully');
+      setDeleteTarget(null);
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      toast.error('Failed to delete user');
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -213,7 +223,7 @@ const UserPage = () => {
                           {user.isCadmin !== "1" && (
                             <>
                               <Link
-                                href={`/settings/user/edit/${user.id}`}
+                                href={`/user-management/edit/${user.id}`}
                                 className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded transition-colors"
                               >
                                 <Edit2 size={12} />
@@ -226,7 +236,7 @@ const UserPage = () => {
                                 <Key size={12} />
                               </button>
                               <button
-                                onClick={() => handleDelete(user.id)}
+                                onClick={() => setDeleteTarget({ id: user.id, name: user.name })}
                                 className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
                               >
                                 <Trash2 size={12} />
@@ -243,7 +253,7 @@ const UserPage = () => {
           </div>
 
           <div className="flex items-center justify-between px-3 py-2 border-t border-gray-200 bg-gray-50">
-            <div className="flex items-center space-x-2">
+            {/* <div className="flex items-center space-x-2">
               <span className="text-[10px] text-gray-500">Rows per page:</span>
               <select
                 value={limit}
@@ -261,7 +271,7 @@ const UserPage = () => {
               <span className="text-[10px] text-gray-500">
                 {total > 0 ? `Page ${page} of ${totalPages}` : 'No data'}
               </span>
-            </div>
+            </div> */}
             <div className="flex items-center space-x-1">
               <button
                 onClick={() => setPage(prev => Math.max(prev - 1, 1))}
@@ -287,6 +297,14 @@ const UserPage = () => {
         onClose={() => setEditPasswordUser(null)}
         userId={editPasswordUser?.id || 0}
         userName={editPasswordUser?.name}
+      />
+
+      <DeleteConfirmationModal
+        isOpen={!!deleteTarget}
+        onClose={() => setDeleteTarget(null)}
+        onConfirm={handleDelete}
+        userName={deleteTarget?.name}
+        isDeleting={deleting}
       />
     </>
   );

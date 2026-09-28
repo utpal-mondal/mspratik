@@ -27,10 +27,9 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;700&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/images/a-unique-logo-mini.png" />
-        <link rel="icon" href="/images/a-unique-logo-mini.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/images/a-unique-logo-mini.png" />
-        <link rel="shortcut icon" href="/images/a-unique-logo-mini.png" />
+        <link rel="icon" href="/images/pratik-transport-logo-mini.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/images/pratik-transport-logo-mini.png" />
+        <link rel="shortcut icon" href="/images/pratik-transport-logo-mini.png" />
       </Head>
       <body className="font-sans">
         <Main />

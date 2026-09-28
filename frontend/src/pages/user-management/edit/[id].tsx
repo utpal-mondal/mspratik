@@ -4,11 +4,16 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { ArrowLeft, Save, Building2, User, Mail, Globe, Bell, Shield } from "lucide-react";
-import withAuth from "../../../../components/withAuth";
-import usePermission from "../../../../hook/usePermission";
-import AccessDenied from "../../../../components/AccessDenied";
-import { settingsApi } from "../../../../lib/api";
-import { SearchableDropdown } from "../../../../components/ui/SearchableDropdown";
+import usePermission from "@/hook/usePermission";
+import { settingsApi } from "@/lib/api";
+import AccessDenied from "@/components/AccessDenied";
+import { SearchableDropdown } from "@/components/ui/SearchableDropdown";
+import withAuth from "@/components/withAuth";
+// import withAuth from "../../../../components/withAuth";
+// import usePermission from "../../../../hook/usePermission";
+// import AccessDenied from "../../../../components/AccessDenied";
+// import { settingsApi } from "../../../../lib/api";
+// import { SearchableDropdown } from "../../../../components/ui/SearchableDropdown";
 
 const EditUserPage = () => {
   const router = useRouter();
