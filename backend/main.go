@@ -44,7 +44,7 @@ func main() {
 
 	// Middleware
 	app.Use(cors.New(cors.Config{
-		AllowOrigins:     "http://localhost:3000,https://mspratik.code-dev.in/",
+		AllowOrigins:     "http://localhost:3000,https://mspratik.code-dev.in",
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
 		AllowMethods:     "GET, POST, PUT, DELETE, PATCH, OPTIONS",
 		AllowCredentials: true,
