@@ -5,7 +5,7 @@ const Loader = () => {
   return (
     <div className={styles.loaderContainer}>
       <Image
-        src="/images/a-unique-logo.png"
+        src="/images/pratik-transport-logo.png"
         alt="A Unique Logo"
         width={140}
         height={140}
