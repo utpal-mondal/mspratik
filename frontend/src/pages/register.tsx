@@ -693,7 +693,7 @@ const RegisterPage = () => {
         <div className="flex justify-center py-4">
           <div className="relative w-48 h-16">
             <img
-              src="/images/a-unique-logo.png"
+              src="/images/pratik-transport-logo.png"
               alt="a-unique-logo"
               className="w-full h-full object-contain"
             />
