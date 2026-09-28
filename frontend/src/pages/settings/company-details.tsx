@@ -150,7 +150,7 @@ const CompanyDetailsPage = () => {
   return (
     <>
       <Head>
-        <title>Company Details | A Unique Tell</title>
+        <title>Company Details | Pratik Transport</title>
         <meta name="description" content="Company details" />
       </Head>
 

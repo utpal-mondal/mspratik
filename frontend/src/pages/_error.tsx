@@ -32,7 +32,7 @@ const ErrorPage = ({ statusCode }: { statusCode?: number }) => {
     <>
       <Head>
         <title>
-          {statusCode ? `${statusCode} - Error` : "Error"} | A Unique Tell
+          {statusCode ? `${statusCode} - Error` : "Error"} | Pratik Transport
         </title>
         <meta name="description" content={getErrorMessage(statusCode)} />
       </Head>

@@ -130,7 +130,7 @@ const LoginPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-cream-50 to-blue-100 py-12 px-4 sm:px-6 lg:px-8">
       <Head>
-        <title>Login - A unique tell</title>
+        <title>Login - Pratik Transport</title>
       </Head>
 
       {/* Animated background elements */}

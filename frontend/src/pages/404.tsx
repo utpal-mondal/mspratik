@@ -9,7 +9,7 @@ const Custom404 = () => {
   return (
     <>
       <Head>
-        <title>404 - Page Not Found | A Unique Tell</title>
+        <title>404 - Page Not Found | Pratik Transport</title>
         <meta
           name="description"
           content="The page you're looking for doesn't exist."

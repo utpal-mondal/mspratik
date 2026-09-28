@@ -168,7 +168,7 @@ const EditUserPage = () => {
   return (
     <>
       <Head>
-        <title>Edit User | A Unique Tell</title>
+        <title>Edit User | Pratik Transport</title>
         <meta name="description" content="Edit user" />
       </Head>
 

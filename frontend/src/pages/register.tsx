@@ -694,7 +694,7 @@ const RegisterPage = () => {
           <div className="relative w-48 h-16">
             <img
               src="/images/pratik-transport-logo.png"
-              alt="a-unique-logo"
+              alt="pratik-transport-logo"
               className="w-full h-full object-contain"
             />
           </div>

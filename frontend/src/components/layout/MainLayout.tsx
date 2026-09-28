@@ -19,7 +19,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen bg-gray-100">
       <Head>
-        <title>A Unique Tell</title>
+        <title>Pratik Transport</title>
         <meta name="description" content="ShipQuick Dashboard" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

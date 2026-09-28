@@ -121,7 +121,7 @@ const SettingsPage = () => {
   return (
     <>
       <Head>
-        <title>Settings | A Unique Tell</title>
+        <title>Settings | Pratik Transport</title>
         <meta name="description" content="Shipquick Settings" />
       </Head>
 

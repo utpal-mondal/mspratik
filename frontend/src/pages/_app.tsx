@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <Head>
-            <title>{`${pageTitle} | A Unique Tell`}</title>
+            <title>{`${pageTitle} | Pratik Transport`}</title>
             <meta
               name="viewport"
               content="width=device-width, initial-scale=1"

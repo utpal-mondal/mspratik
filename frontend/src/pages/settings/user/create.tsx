@@ -168,7 +168,7 @@ const CreateUserPage = () => {
   return (
     <>
       <Head>
-        <title>Create User | A Unique Tell</title>
+        <title>Create User | Pratik Transport</title>
         <meta name="description" content="Create new user" />
       </Head>
 

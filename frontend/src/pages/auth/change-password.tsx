@@ -60,7 +60,7 @@ const ChangePasswordPage = () => {
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-gradient-to-br from-blue-50 via-cream-50 to-blue-100 py-12 px-4 sm:px-6 lg:px-8">
       <Head>
-        <title>Change Password - A unique tell</title>
+        <title>Change Password - Pratik Transport</title>
       </Head>
 
       <section className="relative z-10 w-full max-w-sm">
