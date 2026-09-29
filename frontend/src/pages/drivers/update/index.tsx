@@ -96,7 +96,7 @@ const UpdateDriverPage = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
-      toast.error("Please fix the errors before submitting");
+      toast.error("Please enter the driver name");
       return;
     }
 
