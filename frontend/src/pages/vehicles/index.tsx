@@ -18,7 +18,6 @@ const VehiclesPage = () => {
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
   const [total, setTotal] = useState(0);
-  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<VehicleRecord | null>(null);
   const [deleting, setDeleting] = useState(false);
@@ -36,7 +35,6 @@ const VehiclesPage = () => {
       });
       setVehicles(res?.data?.data || []);
       setTotal(res?.data?.meta?.total || 0);
-      setTotalPages(res?.data?.meta?.totalPages || 1);
     } catch (error) {
       console.error("Error fetching vehicles:", error);
       toast.error("Failed to fetch vehicles");
@@ -49,13 +47,20 @@ const VehiclesPage = () => {
     getVehicles();
   }, [page, limit, debouncedQuery, vehicleType]);
 
-  useEffect(() => {
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
     setPage(1);
-  }, [debouncedQuery, vehicleType]);
+  };
+
+  const handleVehicleTypeChange = (value: string) => {
+    setVehicleType(value);
+    setPage(1);
+  };
 
   const handleResetFilters = () => {
     setSearchQuery("");
     setVehicleType("");
+    setPage(1);
   };
 
   const handleDelete = async () => {
@@ -85,26 +90,28 @@ const VehiclesPage = () => {
       <main className="flex-1 p-3 md:p-4">
         <PageHeader total={total} />
 
-        <FilterSection
-          searchQuery={searchQuery}
-          vehicleType={vehicleType}
-          onSearchChange={setSearchQuery}
-          onVehicleTypeChange={setVehicleType}
-          onReset={handleResetFilters}
-        />
+        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+          <FilterSection
+            searchQuery={searchQuery}
+            vehicleType={vehicleType}
+            onSearchChange={handleSearchChange}
+            onVehicleTypeChange={handleVehicleTypeChange}
+            onReset={handleResetFilters}
+          />
 
-        <VehicleTable
-          vehicles={vehicles}
-          loading={loading}
-          onDelete={setDeleteTarget}
-        />
+          <VehicleTable
+            vehicles={vehicles}
+            loading={loading}
+            onDelete={setDeleteTarget}
+          />
 
-        <Pagination
-          currentPage={page}
-          total={total}
-          perPage={limit}
-          onPageChange={setPage}
-        />
+          <Pagination
+            currentPage={page}
+            total={total}
+            perPage={limit}
+            onPageChange={setPage}
+          />
+        </div>
       </main>
 
       <DeleteVehicleModal

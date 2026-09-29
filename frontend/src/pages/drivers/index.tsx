@@ -17,7 +17,6 @@ const DriversPage = () => {
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
   const [total, setTotal] = useState(0);
-  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<DriverRecord | null>(null);
   const [deleting, setDeleting] = useState(false);
@@ -34,7 +33,6 @@ const DriversPage = () => {
       });
       setDrivers(res?.data?.data || []);
       setTotal(res?.data?.meta?.total || 0);
-      setTotalPages(res?.data?.meta?.totalPages || 1);
     } catch (error) {
       console.error("Error fetching drivers:", error);
       toast.error("Failed to fetch drivers");
@@ -47,12 +45,14 @@ const DriversPage = () => {
     getDrivers();
   }, [page, limit, debouncedQuery]);
 
-  useEffect(() => {
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
     setPage(1);
-  }, [debouncedQuery]);
+  };
 
   const handleResetFilters = () => {
     setSearchQuery("");
+    setPage(1);
   };
 
   const handleDelete = async () => {
@@ -79,27 +79,29 @@ const DriversPage = () => {
         <meta name="description" content="Driver list" />
       </Head>
 
-      <main className="flex-1 p-2 md:p-3">
+      <main className="flex-1 p-3 md:p-4">
         <PageHeader total={total} />
 
-        <FilterSection
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          onReset={handleResetFilters}
-        />
+        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+          <FilterSection
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            onReset={handleResetFilters}
+          />
 
-        <DriverTable
-          drivers={drivers}
-          loading={loading}
-          onDelete={setDeleteTarget}
-        />
+          <DriverTable
+            drivers={drivers}
+            loading={loading}
+            onDelete={setDeleteTarget}
+          />
 
-        <Pagination
-          currentPage={page}
-          total={total}
-          perPage={limit}
-          onPageChange={setPage}
-        />
+          <Pagination
+            currentPage={page}
+            total={total}
+            perPage={limit}
+            onPageChange={setPage}
+          />
+        </div>
       </main>
 
       <DeleteDriverModal

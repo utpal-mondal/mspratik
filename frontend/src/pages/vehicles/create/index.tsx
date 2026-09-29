@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import withAuth from "../../../components/withAuth";
 import apiService from "../../../services/api";
@@ -25,6 +26,7 @@ const initialFormData: VehicleFormData = {
 };
 
 const VehicleEntryPage = () => {
+  const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
   const [formData, setFormData] = useState<VehicleFormData>(initialFormData);
@@ -103,7 +105,7 @@ const VehicleEntryPage = () => {
 
       await apiService.createVehicle(payload); // will use s3 for img's in future, for now store null fot the img's in db
       toast.success("Vehicle saved successfully");
-      setFormData(initialFormData);
+      router.push("/vehicles");
     } catch (error: any) {
       console.error("Error saving vehicle:", error);
       const apiErrors = error?.response?.data?.errors;

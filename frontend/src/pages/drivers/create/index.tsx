@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import withAuth from "../../../components/withAuth";
 import apiService from "../../../services/api";
@@ -20,6 +21,7 @@ const initialFormData: DriverFormData = {
 };
 
 const DriverEntryPage = () => {
+  const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
   const [formData, setFormData] = useState<DriverFormData>(initialFormData);
@@ -84,7 +86,7 @@ const DriverEntryPage = () => {
 
       await apiService.createDriver(payload);
       toast.success("Driver saved successfully");
-      setFormData(initialFormData);
+      router.push("/drivers");
     } catch (error: any) {
       console.error("Error saving driver:", error);
       const apiErrors = error?.response?.data?.errors;
