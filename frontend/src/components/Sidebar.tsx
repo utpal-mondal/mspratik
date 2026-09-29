@@ -138,15 +138,35 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
           <div
             className={`flex items-center ${isCollapsed ? "justify-center" : "justify-between"}`}
           >
-            <img
-              src={
-                isCollapsed
-                  ? "/images/pratik-transport-logo-mini.png"
-                  : "/images/pratik-transport-logo.png"
-              }
-              alt="Pratik Transport Logo"
-              className={`animate-fade-in transition-all duration-300 ${isCollapsed ? "h-8 w-8 object-contain" : "h-10 w-auto"}`}
-            />
+            {isCollapsed ? (
+              <picture>
+                <source
+                  media="(max-width: 1024px)"
+                  srcSet="/images/pratik-transport-logo-mini.svg"
+                />
+                <img
+                  src="/images/pratik-transport-logo-mini.png"
+                  alt="Pratik Transport Logo"
+                  className="animate-fade-in transition-all duration-300 h-8 w-8 object-contain"
+                />
+              </picture>
+            ) : (
+              <picture>
+                <source
+                  media="(max-width: 640px)"
+                  srcSet="/images/pratik-transport-logo-mini.svg"
+                />
+                <source
+                  media="(max-width: 1024px)"
+                  srcSet="/images/pratik-transport-logo.png"
+                />
+                <img
+                  src="/images/pratik-transport-logo.svg"
+                  alt="Pratik Transport Logo"
+                  className="animate-fade-in transition-all duration-300 h-10 w-auto"
+                />
+              </picture>
+            )}
           </div>
           {/* {!isCollapsed && user?.company_name && (
             <p className="mt-2 text-xs font-semibold text-gray-700 truncate">

@@ -144,11 +144,21 @@ const LoginPage = () => {
         <div className="rounded-xl border border-slate-200 bg-white/95 p-4 shadow-xl backdrop-blur-md">
           {/* Logo */}
           <div className="mb-4 flex justify-center">
-            <img
-              src="/images/pratik-transport-logo.png"
-              alt="pratik-transport-logo"
-              className="h-10 w-auto object-contain"
-            />
+            <picture>
+              <source
+                media="(max-width: 640px)"
+                srcSet="/images/pratik-transport-logo-mini.svg"
+              />
+              <source
+                media="(max-width: 1024px)"
+                srcSet="/images/pratik-transport-logo.png"
+              />
+              <img
+                src="/images/pratik-transport-logo.svg"
+                alt="pratik-transport-logo"
+                className="h-10 w-auto object-contain"
+              />
+            </picture>
           </div>
 
           {/* Header */}
