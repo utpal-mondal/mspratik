@@ -29,6 +29,9 @@ type vehicleRequest struct {
 	NumberOfWheels         string `json:"number_of_wheels"`
 	RegistrationExpiryDate string `json:"registration_expiry_date"`
 	RcNumber               string `json:"rc_number"`
+	PermitNumber           string `json:"permit_number"`
+	InsuranceNumber        string `json:"insurance_number"`
+	PucNumber              string `json:"puc_number"`
 }
 
 // parseVehicleRequest accepts both multipart/form-data and JSON bodies
@@ -48,6 +51,9 @@ func parseVehicleRequest(c *fiber.Ctx) (vehicleRequest, error) {
 		NumberOfWheels:         c.FormValue("number_of_wheels"),
 		RegistrationExpiryDate: c.FormValue("registration_expiry_date"),
 		RcNumber:               c.FormValue("rc_number"),
+		PermitNumber:           c.FormValue("permit_number"),
+		InsuranceNumber:        c.FormValue("insurance_number"),
+		PucNumber:              c.FormValue("puc_number"),
 	}, nil
 }
 
@@ -101,6 +107,9 @@ func validateVehicleRequest(req *vehicleRequest) (map[string]string, *time.Time,
 	}
 
 	req.RcNumber = strings.ToUpper(strings.TrimSpace(req.RcNumber))
+	req.PermitNumber = strings.ToUpper(strings.TrimSpace(req.PermitNumber))
+	req.InsuranceNumber = strings.ToUpper(strings.TrimSpace(req.InsuranceNumber))
+	req.PucNumber = strings.ToUpper(strings.TrimSpace(req.PucNumber))
 
 	return errors, expiry, wheels
 }
@@ -145,6 +154,9 @@ func CreateVehicle(c *fiber.Ctx, db *gorm.DB) error {
 			NumberOfWheels:         wheels,
 			RegistrationExpiryDate: expiry,
 			RcNumber:               req.RcNumber,
+			PermitNumber:           req.PermitNumber,
+			InsuranceNumber:        req.InsuranceNumber,
+			PucNumber:              req.PucNumber,
 			VehicleImage:           nil,
 			RcBookImage:            nil,
 			CreatedBy:              int64(authUser.ID),
@@ -287,6 +299,9 @@ func UpdateVehicle(c *fiber.Ctx, db *gorm.DB) error {
 	vehicle.NumberOfWheels = wheels
 	vehicle.RegistrationExpiryDate = expiry
 	vehicle.RcNumber = req.RcNumber
+	vehicle.PermitNumber = req.PermitNumber
+	vehicle.InsuranceNumber = req.InsuranceNumber
+	vehicle.PucNumber = req.PucNumber
 	now := time.Now()
 	vehicle.UpdatedAt = &now
 

@@ -6,6 +6,9 @@ export interface VehicleFormData {
   numberOfWheels: string;
   registrationExpiryDate: string;
   rcNumber: string;
+  permitNumber: string;
+  insuranceNumber: string;
+  pucNumber: string;
   vehicleImage: File | null;
   rcBookImage: File | null;
 }

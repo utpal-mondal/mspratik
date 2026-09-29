@@ -5,6 +5,7 @@ import { DriverRecord } from "@/types/drivers/types";
 interface DriverTableProps {
   drivers: DriverRecord[];
   loading: boolean;
+  onEdit: (driver: DriverRecord) => void;
   onDelete: (driver: DriverRecord) => void;
 }
 
@@ -37,13 +38,14 @@ const getAvatarColor = (name: string) => {
 const DriverTable: React.FC<DriverTableProps> = ({
   drivers,
   loading,
+  onEdit,
   onDelete,
 }) => {
   const actions = (driver: DriverRecord): ActionMenuItem[] => [
     {
       label: "Edit",
       icon: Pencil,
-      href: `/drivers/update?id=${driver.id}`,
+      onClick: () => onEdit(driver),
     },
     {
       label: "Delete",

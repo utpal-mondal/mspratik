@@ -17,6 +17,9 @@ type Vehicle struct {
 	NumberOfWheels         *int           `json:"number_of_wheels,omitempty"`
 	RegistrationExpiryDate *time.Time     `gorm:"type:date" json:"registration_expiry_date,omitempty"`
 	RcNumber               string         `gorm:"type:varchar(30)" json:"rc_number,omitempty"`
+	PermitNumber           string         `gorm:"type:varchar(30)" json:"permit_number,omitempty"`
+	InsuranceNumber        string         `gorm:"type:varchar(30)" json:"insurance_number,omitempty"`
+	PucNumber              string         `gorm:"type:varchar(30)" json:"puc_number,omitempty"`
 	VehicleImage           *string        `gorm:"type:varchar(255)" json:"vehicle_image,omitempty"`
 	RcBookImage            *string        `gorm:"type:varchar(255)" json:"rc_book_image,omitempty"`
 	CreatedBy              int64          `json:"created_by,omitempty"`

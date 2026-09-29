@@ -3,17 +3,29 @@ import { Save } from "lucide-react";
 
 interface FormActionsProps {
   saving: boolean;
+  onCancel?: () => void;
 }
 
-const FormActions: React.FC<FormActionsProps> = ({ saving }) => {
+const FormActions: React.FC<FormActionsProps> = ({ saving, onCancel }) => {
   return (
     <div className="flex items-center justify-end gap-3">
-      <Link
-        href="/drivers"
-        className="px-5 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium"
-      >
-        Cancel
-      </Link>
+      {onCancel ? (
+        <button
+          type="button"
+          onClick={onCancel}
+          disabled={saving}
+          className="px-5 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 disabled:opacity-50 transition-colors text-sm font-medium"
+        >
+          Cancel
+        </button>
+      ) : (
+        <Link
+          href="/drivers"
+          className="px-5 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium"
+        >
+          Cancel
+        </Link>
+      )}
       <button
         type="submit"
         disabled={saving}

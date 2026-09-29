@@ -3,9 +3,10 @@ import { ChevronDown, Plus } from "lucide-react";
 
 interface PageHeaderProps {
   total: number;
+  onAddDriver: () => void;
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({ total }) => {
+const PageHeader: React.FC<PageHeaderProps> = ({ total, onAddDriver }) => {
   return (
     <div className="mb-3">
       <div className="flex items-center justify-between mb-1">
@@ -18,13 +19,14 @@ const PageHeader: React.FC<PageHeaderProps> = ({ total }) => {
             <p className="text-xs text-gray-500">{total} drivers</p>
           </div>
         </div>
-        <Link
-          href="/drivers/create"
+        <button
+          type="button"
+          onClick={onAddDriver}
           className="flex items-center space-x-1 px-2.5 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 text-xs font-medium"
         >
           <Plus size={12} />
           <span>Add Driver</span>
-        </Link>
+        </button>
       </div>
     </div>
   );

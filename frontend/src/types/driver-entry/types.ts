@@ -13,4 +13,5 @@ export interface SectionProps {
   onChange: (field: keyof DriverFormData, value: string) => void;
   onFileChange: (field: "driverPhoto" | "licenceImage", file: File | null) => void;
   onClearError: (field: string) => void;
+  stacked?: boolean;
 }

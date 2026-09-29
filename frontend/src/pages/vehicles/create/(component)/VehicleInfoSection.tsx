@@ -9,17 +9,17 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
   onClearError,
 }) => {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-      <div className="px-5 py-3 border-b border-gray-100">
+    <div className="bg-white">
+      <div className="px-4 py-3">
         <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
           <Truck size={16} className="text-blue-600" />
           Vehicle Information
         </h2>
       </div>
-      <div className="p-5">
-        <div className="space-y-4">
+      <div className="px-4 pb-4">
+        <div className="grid grid-cols-1 gap-3">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Vehicle Number <span className="text-red-500">*</span>
             </label>
             <input
@@ -39,7 +39,7 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Vehicle Type
             </label>
             <select
@@ -53,7 +53,7 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Number of Wheels
             </label>
             <input
@@ -73,7 +73,7 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               Registration Expiry Date
             </label>
             <input
@@ -82,6 +82,48 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
               onChange={(e) => onChange("registrationExpiryDate", e.target.value)}
               className={inputClass("registrationExpiryDate")}
             />
+          </div>
+
+       
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Owner Phone Number
+            </label>
+            <input
+              type="tel"
+              value={formData.ownerPhone}
+              onChange={(e) => {
+                onChange("ownerPhone", e.target.value.replace(/[^\d+\s-]/g, ""));
+                if (fieldErrors.ownerPhone) onClearError("ownerPhone");
+              }}
+              className={inputClass("ownerPhone")}
+              placeholder="e.g. 9876543210"
+              maxLength={10}
+            />
+            {fieldErrors.ownerPhone && (
+              <p className="mt-1 text-xs text-red-600">{fieldErrors.ownerPhone}</p>
+            )}
+          </div>
+
+             <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Owner Name
+            </label>
+            <input
+              type="text"
+              value={formData.ownerName}
+              onChange={(e) => {
+                onChange("ownerName", e.target.value);
+                if (fieldErrors.ownerName) onClearError("ownerName");
+              }}
+              className={inputClass("ownerName")}
+              placeholder="Enter owner name"
+              maxLength={50}
+            />
+            {fieldErrors.ownerName && (
+              <p className="mt-1 text-xs text-red-600">{fieldErrors.ownerName}</p>
+            )}
           </div>
         </div>
       </div>

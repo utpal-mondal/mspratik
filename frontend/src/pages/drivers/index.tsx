@@ -9,6 +9,8 @@ import PageHeader from "./(component)/PageHeader";
 import FilterSection from "./(component)/FilterSection";
 import DriverTable from "./(component)/DriverTable";
 import DeleteDriverModal from "./(component)/DeleteDriverModal";
+import CreateDriverDrawer from "./(component)/CreateDriverDrawer";
+import EditDriverDrawer from "./(component)/EditDriverDrawer";
 import { DriverRecord } from "@/types/drivers/types";
 
 const DriversPage = () => {
@@ -20,6 +22,8 @@ const DriversPage = () => {
   const [loading, setLoading] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<DriverRecord | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [createOpen, setCreateOpen] = useState(false);
+  const [editTarget, setEditTarget] = useState<DriverRecord | null>(null);
 
   const debouncedQuery = useDebounce(searchQuery, 400);
 
@@ -55,6 +59,20 @@ const DriversPage = () => {
     setPage(1);
   };
 
+  const handleDriverCreated = () => {
+    setCreateOpen(false);
+    if (page === 1) {
+      getDrivers();
+    } else {
+      setPage(1);
+    }
+  };
+
+  const handleDriverUpdated = () => {
+    setEditTarget(null);
+    getDrivers();
+  };
+
   const handleDelete = async () => {
     if (!deleteTarget) return;
     try {
@@ -80,7 +98,7 @@ const DriversPage = () => {
       </Head>
 
       <main className="flex-1 p-3 md:p-4">
-        <PageHeader total={total} />
+        <PageHeader total={total} onAddDriver={() => setCreateOpen(true)} />
 
         <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
           <FilterSection
@@ -92,6 +110,7 @@ const DriversPage = () => {
           <DriverTable
             drivers={drivers}
             loading={loading}
+            onEdit={setEditTarget}
             onDelete={setDeleteTarget}
           />
 
@@ -103,6 +122,18 @@ const DriversPage = () => {
           />
         </div>
       </main>
+
+      <CreateDriverDrawer
+        isOpen={createOpen}
+        onClose={() => setCreateOpen(false)}
+        onCreated={handleDriverCreated}
+      />
+
+      <EditDriverDrawer
+        driver={editTarget}
+        onClose={() => setEditTarget(null)}
+        onUpdated={handleDriverUpdated}
+      />
 
       <DeleteDriverModal
         isOpen={!!deleteTarget}

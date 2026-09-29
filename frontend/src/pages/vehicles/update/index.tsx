@@ -6,7 +6,7 @@ import withAuth from "../../../components/withAuth";
 import apiService from "../../../services/api";
 import PageHeader from "./(component)/PageHeader";
 import VehicleInfoSection from "../create/(component)/VehicleInfoSection";
-import OwnerInfoSection from "../create/(component)/OwnerInfoSection";
+
 import DocumentsSection from "../create/(component)/DocumentsSection";
 import FormActions from "./(component)/FormActions";
 import { VehicleFormData } from "@/types/vehicle-entry/types";
@@ -21,6 +21,9 @@ const initialFormData: VehicleFormData = {
   numberOfWheels: "",
   registrationExpiryDate: "",
   rcNumber: "",
+  permitNumber: "",
+  insuranceNumber: "",
+  pucNumber: "",
   vehicleImage: null,
   rcBookImage: null,
 };
@@ -58,6 +61,9 @@ const UpdateVehiclePage = () => {
               ? String(vehicle.registration_expiry_date).slice(0, 10)
               : "",
             rcNumber: vehicle.rc_number || "",
+            permitNumber: vehicle.permit_number || "",
+            insuranceNumber: vehicle.insurance_number || "",
+            pucNumber: vehicle.puc_number || "",
             vehicleImage: null,
             rcBookImage: null,
           });
@@ -132,6 +138,9 @@ const UpdateVehiclePage = () => {
       payload.append("number_of_wheels", formData.numberOfWheels);
       payload.append("registration_expiry_date", formData.registrationExpiryDate);
       payload.append("rc_number", formData.rcNumber);
+      payload.append("permit_number", formData.permitNumber);
+      payload.append("insurance_number", formData.insuranceNumber);
+      payload.append("puc_number", formData.pucNumber);
       if (formData.vehicleImage) payload.append("vehicle_image", formData.vehicleImage);
       if (formData.rcBookImage) payload.append("rc_book_image", formData.rcBookImage);
 
@@ -150,6 +159,9 @@ const UpdateVehiclePage = () => {
           number_of_wheels: "numberOfWheels",
           registration_expiry_date: "registrationExpiryDate",
           rc_number: "rcNumber",
+          permit_number: "permitNumber",
+          insurance_number: "insuranceNumber",
+          puc_number: "pucNumber",
         };
         const mapped: { [key: string]: string } = {};
         for (const [key, msg] of Object.entries(apiErrors)) {
@@ -218,12 +230,12 @@ const UpdateVehiclePage = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-4 items-stretch">
-                <VehicleInfoSection {...sectionProps} />
-                <div className="hidden lg:block w-px bg-gray-200" />
-                <OwnerInfoSection {...sectionProps} />
+              <div className="bg-white">
+                <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-gray-200">
+                  <VehicleInfoSection {...sectionProps} />
+                  <DocumentsSection {...sectionProps} />
+                </div>
               </div>
-              <DocumentsSection {...sectionProps} />
               <FormActions saving={saving} />
             </form>
           )}

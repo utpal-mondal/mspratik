@@ -19,17 +19,17 @@ const DocumentsSection: React.FC<SectionProps> = ({
   // };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-      <div className="px-5 py-3 border-b border-gray-100">
+    <div className="bg-white">
+      <div className="px-4 py-3">
         <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
           <FileText size={16} className="text-blue-600" />
-          RC & Documents
+          License Details
         </h2>
       </div>
-      <div className="p-5">
-        <div className="space-y-4">
+      <div className="px-4 pb-4">
+        <div className="grid grid-cols-1 gap-3">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               RC Number
             </label>
             <input
@@ -45,6 +45,66 @@ const DocumentsSection: React.FC<SectionProps> = ({
             />
             {fieldErrors.rcNumber && (
               <p className="mt-1 text-xs text-red-600">{fieldErrors.rcNumber}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Permit Number
+            </label>
+            <input
+              type="text"
+              value={formData.permitNumber}
+              onChange={(e) => {
+                onChange("permitNumber", e.target.value.toUpperCase());
+                if (fieldErrors.permitNumber) onClearError("permitNumber");
+              }}
+              className={`${inputClass("permitNumber")} uppercase`}
+              placeholder="Enter permit number"
+              maxLength={20}
+            />
+            {fieldErrors.permitNumber && (
+              <p className="mt-1 text-xs text-red-600">{fieldErrors.permitNumber}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Insurance Number
+            </label>
+            <input
+              type="text"
+              value={formData.insuranceNumber}
+              onChange={(e) => {
+                onChange("insuranceNumber", e.target.value.toUpperCase());
+                if (fieldErrors.insuranceNumber) onClearError("insuranceNumber");
+              }}
+              className={`${inputClass("insuranceNumber")} uppercase`}
+              placeholder="Enter insurance number"
+              maxLength={20}
+            />
+            {fieldErrors.insuranceNumber && (
+              <p className="mt-1 text-xs text-red-600">{fieldErrors.insuranceNumber}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              PUC Number
+            </label>
+            <input
+              type="text"
+              value={formData.pucNumber}
+              onChange={(e) => {
+                onChange("pucNumber", e.target.value.toUpperCase());
+                if (fieldErrors.pucNumber) onClearError("pucNumber");
+              }}
+              className={`${inputClass("pucNumber")} uppercase`}
+              placeholder="Enter PUC number"
+              maxLength={20}
+            />
+            {fieldErrors.pucNumber && (
+              <p className="mt-1 text-xs text-red-600">{fieldErrors.pucNumber}</p>
             )}
           </div>
 

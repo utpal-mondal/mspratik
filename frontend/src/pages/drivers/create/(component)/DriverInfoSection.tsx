@@ -7,6 +7,7 @@ const DriverInfoSection: React.FC<SectionProps> = ({
   inputClass,
   onChange,
   onClearError,
+  stacked = false,
 }) => {
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200">
@@ -17,7 +18,7 @@ const DriverInfoSection: React.FC<SectionProps> = ({
         </h2>
       </div>
       <div className="p-5">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className={`grid grid-cols-1 gap-4${stacked ? "" : " md:grid-cols-3"}`}>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
               Driver Name <span className="text-red-500">*</span>
