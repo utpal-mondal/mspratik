@@ -100,6 +100,26 @@ class ApiService {
     deleteOrder = (orderId: number) => this.api.delete(`/orders/${orderId}`);
     getOrderStatusCounts = () => this.api.get('/orders/status-counts');
     retryOrderImport = (orderId: number) => this.api.post(`/orders/${orderId}/retry`);
+
+    // Vehicle methods
+    getAllVehicles = (params: { page?: number; limit?: number; query?: string; vehicle_type?: string } = {}) =>
+        this.api.get('/vehicles/get-all-vehicle', { params: { page: params.page ?? 1, limit: params.limit ?? 10, query: params.query, vehicle_type: params.vehicle_type } });
+    getVehicle = (vehicleId: number) => this.api.get(`/vehicles/${vehicleId}/get-vehicle-details`);
+    createVehicle = (data: FormData) =>
+        this.api.post('/vehicles/create-vahicle', data, { headers: { 'Content-Type': 'multipart/form-data' } });
+    updateVehicle = (vehicleId: number, data: FormData) =>
+        this.api.put(`/vehicles/${vehicleId}/update-vehicle`, data, { headers: { 'Content-Type': 'multipart/form-data' } });
+    deleteVehicle = (vehicleId: number) => this.api.delete(`/vehicles/${vehicleId}/delete-vehicle`);
+
+    // Driver methods
+    getAllDrivers = (params: { page?: number; limit?: number; query?: string } = {}) =>
+        this.api.get('/drivers/get-all-driver', { params: { page: params.page ?? 1, limit: params.limit ?? 10, query: params.query } });
+    getDriver = (driverId: number) => this.api.get(`/drivers/${driverId}/get-driver-details`);
+    createDriver = (data: FormData) =>
+        this.api.post('/drivers/create-driver', data, { headers: { 'Content-Type': 'multipart/form-data' } });
+    updateDriver = (driverId: number, data: FormData) =>
+        this.api.put(`/drivers/${driverId}/update-driver`, data, { headers: { 'Content-Type': 'multipart/form-data' } });
+    deleteDriver = (driverId: number) => this.api.delete(`/drivers/${driverId}/delete-driver`);
 }
 
 const apiService = new ApiService();

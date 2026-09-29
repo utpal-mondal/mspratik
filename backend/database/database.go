@@ -55,6 +55,8 @@ func runMigrations() error {
 		// Core Models
 		&models.User{},
 		&models.Company{},
+		&models.Vehicle{},
+		&models.Driver{},
 
 		// Roles and Permissions
 		&models.Role{},

@@ -10,6 +10,8 @@ import {
   Building,
   Shield ,
   User,
+  Car,
+  CarFront,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -80,6 +82,17 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         icon: <Shield  size={20} />,
         path: "/roles",
         adminOnly: true,
+      },
+       {
+        name: "Vehicles",
+        icon: <CarFront  size={20} />,
+        path: "/vehicles",
+      },
+       {
+        name: "Drivers",
+        icon: <User  size={20} />,
+        path: "/drivers",
+        
       },
     ],
     [],

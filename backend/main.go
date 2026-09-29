@@ -58,6 +58,8 @@ func main() {
 	routes.SetupPermissionRoutes(api, db)
 	routes.SetupSettingsRoutes(api, db)
 	routes.SetupCompanyRoutes(api, db)
+	routes.SetupVehicleRoutes(api, db)
+	routes.SetupDriverRoutes(api, db)
 
 	// Health check endpoint
 	app.Get("/health", func(c *fiber.Ctx) error {

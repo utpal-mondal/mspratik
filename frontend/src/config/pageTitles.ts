@@ -14,6 +14,13 @@ export const pageTitles: Record<string, string> = {
   "/settings/user/create": "Create User",
   "/settings/user/edit/[id]": "Edit User",
 
+  // Entries
+  "/vehicle-entry": "Vehicle Entry",
+  "/driver-entry": "Driver Entry",
+  "/vehicles": "Vehicles",
+  "/vehicles/create": "Create Vehicle",
+  "/vehicles/update": "Update Vehicle",
+
   // Auth & misc
   "/auth": "Login",
   "/auth/login": "Login",
