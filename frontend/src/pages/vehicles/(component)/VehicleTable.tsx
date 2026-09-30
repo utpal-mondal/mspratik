@@ -74,7 +74,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
                   <ActionMenu items={actions(vehicle)} buttonLabel="Vehicle actions" />
                 </td>
                 <td className="px-4 py-2">
-                  <p className="text-xs font-semibold text-gray-900 uppercase">
+                  <p className="text-xs font-semibold text-gray-900 uppercase hover:underline hover:cursor-pointer">
                     {vehicle.vehicle_number}
                   </p>
                 </td>

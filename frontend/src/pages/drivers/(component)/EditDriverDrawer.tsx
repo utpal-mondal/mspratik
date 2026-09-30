@@ -160,7 +160,7 @@ const EditDriverDrawer: React.FC<EditDriverDrawerProps> = ({
 
   return (
     <RightDrawer isOpen={!!driver} onClose={onClose} title="Edit Driver">
-      <form onSubmit={handleSubmit} className="p-4 space-y-4">
+      <form onSubmit={handleSubmit} className="p-2 space-y-2">
         <DriverInfoSection {...sectionProps} />
         <FormActions saving={saving} onCancel={onClose} />
       </form>

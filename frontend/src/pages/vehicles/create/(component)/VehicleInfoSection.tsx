@@ -1,5 +1,6 @@
 import { Truck } from "lucide-react";
 import { SectionProps } from "@/types/vehicle-entry/types";
+import CustomDatePicker from "@/components/ui/DatePicker";
 
 const VehicleInfoSection: React.FC<SectionProps> = ({
   formData,
@@ -76,12 +77,20 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Registration Expiry Date
             </label>
-            <input
+            {/* <input
               type="date"
               value={formData.registrationExpiryDate}
               onChange={(e) => onChange("registrationExpiryDate", e.target.value)}
               className={inputClass("registrationExpiryDate")}
-            />
+            /> */}
+
+            <CustomDatePicker
+            id="date"
+            value={formData.registrationExpiryDate ? new Date(formData.registrationExpiryDate):null}
+            onChange={(date) => onChange("registrationExpiryDate", date ? date.toISOString().split("T")[0]:"")}
+            placeholder="DD/MM/YYYY"
+           className={inputClass("registrationExpiryDate")}
+          />
           </div>
 
        

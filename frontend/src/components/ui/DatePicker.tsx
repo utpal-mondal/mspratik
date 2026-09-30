@@ -30,7 +30,7 @@ export default function CustomDatePicker({
       placeholderText={placeholder}
       showIcon
       calendarIconClassName="right-2 top-1/2 -translate-y-1/2 text-[#6B7690]"
-      wrapperClassName="w-full"
+      wrapperClassName="w-[27rem]"
       className={`border rounded-lg px-4 py-2 text-sm w-full outline-none focus:ring-2 focus:ring-blue-500 !pl-2.5 !pr-10 ${className ?? ""}`}
     />
   );

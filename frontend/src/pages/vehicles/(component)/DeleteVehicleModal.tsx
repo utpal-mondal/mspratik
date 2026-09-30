@@ -18,8 +18,8 @@ const DeleteVehicleModal: React.FC<DeleteVehicleModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-900/40 backdrop-blur-[2px] flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-xl w-full max-w-sm p-5">
+    <div className="fixed inset-0 bg-gray-900/40 backdrop-blur-[2px] flex items-center justify-center z-50 p-2">
+      <div className="bg-white rounded-xl shadow-xl w-full max-w-sm p-4">
         <div className="flex items-start gap-3">
           <div className="flex items-center justify-center w-9 h-9 rounded-full bg-red-50 text-red-600 shrink-0">
             <AlertTriangle size={16} />
@@ -37,7 +37,7 @@ const DeleteVehicleModal: React.FC<DeleteVehicleModalProps> = ({
             </p>
           </div>
         </div>
-        <div className="flex justify-end gap-2 mt-5">
+        <div className="flex justify-end gap-2 mt-3">
           <button
             onClick={onClose}
             disabled={isDeleting}

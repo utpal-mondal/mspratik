@@ -10,14 +10,14 @@ const DriverInfoSection: React.FC<SectionProps> = ({
   stacked = false,
 }) => {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-      <div className="px-5 py-3 border-b border-gray-100">
+    <div className="">
+      <div className="px-1 py-3 border-b border-gray-100">
         <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
           <User size={16} className="text-blue-600" />
           Driver Information
         </h2>
       </div>
-      <div className="p-5">
+      <div className="p-2">
         <div className={`grid grid-cols-1 gap-4${stacked ? "" : " md:grid-cols-3"}`}>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">

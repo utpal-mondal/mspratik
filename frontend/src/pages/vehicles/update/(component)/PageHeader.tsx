@@ -3,7 +3,7 @@ import { ChevronDown, Truck } from "lucide-react";
 
 const PageHeader: React.FC = () => {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 px-5 py-4 flex items-center">
+    <div className=" flex items-center">
       <Link
         href="/vehicles"
         className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors mr-2"

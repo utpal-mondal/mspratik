@@ -94,7 +94,7 @@ const DriverTable: React.FC<DriverTableProps> = ({
                     >
                       {(driver.driver_name[0] || "?").toUpperCase()}
                     </div> */}
-                    <p className="text-xs font-semibold text-gray-900">
+                    <p className="text-xs font-semibold text-gray-900 hover:underline hover:cursor-pointer">
                       {driver.driver_name}
                     </p>
                   </div>

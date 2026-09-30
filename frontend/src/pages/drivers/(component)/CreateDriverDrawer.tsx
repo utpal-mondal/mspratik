@@ -145,7 +145,7 @@ const CreateDriverDrawer: React.FC<CreateDriverDrawerProps> = ({
   };
 
   const inputClass = (field: string) =>
-    `w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm ${
+    `w-[20rem] px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-xs ${
       fieldErrors[field]
         ? "border-red-500 focus:ring-red-500"
         : "border-gray-300 focus:ring-blue-500"
@@ -163,7 +163,7 @@ const CreateDriverDrawer: React.FC<CreateDriverDrawerProps> = ({
 
   return (
     <RightDrawer isOpen={isOpen} onClose={onClose} title="Add Driver">
-      <form onSubmit={handleSubmit} className="p-4 space-y-4">
+      <form onSubmit={handleSubmit} className="p-2 space-y-2">
         <DriverInfoSection {...sectionProps} />
         <FormActions saving={saving} onReset={handleReset} />
       </form>
