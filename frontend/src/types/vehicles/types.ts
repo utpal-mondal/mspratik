@@ -7,6 +7,9 @@ export interface VehicleRecord {
   number_of_wheels?: number;
   registration_expiry_date?: string;
   rc_number?: string;
+  permit_number?: string;
+  insurance_number?: string;
+  puc_number?: string;
   vehicle_image?: string | null;
   rc_book_image?: string | null;
   created_at?: string;

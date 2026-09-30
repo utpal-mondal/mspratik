@@ -20,9 +20,11 @@ export const pageTitles: Record<string, string> = {
   "/vehicles": "Vehicles",
   "/vehicles/create": "Create Vehicle",
   "/vehicles/update": "Update Vehicle",
+  "/vehicles/view/[id]": "Vehicle Details",
   "/drivers": "Drivers",
   "/drivers/create": "Create Driver",
   "/drivers/update": "Update Driver",
+  "/drivers/view/[id]": "Driver Details",
 
   // Auth & misc
   "/auth": "Login",

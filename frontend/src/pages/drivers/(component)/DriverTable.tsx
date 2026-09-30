@@ -1,6 +1,7 @@
-import { User, Pencil, Trash2 } from "lucide-react";
+import { User, Eye, Pencil, Trash2 } from "lucide-react";
 import ActionMenu, { ActionMenuItem } from "@/components/ui/ActionMenu";
 import { DriverRecord } from "@/types/drivers/types";
+import { useRouter } from "next/navigation";
 
 interface DriverTableProps {
   drivers: DriverRecord[];
@@ -41,7 +42,13 @@ const DriverTable: React.FC<DriverTableProps> = ({
   onEdit,
   onDelete,
 }) => {
+  const router= useRouter()
   const actions = (driver: DriverRecord): ActionMenuItem[] => [
+    {
+      label: "View",
+      icon: Eye,
+      href: `/drivers/view/${driver.id}`,
+    },
     {
       label: "Edit",
       icon: Pencil,
@@ -94,7 +101,7 @@ const DriverTable: React.FC<DriverTableProps> = ({
                     >
                       {(driver.driver_name[0] || "?").toUpperCase()}
                     </div> */}
-                    <p className="text-xs font-semibold text-gray-900 hover:underline hover:cursor-pointer">
+                    <p className="text-xs font-semibold text-gray-900 hover:underline hover:cursor-pointer" onClick={()=>{router.push(`/drivers/view/${driver.id}`)}}>
                       {driver.driver_name}
                     </p>
                   </div>
