@@ -17,7 +17,7 @@ pkg/
 *.out
 ecosystem.config.js
 backend/uploads/
-
+backend/pratikgo
 # =========================
 # Environment variables
 # =========================
