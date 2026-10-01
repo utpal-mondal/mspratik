@@ -58,18 +58,21 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
             <th className="px-4 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Wheels</th>
             <th className="px-4 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wider">RC Number</th>
             <th className="px-4 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Reg. Expiry</th>
+            <th className="px-4 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Insurance Expiry</th>
+            <th className="px-4 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wider">PUC Expiry</th>
+            <th className="px-4 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Road Tax Expiry</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
           {loading ? (
             <tr>
-              <td colSpan={8} className="px-4 py-6 text-center text-xs text-gray-500">
+              <td colSpan={11} className="px-4 py-6 text-center text-xs text-gray-500">
                 Loading vehicles...
               </td>
             </tr>
           ) : vehicles.length === 0 ? (
             <tr>
-              <td colSpan={8} className="px-4 py-10 text-center">
+              <td colSpan={11} className="px-4 py-10 text-center">
                 <Truck className="mx-auto h-8 w-8 text-gray-300" />
                 <p className="mt-1 text-xs text-gray-500">No vehicles found</p>
               </td>
@@ -110,6 +113,15 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
                 </td>
                 <td className="px-4 py-2">
                   <p className="text-xs text-gray-600">{formatDate(vehicle.registration_expiry_date)}</p>
+                </td>
+                <td className="px-4 py-2">
+                  <p className="text-xs text-gray-600">{formatDate(vehicle.insurance_expiry_date)}</p>
+                </td>
+                <td className="px-4 py-2">
+                  <p className="text-xs text-gray-600">{formatDate(vehicle.puc_expiry_date)}</p>
+                </td>
+                <td className="px-4 py-2">
+                  <p className="text-xs text-gray-600">{formatDate(vehicle.road_tax_expiry_date)}</p>
                 </td>
               </tr>
             ))

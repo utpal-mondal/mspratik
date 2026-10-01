@@ -71,19 +71,20 @@ const DriverTable: React.FC<DriverTableProps> = ({
             <th className="px-4 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Driver Name</th>
             <th className="px-4 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Phone Number</th>
             <th className="px-4 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Experience</th>
+            <th className="px-4 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Licence Number</th>
             <th className="px-4 py-2.5 text-left text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Created</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
           {loading ? (
             <tr>
-              <td colSpan={5} className="px-4 py-6 text-center text-xs text-gray-500">
+              <td colSpan={6} className="px-4 py-6 text-center text-xs text-gray-500">
                 Loading drivers...
               </td>
             </tr>
           ) : drivers.length === 0 ? (
             <tr>
-              <td colSpan={5} className="px-4 py-10 text-center">
+              <td colSpan={6} className="px-4 py-10 text-center">
                 <User className="mx-auto h-8 w-8 text-gray-300" />
                 <p className="mt-1 text-xs text-gray-500">No drivers found</p>
               </td>
@@ -115,6 +116,9 @@ const DriverTable: React.FC<DriverTableProps> = ({
                       ? `${driver.experience_years} yrs`
                       : "-"}
                   </span>
+                </td>
+                <td className="px-4 py-2">
+                  <p className="text-xs text-gray-700 uppercase">{driver.licence_number || "-"}</p>
                 </td>
                 <td className="px-4 py-2">
                   <p className="text-xs text-gray-600">{formatDate(driver.created_at)}</p>
