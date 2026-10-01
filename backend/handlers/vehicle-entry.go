@@ -31,7 +31,10 @@ type vehicleRequest struct {
 	RcNumber               string `json:"rc_number"`
 	PermitNumber           string `json:"permit_number"`
 	InsuranceNumber        string `json:"insurance_number"`
+	InsuranceExpiryDate    string `json:"insurance_expiry_date"`
 	PucNumber              string `json:"puc_number"`
+	PucExpiryDate          string `json:"puc_expiry_date"`
+	RoadTaxExpiryDate      string `json:"road_tax_expiry_date"`
 }
 
 // parseVehicleRequest accepts both multipart/form-data and JSON bodies
@@ -53,65 +56,90 @@ func parseVehicleRequest(c *fiber.Ctx) (vehicleRequest, error) {
 		RcNumber:               c.FormValue("rc_number"),
 		PermitNumber:           c.FormValue("permit_number"),
 		InsuranceNumber:        c.FormValue("insurance_number"),
+		InsuranceExpiryDate:    c.FormValue("insurance_expiry_date"),
 		PucNumber:              c.FormValue("puc_number"),
+		PucExpiryDate:          c.FormValue("puc_expiry_date"),
+		RoadTaxExpiryDate:      c.FormValue("road_tax_expiry_date"),
 	}, nil
 }
 
-func validateVehicleRequest(req *vehicleRequest) (map[string]string, *time.Time, *int) {
-	errors := map[string]string{}
-	var expiry *time.Time
-	var wheels *int
+type vehicleValidation struct {
+	RegistrationExpiryDate *time.Time
+	InsuranceExpiryDate    *time.Time
+	PucExpiryDate          *time.Time
+	RoadTaxExpiryDate      *time.Time
+	NumberOfWheels         *int
+}
 
+func parseDateField(value, field string, errors map[string]string) *time.Time {
+	value = strings.TrimSpace(value)
+	if value == "" {
+		return nil
+	}
+	d, err := time.Parse("2006-01-02", value)
+	if err != nil {
+		// errors[field] = "Enter a valid date (YYYY-MM-DD)"
+		return nil
+	}
+	return &d
+}
+
+func validateVehicleRequest(req *vehicleRequest) (map[string]string, vehicleValidation) {
+	errors := map[string]string{}
+	var v vehicleValidation
+
+	// Only block the request when vehicle number is empty
 	req.VehicleNumber = normalizeVehicleNumber(req.VehicleNumber)
 	if req.VehicleNumber == "" {
 		errors["vehicle_number"] = "Vehicle number is required"
-	} else if !vehicleNumberRegex.MatchString(req.VehicleNumber) {
-		errors["vehicle_number"] = "Enter a valid vehicle number (e.g. MH12AB1234)"
 	}
+	// else if !vehicleNumberRegex.MatchString(req.VehicleNumber) {
+	// 	errors["vehicle_number"] = "Enter a valid vehicle number (e.g. MH12AB1234)"
+	// }
 
 	req.OwnerName = strings.TrimSpace(req.OwnerName)
-	if len(req.OwnerName) > 50 {
-		errors["owner_name"] = "Owner name must be less than 50 characters"
-	}
+	// if len(req.OwnerName) > 50 {
+	// 	errors["owner_name"] = "Owner name must be less than 50 characters"
+	// }
 
 	req.OwnerPhone = strings.TrimSpace(req.OwnerPhone)
-	if req.OwnerPhone != "" {
-		phone := strings.NewReplacer(" ", "", "-", "").Replace(req.OwnerPhone)
-		if len(phone) < 7 || len(phone) > 15 {
-			errors["owner_phone"] = "Enter a valid phone number"
-		}
-	}
+	// if req.OwnerPhone != "" {
+	// 	phone := strings.NewReplacer(" ", "", "-", "").Replace(req.OwnerPhone)
+	// 	if len(phone) < 7 || len(phone) > 15 {
+	// 		errors["owner_phone"] = "Enter a valid phone number"
+	// 	}
+	// }
 
 	req.VehicleType = strings.ToLower(strings.TrimSpace(req.VehicleType))
 	if req.VehicleType == "" {
 		req.VehicleType = "self"
-	} else if req.VehicleType != "self" && req.VehicleType != "others" {
-		errors["vehicle_type"] = "Vehicle type must be 'self' or 'others'"
 	}
+	// else if req.VehicleType != "self" && req.VehicleType != "others" {
+	// 	errors["vehicle_type"] = "Vehicle type must be 'self' or 'others'"
+	// }
 
 	if req.NumberOfWheels != "" {
-		if n, err := strconv.Atoi(req.NumberOfWheels); err != nil || n < 2 || n > 20 {
-			errors["number_of_wheels"] = "Enter a valid number of wheels (2-20)"
-		} else {
-			wheels = &n
+		if n, err := strconv.Atoi(req.NumberOfWheels); err == nil {
+			v.NumberOfWheels = &n
 		}
+		// if n, err := strconv.Atoi(req.NumberOfWheels); err != nil || n < 2 || n > 20 {
+		// 	errors["number_of_wheels"] = "Enter a valid number of wheels (2-20)"
+		// } else {
+		// 	v.NumberOfWheels = &n
+		// }
 	}
 
-	req.RegistrationExpiryDate = strings.TrimSpace(req.RegistrationExpiryDate)
-	if req.RegistrationExpiryDate != "" {
-		if d, err := time.Parse("2006-01-02", req.RegistrationExpiryDate); err != nil {
-			errors["registration_expiry_date"] = "Enter a valid date (YYYY-MM-DD)"
-		} else {
-			expiry = &d
-		}
-	}
+	v.RegistrationExpiryDate = parseDateField(req.RegistrationExpiryDate, "registration_expiry_date", errors)
+	v.InsuranceExpiryDate = parseDateField(req.InsuranceExpiryDate, "insurance_expiry_date", errors)
+	v.PucExpiryDate = parseDateField(req.PucExpiryDate, "puc_expiry_date", errors)
+	v.RoadTaxExpiryDate = parseDateField(req.RoadTaxExpiryDate, "road_tax_expiry_date", errors)
 
 	req.RcNumber = strings.ToUpper(strings.TrimSpace(req.RcNumber))
 	req.PermitNumber = strings.ToUpper(strings.TrimSpace(req.PermitNumber))
 	req.InsuranceNumber = strings.ToUpper(strings.TrimSpace(req.InsuranceNumber))
 	req.PucNumber = strings.ToUpper(strings.TrimSpace(req.PucNumber))
 
-	return errors, expiry, wheels
+	return errors, v
 }
 
 func getAuthUser(c *fiber.Ctx) (middleware.AuthUser, bool) {
@@ -132,7 +160,7 @@ func CreateVehicle(c *fiber.Ctx, db *gorm.DB) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "message": "Invalid request body"})
 	}
 
-	if errors, expiry, wheels := validateVehicleRequest(&req); len(errors) > 0 {
+	if errors, v := validateVehicleRequest(&req); len(errors) > 0 {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
 	} else {
 		var existing models.Vehicle
@@ -151,12 +179,15 @@ func CreateVehicle(c *fiber.Ctx, db *gorm.DB) error {
 			OwnerName:              req.OwnerName,
 			OwnerPhone:             req.OwnerPhone,
 			VehicleType:            req.VehicleType,
-			NumberOfWheels:         wheels,
-			RegistrationExpiryDate: expiry,
+			NumberOfWheels:         v.NumberOfWheels,
+			RegistrationExpiryDate: v.RegistrationExpiryDate,
 			RcNumber:               req.RcNumber,
 			PermitNumber:           req.PermitNumber,
 			InsuranceNumber:        req.InsuranceNumber,
+			InsuranceExpiryDate:    v.InsuranceExpiryDate,
 			PucNumber:              req.PucNumber,
+			PucExpiryDate:          v.PucExpiryDate,
+			RoadTaxExpiryDate:      v.RoadTaxExpiryDate,
 			VehicleImage:           nil,
 			RcBookImage:            nil,
 			CreatedBy:              int64(authUser.ID),
@@ -276,7 +307,7 @@ func UpdateVehicle(c *fiber.Ctx, db *gorm.DB) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "message": "Invalid request body"})
 	}
 
-	errors, expiry, wheels := validateVehicleRequest(&req)
+	errors, v := validateVehicleRequest(&req)
 	if len(errors) > 0 {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
 	}
@@ -296,12 +327,15 @@ func UpdateVehicle(c *fiber.Ctx, db *gorm.DB) error {
 	vehicle.OwnerName = req.OwnerName
 	vehicle.OwnerPhone = req.OwnerPhone
 	vehicle.VehicleType = req.VehicleType
-	vehicle.NumberOfWheels = wheels
-	vehicle.RegistrationExpiryDate = expiry
+	vehicle.NumberOfWheels = v.NumberOfWheels
+	vehicle.RegistrationExpiryDate = v.RegistrationExpiryDate
 	vehicle.RcNumber = req.RcNumber
 	vehicle.PermitNumber = req.PermitNumber
 	vehicle.InsuranceNumber = req.InsuranceNumber
+	vehicle.InsuranceExpiryDate = v.InsuranceExpiryDate
 	vehicle.PucNumber = req.PucNumber
+	vehicle.PucExpiryDate = v.PucExpiryDate
+	vehicle.RoadTaxExpiryDate = v.RoadTaxExpiryDate
 	now := time.Now()
 	vehicle.UpdatedAt = &now
 

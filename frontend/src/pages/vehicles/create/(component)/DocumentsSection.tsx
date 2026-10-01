@@ -1,5 +1,6 @@
 import { FileText } from "lucide-react";
 import { SectionProps } from "@/types/vehicle-entry/types";
+import CustomDatePicker from "@/components/ui/DatePicker";
 // import ImageUpload from "@/components/ui/ImageUpload";
 
 const DocumentsSection: React.FC<SectionProps> = ({
@@ -90,6 +91,25 @@ const DocumentsSection: React.FC<SectionProps> = ({
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
+              Insurance Expiry Date
+            </label>
+            <CustomDatePicker
+              id="insuranceExpiryDate"
+              value={formData.insuranceExpiryDate ? new Date(formData.insuranceExpiryDate) : null}
+              onChange={(date) => {
+                onChange("insuranceExpiryDate", date ? date.toISOString().split("T")[0] : "");
+                if (fieldErrors.insuranceExpiryDate) onClearError("insuranceExpiryDate");
+              }}
+              placeholder="DD/MM/YYYY"
+              className={inputClass("insuranceExpiryDate")}
+            />
+            {fieldErrors.insuranceExpiryDate && (
+              <p className="mt-1 text-xs text-red-600">{fieldErrors.insuranceExpiryDate}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
               PUC Number
             </label>
             <input
@@ -105,6 +125,44 @@ const DocumentsSection: React.FC<SectionProps> = ({
             />
             {fieldErrors.pucNumber && (
               <p className="mt-1 text-xs text-red-600">{fieldErrors.pucNumber}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              PUC Expiry Date
+            </label>
+            <CustomDatePicker
+              id="pucExpiryDate"
+              value={formData.pucExpiryDate ? new Date(formData.pucExpiryDate) : null}
+              onChange={(date) => {
+                onChange("pucExpiryDate", date ? date.toISOString().split("T")[0] : "");
+                if (fieldErrors.pucExpiryDate) onClearError("pucExpiryDate");
+              }}
+              placeholder="DD/MM/YYYY"
+              className={inputClass("pucExpiryDate")}
+            />
+            {fieldErrors.pucExpiryDate && (
+              <p className="mt-1 text-xs text-red-600">{fieldErrors.pucExpiryDate}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Road Tax Expiry Date
+            </label>
+            <CustomDatePicker
+              id="roadTaxExpiryDate"
+              value={formData.roadTaxExpiryDate ? new Date(formData.roadTaxExpiryDate) : null}
+              onChange={(date) => {
+                onChange("roadTaxExpiryDate", date ? date.toISOString().split("T")[0] : "");
+                if (fieldErrors.roadTaxExpiryDate) onClearError("roadTaxExpiryDate");
+              }}
+              placeholder="DD/MM/YYYY"
+              className={inputClass("roadTaxExpiryDate")}
+            />
+            {fieldErrors.roadTaxExpiryDate && (
+              <p className="mt-1 text-xs text-red-600">{fieldErrors.roadTaxExpiryDate}</p>
             )}
           </div>
 

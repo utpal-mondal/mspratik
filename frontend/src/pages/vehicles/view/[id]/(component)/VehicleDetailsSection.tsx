@@ -67,7 +67,12 @@ const VehicleDetailsSection: React.FC<VehicleDetailsSectionProps> = ({ vehicle }
                   label="Registration Expiry"
                   value={formatDate(vehicle.registration_expiry_date)}
                 />
-                <DetailField label="Owner Name" value={vehicle.owner_name} />
+                <DetailField
+                  label="Owner Name"
+                  value={
+                    <span className="capitalize">{vehicle.owner_name || "-"}</span>
+                  }
+                />
                 <DetailField label="Owner Phone" value={vehicle.owner_phone} />
               </div>
             </div>
@@ -85,7 +90,19 @@ const VehicleDetailsSection: React.FC<VehicleDetailsSectionProps> = ({ vehicle }
                 <DetailField label="RC Number" value={vehicle.rc_number} />
                 <DetailField label="Permit Number" value={vehicle.permit_number} />
                 <DetailField label="Insurance Number" value={vehicle.insurance_number} />
+                <DetailField
+                  label="Insurance Expiry"
+                  value={formatDate(vehicle.insurance_expiry_date)}
+                />
                 <DetailField label="PUC Number" value={vehicle.puc_number} />
+                <DetailField
+                  label="PUC Expiry"
+                  value={formatDate(vehicle.puc_expiry_date)}
+                />
+                <DetailField
+                  label="Road Tax Expiry"
+                  value={formatDate(vehicle.road_tax_expiry_date)}
+                />
               </div>
             </div>
           </div>

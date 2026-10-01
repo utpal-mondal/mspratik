@@ -2,6 +2,7 @@ export interface DriverFormData {
   driverName: string;
   phoneNumber: string;
   experienceYears: string;
+  licenceNumber: string;
   driverPhoto: File | null;
   licenceImage: File | null;
 }

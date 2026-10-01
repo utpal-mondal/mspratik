@@ -30,7 +30,7 @@ const DriverInfoSection: React.FC<SectionProps> = ({
                 onChange("driverName", e.target.value);
                 if (fieldErrors.driverName) onClearError("driverName");
               }}
-              className={inputClass("driverName")}
+              className={`${inputClass("driverName")} capitalize`}
               placeholder="Enter driver name"
               maxLength={50}
             />
@@ -77,6 +77,26 @@ const DriverInfoSection: React.FC<SectionProps> = ({
             />
             {fieldErrors.experienceYears && (
               <p className="mt-1 text-xs text-red-600">{fieldErrors.experienceYears}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              Licence Number
+            </label>
+            <input
+              type="text"
+              value={formData.licenceNumber}
+              onChange={(e) => {
+                onChange("licenceNumber", e.target.value.toUpperCase());
+                if (fieldErrors.licenceNumber) onClearError("licenceNumber");
+              }}
+              className={`${inputClass("licenceNumber")} uppercase`}
+              placeholder="Enter licence number"
+              maxLength={20}
+            />
+            {fieldErrors.licenceNumber && (
+              <p className="mt-1 text-xs text-red-600">{fieldErrors.licenceNumber}</p>
             )}
           </div>
         </div>

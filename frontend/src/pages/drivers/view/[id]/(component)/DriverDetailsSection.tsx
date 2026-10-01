@@ -39,7 +39,12 @@ const DriverDetailsSection: React.FC<DriverDetailsSectionProps> = ({ driver }) =
         </div>
         <div className="px-4 pb-4 flex flex-col">
           <div className=" gap-3">
-            <DetailField label="Driver Name" value={driver.driver_name} />
+            <DetailField
+              label="Driver Name"
+              value={
+                <span className="capitalize">{driver.driver_name || "-"}</span>
+              }
+            />
             <DetailField label="Phone Number" value={driver.phone_number} />
             <DetailField
               label="Experience"
@@ -49,6 +54,7 @@ const DriverDetailsSection: React.FC<DriverDetailsSectionProps> = ({ driver }) =
                   : "-"
               }
             />
+            <DetailField label="Licence Number" value={driver.licence_number} />
           </div>
         </div>
       </div>

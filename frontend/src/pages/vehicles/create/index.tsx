@@ -23,7 +23,10 @@ const initialFormData: VehicleFormData = {
   rcNumber: "",
   permitNumber: "",
   insuranceNumber: "",
+  insuranceExpiryDate: "",
   pucNumber: "",
+  pucExpiryDate: "",
+  roadTaxExpiryDate: "",
   vehicleImage: null,
   rcBookImage: null,
 };
@@ -37,37 +40,63 @@ const VehicleEntryPage = () => {
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
 
-    const normalizedNumber = formData.vehicleNumber.replace(/[\s-]/g, "").toUpperCase();
+    // Only block the API call when vehicle number is empty
     if (!formData.vehicleNumber.trim()) {
       errors.vehicleNumber = "Vehicle number is required";
-    } else if (!/^[A-Z]{2}[0-9]{1,2}[A-Z]{1,3}[0-9]{4}$/.test(normalizedNumber)) {
-      errors.vehicleNumber = "Enter a valid vehicle number (e.g. MH12AB1234)";
     }
 
-    if (formData.ownerName && formData.ownerName.length > 50) {
-      errors.ownerName = "Owner name must be less than 50 characters";
-    }
+    // const normalizedNumber = formData.vehicleNumber.replace(/[\s-]/g, "").toUpperCase();
+    // if (!formData.vehicleNumber.trim()) {
+    //   errors.vehicleNumber = "Vehicle number is required";
+    // } else if (!/^[A-Z]{2}[0-9]{1,2}[A-Z]{1,3}[0-9]{4}$/.test(normalizedNumber)) {
+    //   errors.vehicleNumber = "Enter a valid vehicle number (e.g. MH12AB1234)";
+    // }
 
-    if (formData.ownerPhone) {
-      const phone = formData.ownerPhone.replace(/[\s-]/g, "");
-      if (!/^\+?[0-9]{7,15}$/.test(phone)) {
-        errors.ownerPhone = "Enter a valid phone number";
-      }
-    }
+    // if (formData.ownerName && formData.ownerName.length > 50) {
+    //   errors.ownerName = "Owner name must be less than 50 characters";
+    // }
 
-    if (formData.numberOfWheels) {
-      const wheels = Number(formData.numberOfWheels);
-      if (!Number.isInteger(wheels) || wheels < 2 || wheels > 20) {
-        errors.numberOfWheels = "Enter a valid number of wheels (2-20)";
-      }
-    }
+    // if (formData.ownerPhone) {
+    //   const phone = formData.ownerPhone.replace(/[\s-]/g, "");
+    //   if (!/^\+?[0-9]{7,15}$/.test(phone)) {
+    //     errors.ownerPhone = "Enter a valid phone number";
+    //   }
+    // }
 
-    if (formData.registrationExpiryDate) {
-      const expiry = new Date(formData.registrationExpiryDate);
-      if (isNaN(expiry.getTime())) {
-        errors.registrationExpiryDate = "Enter a valid date";
-      }
-    }
+    // if (formData.numberOfWheels) {
+    //   const wheels = Number(formData.numberOfWheels);
+    //   if (!Number.isInteger(wheels) || wheels < 2 || wheels > 20) {
+    //     errors.numberOfWheels = "Enter a valid number of wheels (2-20)";
+    //   }
+    // }
+
+    // if (formData.registrationExpiryDate) {
+    //   const expiry = new Date(formData.registrationExpiryDate);
+    //   if (isNaN(expiry.getTime())) {
+    //     errors.registrationExpiryDate = "Enter a valid date";
+    //   }
+    // }
+
+    // if (formData.insuranceExpiryDate) {
+    //   const expiry = new Date(formData.insuranceExpiryDate);
+    //   if (isNaN(expiry.getTime())) {
+    //     errors.insuranceExpiryDate = "Enter a valid date";
+    //   }
+    // }
+
+    // if (formData.pucExpiryDate) {
+    //   const expiry = new Date(formData.pucExpiryDate);
+    //   if (isNaN(expiry.getTime())) {
+    //     errors.pucExpiryDate = "Enter a valid date";
+    //   }
+    // }
+
+    // if (formData.roadTaxExpiryDate) {
+    //   const expiry = new Date(formData.roadTaxExpiryDate);
+    //   if (isNaN(expiry.getTime())) {
+    //     errors.roadTaxExpiryDate = "Enter a valid date";
+    //   }
+    // }
 
     return errors;
   };
@@ -105,7 +134,10 @@ const VehicleEntryPage = () => {
       payload.append("rc_number", formData.rcNumber);
       payload.append("permit_number", formData.permitNumber);
       payload.append("insurance_number", formData.insuranceNumber);
+      payload.append("insurance_expiry_date", formData.insuranceExpiryDate);
       payload.append("puc_number", formData.pucNumber);
+      payload.append("puc_expiry_date", formData.pucExpiryDate);
+      payload.append("road_tax_expiry_date", formData.roadTaxExpiryDate);
       if (formData.vehicleImage) payload.append("vehicle_image", formData.vehicleImage);
       if (formData.rcBookImage) payload.append("rc_book_image", formData.rcBookImage);
 
@@ -126,7 +158,10 @@ const VehicleEntryPage = () => {
           rc_number: "rcNumber",
           permit_number: "permitNumber",
           insurance_number: "insuranceNumber",
+          insurance_expiry_date: "insuranceExpiryDate",
           puc_number: "pucNumber",
+          puc_expiry_date: "pucExpiryDate",
+          road_tax_expiry_date: "roadTaxExpiryDate",
         };
         const mapped: { [key: string]: string } = {};
         for (const [key, msg] of Object.entries(apiErrors)) {

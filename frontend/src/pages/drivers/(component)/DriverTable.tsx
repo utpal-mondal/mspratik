@@ -101,7 +101,7 @@ const DriverTable: React.FC<DriverTableProps> = ({
                     >
                       {(driver.driver_name[0] || "?").toUpperCase()}
                     </div> */}
-                    <p className="text-xs font-semibold text-gray-900 hover:underline hover:cursor-pointer" onClick={()=>{router.push(`/drivers/view/${driver.id}`)}}>
+                    <p className="text-xs font-semibold text-gray-900 capitalize hover:underline hover:cursor-pointer" onClick={()=>{router.push(`/drivers/view/${driver.id}`)}}>
                       {driver.driver_name}
                     </p>
                   </div>

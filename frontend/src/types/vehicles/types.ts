@@ -9,7 +9,10 @@ export interface VehicleRecord {
   rc_number?: string;
   permit_number?: string;
   insurance_number?: string;
+  insurance_expiry_date?: string;
   puc_number?: string;
+  puc_expiry_date?: string;
+  road_tax_expiry_date?: string;
   vehicle_image?: string | null;
   rc_book_image?: string | null;
   created_at?: string;

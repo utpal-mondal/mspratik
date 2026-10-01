@@ -8,7 +8,10 @@ export interface VehicleFormData {
   rcNumber: string;
   permitNumber: string;
   insuranceNumber: string;
+  insuranceExpiryDate: string;
   pucNumber: string;
+  pucExpiryDate: string;
+  roadTaxExpiryDate: string;
   vehicleImage: File | null;
   rcBookImage: File | null;
 }

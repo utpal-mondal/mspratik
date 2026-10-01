@@ -16,6 +16,7 @@ type driverRequest struct {
 	DriverName      string `json:"driver_name"`
 	PhoneNumber     string `json:"phone_number"`
 	ExperienceYears string `json:"experience_years"`
+	LicenceNumber   string `json:"licence_number"`
 }
 
 // parseDriverRequest accepts both multipart/form-data and JSON bodies
@@ -31,6 +32,7 @@ func parseDriverRequest(c *fiber.Ctx) (driverRequest, error) {
 		DriverName:      c.FormValue("driver_name"),
 		PhoneNumber:     c.FormValue("phone_number"),
 		ExperienceYears: c.FormValue("experience_years"),
+		LicenceNumber:   c.FormValue("licence_number"),
 	}, nil
 }
 
@@ -63,6 +65,11 @@ func validateDriverRequest(req *driverRequest) (map[string]string, *int) {
 		}
 	}
 
+	req.LicenceNumber = strings.ToUpper(strings.TrimSpace(req.LicenceNumber))
+	if len(req.LicenceNumber) > 30 {
+		errors["licence_number"] = "Licence number must be less than 30 characters"
+	}
+
 	return errors, experience
 }
 
@@ -90,6 +97,7 @@ func CreateDriver(c *fiber.Ctx, db *gorm.DB) error {
 		DriverName:      req.DriverName,
 		PhoneNumber:     req.PhoneNumber,
 		ExperienceYears: experience,
+		LicenceNumber:   req.LicenceNumber,
 		DriverPhoto:     nil,
 		LicenceImage:    nil,
 		CreatedBy:       int64(authUser.ID),
@@ -213,6 +221,7 @@ func UpdateDriver(c *fiber.Ctx, db *gorm.DB) error {
 	driver.DriverName = req.DriverName
 	driver.PhoneNumber = req.PhoneNumber
 	driver.ExperienceYears = experience
+	driver.LicenceNumber = req.LicenceNumber
 	now := time.Now()
 	driver.UpdatedAt = &now
 

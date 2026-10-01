@@ -23,7 +23,10 @@ const initialFormData: VehicleFormData = {
   rcNumber: "",
   permitNumber: "",
   insuranceNumber: "",
+  insuranceExpiryDate: "",
   pucNumber: "",
+  pucExpiryDate: "",
+  roadTaxExpiryDate: "",
   vehicleImage: null,
   rcBookImage: null,
 };
@@ -63,7 +66,16 @@ const UpdateVehiclePage = () => {
             rcNumber: vehicle.rc_number || "",
             permitNumber: vehicle.permit_number || "",
             insuranceNumber: vehicle.insurance_number || "",
+            insuranceExpiryDate: vehicle.insurance_expiry_date
+              ? String(vehicle.insurance_expiry_date).slice(0, 10)
+              : "",
             pucNumber: vehicle.puc_number || "",
+            pucExpiryDate: vehicle.puc_expiry_date
+              ? String(vehicle.puc_expiry_date).slice(0, 10)
+              : "",
+            roadTaxExpiryDate: vehicle.road_tax_expiry_date
+              ? String(vehicle.road_tax_expiry_date).slice(0, 10)
+              : "",
             vehicleImage: null,
             rcBookImage: null,
           });
@@ -114,6 +126,27 @@ const UpdateVehiclePage = () => {
       }
     }
 
+    if (formData.insuranceExpiryDate) {
+      const expiry = new Date(formData.insuranceExpiryDate);
+      if (isNaN(expiry.getTime())) {
+        errors.insuranceExpiryDate = "Enter a valid date";
+      }
+    }
+
+    if (formData.pucExpiryDate) {
+      const expiry = new Date(formData.pucExpiryDate);
+      if (isNaN(expiry.getTime())) {
+        errors.pucExpiryDate = "Enter a valid date";
+      }
+    }
+
+    if (formData.roadTaxExpiryDate) {
+      const expiry = new Date(formData.roadTaxExpiryDate);
+      if (isNaN(expiry.getTime())) {
+        errors.roadTaxExpiryDate = "Enter a valid date";
+      }
+    }
+
     return errors;
   };
 
@@ -140,7 +173,10 @@ const UpdateVehiclePage = () => {
       payload.append("rc_number", formData.rcNumber);
       payload.append("permit_number", formData.permitNumber);
       payload.append("insurance_number", formData.insuranceNumber);
+      payload.append("insurance_expiry_date", formData.insuranceExpiryDate);
       payload.append("puc_number", formData.pucNumber);
+      payload.append("puc_expiry_date", formData.pucExpiryDate);
+      payload.append("road_tax_expiry_date", formData.roadTaxExpiryDate);
       if (formData.vehicleImage) payload.append("vehicle_image", formData.vehicleImage);
       if (formData.rcBookImage) payload.append("rc_book_image", formData.rcBookImage);
 
@@ -161,7 +197,10 @@ const UpdateVehiclePage = () => {
           rc_number: "rcNumber",
           permit_number: "permitNumber",
           insurance_number: "insuranceNumber",
+          insurance_expiry_date: "insuranceExpiryDate",
           puc_number: "pucNumber",
+          puc_expiry_date: "pucExpiryDate",
+          road_tax_expiry_date: "roadTaxExpiryDate",
         };
         const mapped: { [key: string]: string } = {};
         for (const [key, msg] of Object.entries(apiErrors)) {

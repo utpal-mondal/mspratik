@@ -13,6 +13,7 @@ const initialFormData: DriverFormData = {
   driverName: "",
   phoneNumber: "",
   experienceYears: "",
+  licenceNumber: "",
   driverPhoto: null,
   licenceImage: null,
 };
@@ -39,6 +40,7 @@ const EditDriverDrawer: React.FC<EditDriverDrawerProps> = ({
         phoneNumber: driver.phone_number || "",
         experienceYears:
           driver.experience_years != null ? String(driver.experience_years) : "",
+        licenceNumber: driver.licence_number || "",
         driverPhoto: null,
         licenceImage: null,
       });
@@ -92,6 +94,7 @@ const EditDriverDrawer: React.FC<EditDriverDrawerProps> = ({
       payload.append("driver_name", formData.driverName.trim());
       payload.append("phone_number", formData.phoneNumber);
       payload.append("experience_years", formData.experienceYears);
+      payload.append("licence_number", formData.licenceNumber);
       if (formData.driverPhoto) payload.append("driver_photo", formData.driverPhoto);
       if (formData.licenceImage) payload.append("licence_image", formData.licenceImage);
 
@@ -106,6 +109,7 @@ const EditDriverDrawer: React.FC<EditDriverDrawerProps> = ({
           driver_name: "driverName",
           phone_number: "phoneNumber",
           experience_years: "experienceYears",
+          licence_number: "licenceNumber",
         };
         const mapped: { [key: string]: string } = {};
         for (const [key, msg] of Object.entries(apiErrors)) {

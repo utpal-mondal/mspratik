@@ -86,7 +86,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
                   </p>
                 </td>
                 <td className="px-4 py-2">
-                  <p className="text-xs text-gray-700">{vehicle.owner_name || "-"}</p>
+                  <p className="text-xs text-gray-700 capitalize">{vehicle.owner_name || "-"}</p>
                 </td>
                 <td className="px-4 py-2">
                   <p className="text-xs text-gray-700">{vehicle.owner_phone || "-"}</p>

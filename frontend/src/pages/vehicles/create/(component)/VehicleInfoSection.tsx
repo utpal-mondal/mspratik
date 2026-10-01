@@ -1,6 +1,12 @@
 import { Truck } from "lucide-react";
 import { SectionProps } from "@/types/vehicle-entry/types";
 import CustomDatePicker from "@/components/ui/DatePicker";
+import { SearchableDropdown } from "@/components/ui/SearchableDropdown";
+
+const vehicleTypeOptions = [
+  { value: "self", label: "Self" },
+  { value: "others", label: "Others" },
+];
 
 const VehicleInfoSection: React.FC<SectionProps> = ({
   formData,
@@ -43,14 +49,24 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Vehicle Type
             </label>
-            <select
-              value={formData.vehicleType}
-              onChange={(e) => onChange("vehicleType", e.target.value)}
-              className={inputClass("vehicleType")}
-            >
-              <option value="self">Self</option>
-              <option value="others">Others</option>
-            </select>
+            <SearchableDropdown
+              options={vehicleTypeOptions}
+              value={vehicleTypeOptions.find((o) => o.value === formData.vehicleType) || null}
+              onChange={(option) => {
+                onChange("vehicleType", option ? option.value : "");
+                if (fieldErrors.vehicleType) onClearError("vehicleType");
+              }}
+              placeholder="Select vehicle type"
+              searchPlaceholder="Search vehicle type..."
+              labelKey="value"
+              displayKey="label"
+              allowClear={false}
+              className="w-[27rem]"
+              buttonClassName="text-xs"
+            />
+            {fieldErrors.vehicleType && (
+              <p className="mt-1 text-xs text-red-600">{fieldErrors.vehicleType}</p>
+            )}
           </div>
 
           <div>
@@ -126,7 +142,7 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
                 onChange("ownerName", e.target.value);
                 if (fieldErrors.ownerName) onClearError("ownerName");
               }}
-              className={inputClass("ownerName")}
+              className={`${inputClass("ownerName")} capitalize`}
               placeholder="Enter owner name"
               maxLength={50}
             />
