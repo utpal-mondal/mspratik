@@ -63,6 +63,7 @@ func main() {
 	routes.SetupBrokerRoutes(api, db)
 	routes.SetupBankRoutes(api, db)
 	routes.SetupVessalRoutes(api, db)
+	routes.SetupProductRoutes(api, db)
 
 	// Health check endpoint
 	app.Get("/health", func(c *fiber.Ctx) error {

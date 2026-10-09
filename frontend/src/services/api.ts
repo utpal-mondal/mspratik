@@ -140,6 +140,15 @@ class ApiService {
     updateVessal = (vessalId: number, data: { name: string; price: string }) =>
         this.api.put(`/vessals/${vessalId}/update-vessal`, data);
     deleteVessal = (vessalId: number) => this.api.delete(`/vessals/${vessalId}/delete-vessal`);
+
+    // Product methods
+    getAllProducts = (params: { page?: number; limit?: number; query?: string } = {}) =>
+        this.api.get('/products/get-all-product', { params: { page: params.page ?? 1, limit: params.limit ?? 10, query: params.query } });
+    getProduct = (productId: number) => this.api.get(`/products/${productId}/get-product-details`);
+    createProduct = (data: { name: string; price: string }) => this.api.post('/products/create-product', data);
+    updateProduct = (productId: number, data: { name: string; price: string }) =>
+        this.api.put(`/products/${productId}/update-product`, data);
+    deleteProduct = (productId: number) => this.api.delete(`/products/${productId}/delete-product`);
 }
 
 const apiService = new ApiService();
