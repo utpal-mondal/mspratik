@@ -2,6 +2,7 @@ import { Truck } from "lucide-react";
 import { SectionProps } from "@/types/vehicle-entry/types";
 import CustomDatePicker from "@/components/ui/DatePicker";
 import { SearchableDropdown } from "@/components/ui/SearchableDropdown";
+import { formatDate } from "@/utils/dateRangeUtils";
 
 const vehicleTypeOptions = [
   { value: "self", label: "Self" },
@@ -46,7 +47,7 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-xs font-medium text-gray-700 mb-1">
               Vehicle Type
             </label>
             <SearchableDropdown
@@ -76,6 +77,7 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
             <input
               type="number"
               min={2}
+              max={5}
               value={formData.numberOfWheels}
               onChange={(e) => {
                 onChange("numberOfWheels", e.target.value.replace(/\D/g, ""));
@@ -101,15 +103,15 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
             /> */}
 
             <CustomDatePicker
-            id="date"
-            value={formData.registrationExpiryDate ? new Date(formData.registrationExpiryDate):null}
-            onChange={(date) => onChange("registrationExpiryDate", date ? date.toISOString().split("T")[0]:"")}
-            placeholder="DD/MM/YYYY"
-           className={inputClass("registrationExpiryDate")}
-          />
+              id="date"
+              value={formData.registrationExpiryDate ? new Date(formData.registrationExpiryDate) : null}
+              onChange={(date) => onChange("registrationExpiryDate", date ? formatDate(date, "YYYY-MM-DD") : "")}
+              placeholder="DD/MM/YYYY"
+              className={inputClass("registrationExpiryDate")}
+            />
           </div>
 
-       
+
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -131,7 +133,7 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
             )}
           </div>
 
-             <div>
+          <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Owner Name
             </label>

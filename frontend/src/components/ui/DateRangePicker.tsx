@@ -12,6 +12,7 @@ import {
 import {
   addMonths,
   endOfMonth,
+  formatDate,
   formatRange,
   isAfterDay,
   isBeforeDay,
@@ -332,12 +333,12 @@ export default function DateRangePicker({
           <input
             type="hidden"
             name={`${name}_start`}
-            value={selected.startDate.toISOString().slice(0, 10)}
+            value={formatDate(selected.startDate, 'YYYY-MM-DD')}
           />
           <input
             type="hidden"
             name={`${name}_end`}
-            value={selected.endDate.toISOString().slice(0, 10)}
+            value={formatDate(selected.endDate, 'YYYY-MM-DD')}
           />
         </>
       )}

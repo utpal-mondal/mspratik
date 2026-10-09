@@ -1,6 +1,7 @@
 import { FileText } from "lucide-react";
 import { SectionProps } from "@/types/vehicle-entry/types";
 import CustomDatePicker from "@/components/ui/DatePicker";
+import { formatDate } from "@/utils/dateRangeUtils";
 // import ImageUpload from "@/components/ui/ImageUpload";
 
 const DocumentsSection: React.FC<SectionProps> = ({
@@ -97,7 +98,7 @@ const DocumentsSection: React.FC<SectionProps> = ({
               id="insuranceExpiryDate"
               value={formData.insuranceExpiryDate ? new Date(formData.insuranceExpiryDate) : null}
               onChange={(date) => {
-                onChange("insuranceExpiryDate", date ? date.toISOString().split("T")[0] : "");
+                onChange("insuranceExpiryDate", date ? formatDate(date, "YYYY-MM-DD") : "");
                 if (fieldErrors.insuranceExpiryDate) onClearError("insuranceExpiryDate");
               }}
               placeholder="DD/MM/YYYY"
@@ -136,7 +137,7 @@ const DocumentsSection: React.FC<SectionProps> = ({
               id="pucExpiryDate"
               value={formData.pucExpiryDate ? new Date(formData.pucExpiryDate) : null}
               onChange={(date) => {
-                onChange("pucExpiryDate", date ? date.toISOString().split("T")[0] : "");
+                onChange("pucExpiryDate", date ? formatDate(date, "YYYY-MM-DD") : "");
                 if (fieldErrors.pucExpiryDate) onClearError("pucExpiryDate");
               }}
               placeholder="DD/MM/YYYY"
@@ -155,7 +156,7 @@ const DocumentsSection: React.FC<SectionProps> = ({
               id="roadTaxExpiryDate"
               value={formData.roadTaxExpiryDate ? new Date(formData.roadTaxExpiryDate) : null}
               onChange={(date) => {
-                onChange("roadTaxExpiryDate", date ? date.toISOString().split("T")[0] : "");
+                onChange("roadTaxExpiryDate", date ? formatDate(date, "YYYY-MM-DD") : "");
                 if (fieldErrors.roadTaxExpiryDate) onClearError("roadTaxExpiryDate");
               }}
               placeholder="DD/MM/YYYY"
