@@ -131,6 +131,15 @@ class ApiService {
 
     // Bank methods
     getAllBanks = () => this.api.get('/banks/get-all-bank');
+
+    // Vessal methods
+    getAllVessals = (params: { page?: number; limit?: number; query?: string } = {}) =>
+        this.api.get('/vessals/get-all-vessal', { params: { page: params.page ?? 1, limit: params.limit ?? 10, query: params.query } });
+    getVessal = (vessalId: number) => this.api.get(`/vessals/${vessalId}/get-vessal-details`);
+    createVessal = (data: { name: string; price: string }) => this.api.post('/vessals/create-vessal', data);
+    updateVessal = (vessalId: number, data: { name: string; price: string }) =>
+        this.api.put(`/vessals/${vessalId}/update-vessal`, data);
+    deleteVessal = (vessalId: number) => this.api.delete(`/vessals/${vessalId}/delete-vessal`);
 }
 
 const apiService = new ApiService();

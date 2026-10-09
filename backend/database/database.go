@@ -59,6 +59,7 @@ func runMigrations() error {
 		&models.Driver{},
 		&models.Broker{},
 		&models.Bank{},
+		&models.Vessal{},
 
 		// Roles and Permissions
 		&models.Role{},

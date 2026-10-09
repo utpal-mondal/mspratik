@@ -12,6 +12,7 @@ import {
   User,
   Car,
   CarFront,
+  Ship,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -98,6 +99,12 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         name: "Brokers",
         icon: <User  size={20} />,
         path: "/broker",
+        
+      },
+      {
+        name: "Vessals",
+        icon: <Ship  size={20} />,
+        path: "/vessal",
         
       },
     ],
