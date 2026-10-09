@@ -1,0 +1,43 @@
+import Link from "next/link";
+import { ChevronDown, Briefcase, Pencil } from "lucide-react";
+
+interface PageHeaderProps {
+  brokerName?: string;
+  brokerId?: number;
+}
+
+const PageHeader: React.FC<PageHeaderProps> = ({ brokerName, brokerId }) => {
+  return (
+    <div className=" flex items-center justify-between">
+      <div className="flex items-center">
+        <Link
+          href="/broker"
+          className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors mr-2"
+        >
+          <ChevronDown size={16} className="rotate-90" />
+        </Link>
+        <div className="w-9 h-9 bg-blue-50 flex items-center justify-center mr-3">
+          <Briefcase size={18} className="text-blue-600" />
+        </div>
+        <div>
+          <h1 className="text-sm font-semibold text-gray-900 capitalize">
+            {brokerName || "Broker Details"}
+          </h1>
+          <p className="text-xs text-gray-500">View broker information</p>
+        </div>
+      </div>
+
+      {brokerId && (
+        <Link
+          href={`/broker/update?id=${brokerId}`}
+          className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          <Pencil size={12} />
+          Edit
+        </Link>
+      )}
+    </div>
+  );
+};
+
+export default PageHeader;

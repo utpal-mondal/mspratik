@@ -94,6 +94,12 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         path: "/drivers",
         
       },
+       {
+        name: "Brokers",
+        icon: <User  size={20} />,
+        path: "/broker",
+        
+      },
     ],
     [],
   );

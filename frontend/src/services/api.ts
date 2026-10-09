@@ -120,6 +120,17 @@ class ApiService {
     updateDriver = (driverId: number, data: FormData) =>
         this.api.put(`/drivers/${driverId}/update-driver`, data, { headers: { 'Content-Type': 'multipart/form-data' } });
     deleteDriver = (driverId: number) => this.api.delete(`/drivers/${driverId}/delete-driver`);
+
+    // Broker methods
+    getAllBrokers = (params: { page?: number; limit?: number; query?: string } = {}) =>
+        this.api.get('/brokers/get-all-broker', { params: { page: params.page ?? 1, limit: params.limit ?? 10, query: params.query } });
+    getBroker = (brokerId: number) => this.api.get(`/brokers/${brokerId}/get-broker-details`);
+    createBroker = (data: any) => this.api.post('/brokers/create-broker', data);
+    updateBroker = (brokerId: number, data: any) => this.api.put(`/brokers/${brokerId}/update-broker`, data);
+    deleteBroker = (brokerId: number) => this.api.delete(`/brokers/${brokerId}/delete-broker`);
+
+    // Bank methods
+    getAllBanks = () => this.api.get('/banks/get-all-bank');
 }
 
 const apiService = new ApiService();

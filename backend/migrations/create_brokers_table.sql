@@ -1,0 +1,36 @@
+-- backend/migrations/create_brokers_table.sql
+-- Brokers table (also auto-created by GORM AutoMigrate on server start)
+
+CREATE TABLE IF NOT EXISTS `brokers` (
+  `id`              BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `company_id`      BIGINT UNSIGNED NULL,
+  `broker_name`     VARCHAR(50)  NOT NULL,
+  `contact_no`      VARCHAR(20)  NULL,
+  `email_id`        VARCHAR(50)  NULL,
+  `contact_person`  VARCHAR(50)  NULL,
+  `address_1`       VARCHAR(100) NULL,
+  `address_2`       VARCHAR(100) NULL,
+  `address_3`       VARCHAR(100) NULL,
+  `opening_balance` DECIMAL(15,2) NULL,
+  `previous_due`    DECIMAL(15,2) NULL,
+  `gstn_no`         VARCHAR(15)  NULL,
+  `pan_no`          VARCHAR(10)  NULL,
+  `short_form`      VARCHAR(10)  NULL,
+  `banker_name`     VARCHAR(50)  NULL,
+  `bank_id`         BIGINT UNSIGNED NULL,
+  `branch_name`     VARCHAR(50)  NULL,
+  `account_no`      VARCHAR(20)  NULL,
+  `ifsc_code`       VARCHAR(11)  NULL,
+  `broker_type`     VARCHAR(20)  NULL DEFAULT 'normal',
+  `owner_bill_type` VARCHAR(20)  NULL DEFAULT 'normal',
+  `adhar_no`        VARCHAR(12)  NULL,
+  `qty_round`       VARCHAR(20)  NULL DEFAULT 'not_applicable',
+  `created_by`      BIGINT       NULL,
+  `created_at`      DATETIME(3)  NULL,
+  `updated_at`      DATETIME(3)  NULL,
+  `deleted_at`      DATETIME(3)  NULL,
+  INDEX `idx_brokers_company_id` (`company_id`),
+  INDEX `idx_brokers_bank_id` (`bank_id`),
+  INDEX `idx_brokers_deleted_at` (`deleted_at`),
+  CONSTRAINT `fk_brokers_bank` FOREIGN KEY (`bank_id`) REFERENCES `banks` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

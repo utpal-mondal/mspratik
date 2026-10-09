@@ -52,6 +52,26 @@ func SeedInitialData(db *gorm.DB) error {
 		return err
 	}
 
+	// Seed bank master data
+	// bankNames := []string{
+	// 	"State Bank of India",
+	// 	"HDFC Bank",
+	// 	"ICICI Bank",
+	// 	"Punjab National Bank",
+	// 	"Bank of Baroda",
+	// 	"Axis Bank",
+	// 	"Kotak Mahindra Bank",
+	// 	"Canara Bank",
+	// 	"Union Bank of India",
+	// 	"IDBI Bank",
+	// }
+	// for _, name := range bankNames {
+	// 	bank := &models.Bank{BankName: name}
+	// 	if err := db.FirstOrCreate(bank, "bank_name = ?", name).Error; err != nil {
+	// 		log.Printf("Error seeding bank %s: %v", name, err)
+	// 	}
+	// }
+
 	log.Println("Database seeded successfully")
 	return nil
 }
