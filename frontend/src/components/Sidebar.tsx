@@ -14,6 +14,7 @@ import {
   CarFront,
   Ship,
   Package,
+  Sprout,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -112,6 +113,12 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         name: "Products",
         icon: <Package  size={20} />,
         path: "/product",
+        
+      },
+      {
+        name: "Pumps",
+        icon: <Sprout  size={20} />,
+        path: "/pump",
         
       },
     ],

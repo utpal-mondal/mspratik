@@ -61,6 +61,7 @@ func runMigrations() error {
 		&models.Bank{},
 		&models.Vessal{},
 		&models.Product{},
+		&models.Pump{},
 
 		// Roles and Permissions
 		&models.Role{},

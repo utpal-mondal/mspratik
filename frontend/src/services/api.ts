@@ -129,6 +129,14 @@ class ApiService {
     updateBroker = (brokerId: number, data: any) => this.api.put(`/brokers/${brokerId}/update-broker`, data);
     deleteBroker = (brokerId: number) => this.api.delete(`/brokers/${brokerId}/delete-broker`);
 
+    // Pump methods
+    getAllPumps = (params: { page?: number; limit?: number; query?: string } = {}) =>
+        this.api.get('/pumps/get-all-pump', { params: { page: params.page ?? 1, limit: params.limit ?? 10, query: params.query } });
+    getPump = (pumpId: number) => this.api.get(`/pumps/${pumpId}/get-pump-details`);
+    createPump = (data: any) => this.api.post('/pumps/create-pump', data);
+    updatePump = (pumpId: number, data: any) => this.api.put(`/pumps/${pumpId}/update-pump`, data);
+    deletePump = (pumpId: number) => this.api.delete(`/pumps/${pumpId}/delete-pump`);
+
     // Bank methods
     getAllBanks = () => this.api.get('/banks/get-all-bank');
 
