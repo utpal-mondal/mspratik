@@ -133,7 +133,7 @@ const ClientEntryPage = () => {
           <CreatePageHeader />
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-7">
-            <div className="bg-white border border-[#D5DDE6] rounded-md overflow-hidden shadow-[0_1px_2px_rgba(15,42,71,0.06),0_8px_24px_rgba(15,42,71,0.05)] divide-y divide-[#D5DDE6]">
+            <div className="bg-white border border-[#D5DDE6] rounded-md overflow-hidden shadow-[0_1px_2px_rgba(15,42,71,0.06),0_8px_24px_rgba(15,42,71,0.05)] grid grid-cols-1 md:grid-cols-2  md:divide-y-0 md:divide-x divide-[#D5DDE6]">
               <ClientDetailsSection {...sectionProps} />
               <TaxDetailsSection {...sectionProps} />
             </div>
