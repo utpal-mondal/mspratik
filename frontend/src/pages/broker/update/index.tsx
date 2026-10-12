@@ -95,13 +95,13 @@ const UpdateBrokerPage = () => {
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
 
-    // if (!formData.brokerName.trim()) {
-    //   errors.brokerName = "Broker name is required";
-    // } else if (formData.brokerName.trim().length < 2) {
-    //   errors.brokerName = "Broker name must be at least 2 characters";
-    // } else if (formData.brokerName.length > 50) {
-    //   errors.brokerName = "Broker name must be less than 50 characters";
-    // }
+    if (!formData.brokerName.trim()) {
+      errors.brokerName = "Broker name is required";
+    } else if (formData.brokerName.trim().length < 2) {
+      errors.brokerName = "Broker name must be at least 2 characters";
+    } else if (formData.brokerName.length > 50) {
+      errors.brokerName = "Broker name must be less than 50 characters";
+    }
 
     // if (formData.contactNo) {
     //   const phone = formData.contactNo.replace(/[\s-]/g, "");
@@ -140,7 +140,7 @@ const UpdateBrokerPage = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
-      toast.error("Please fix the errors in the form");
+      toast.error("Please fill the required fields");
       return;
     }
 

@@ -108,7 +108,7 @@ const UpdatePumpPage = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
-      toast.error("Please fix the errors in the form");
+      toast.error("Please fill the required fields");
       return;
     }
 

@@ -202,12 +202,10 @@ func CreateBroker(c *fiber.Ctx, db *gorm.DB) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "message": "Invalid request body"})
 	}
 
-	// Validation temporarily disabled
-	_, openingBalance, bankID := validateBrokerRequest(&req)
-	// errors, openingBalance, bankID := validateBrokerRequest(&req)
-	// if len(errors) > 0 {
-	// 	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
-	// }
+	errors, openingBalance, bankID := validateBrokerRequest(&req)
+	if len(errors) > 0 {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
+	}
 
 	now := time.Now()
 	broker := models.Broker{
@@ -346,12 +344,10 @@ func UpdateBroker(c *fiber.Ctx, db *gorm.DB) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "message": "Invalid request body"})
 	}
 
-	// Validation temporarily disabled
-	_, openingBalance, bankID := validateBrokerRequest(&req)
-	// errors, openingBalance, bankID := validateBrokerRequest(&req)
-	// if len(errors) > 0 {
-	// 	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
-	// }
+	errors, openingBalance, bankID := validateBrokerRequest(&req)
+	if len(errors) > 0 {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
+	}
 
 	broker.BrokerName = req.BrokerName
 	broker.ContactNo = req.ContactNo

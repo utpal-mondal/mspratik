@@ -154,12 +154,10 @@ func CreatePump(c *fiber.Ctx, db *gorm.DB) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "message": "Invalid request body"})
 	}
 
-	// Validation temporarily disabled
-	_, openingBalance := validatePumpRequest(&req)
-	// errors, openingBalance := validatePumpRequest(&req)
-	// if len(errors) > 0 {
-	// 	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
-	// }
+	errors, openingBalance := validatePumpRequest(&req)
+	if len(errors) > 0 {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
+	}
 
 	now := time.Now()
 	pump := models.Pump{
@@ -291,12 +289,10 @@ func UpdatePump(c *fiber.Ctx, db *gorm.DB) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "message": "Invalid request body"})
 	}
 
-	// Validation temporarily disabled
-	_, openingBalance := validatePumpRequest(&req)
-	// errors, openingBalance := validatePumpRequest(&req)
-	// if len(errors) > 0 {
-	// 	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
-	// }
+	errors, openingBalance := validatePumpRequest(&req)
+	if len(errors) > 0 {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
+	}
 
 	pump.PumpName = req.PumpName
 	pump.ContactNo = req.ContactNo
