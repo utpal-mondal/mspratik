@@ -22,7 +22,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ total }) => {
       <div className="flex flex-wrap gap-3">
         <Link
           href="/client/create"
-          className="flex items-center gap-2 h-11 px-5 bg-[#0F2A47] text-white border border-[#0F2A47] rounded font-medium text-sm cursor-pointer transition-colors hover:bg-[#17395E]"
+          className="flex items-center gap-2 h-11 px-5 bg-blue-700 text-white border border-blue-600 rounded font-medium text-sm cursor-pointer transition-colors hover:bg-blue-600"
         >
           <Plus size={15} />
           Add Client

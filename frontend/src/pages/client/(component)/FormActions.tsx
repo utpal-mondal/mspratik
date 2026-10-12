@@ -19,7 +19,7 @@ const FormActions: React.FC<FormActionsProps> = ({ saving, onReset }) => {
       <button
         type="submit"
         disabled={saving}
-        className="flex items-center gap-2 h-11 px-5 bg-[#0F2A47] text-white border border-[#0F2A47] rounded font-medium text-sm cursor-pointer transition-colors hover:bg-[#17395E] disabled:opacity-50 disabled:cursor-not-allowed"
+        className="flex items-center gap-2 h-11 px-5 bg-gray-400 text-white border border-gray-400 rounded font-medium text-sm cursor-pointer transition-colors hover:bg-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <Save size={15} />
         {saving ? "Saving..." : "Save Client"}

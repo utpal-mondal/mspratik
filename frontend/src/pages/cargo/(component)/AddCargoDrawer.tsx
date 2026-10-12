@@ -129,7 +129,7 @@ const AddCargoDrawer: React.FC<AddCargoDrawerProps> = ({
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center gap-2 h-10 px-4 bg-[#0F2A47] text-white border border-[#0F2A47] rounded font-medium text-[13px] cursor-pointer transition-colors hover:bg-[#17395E] disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 h-10 px-4 bg-blue-700 text-white border border-blue-400 rounded font-medium text-[13px] cursor-pointer transition-colors hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Save size={13} />
             {saving ? "Saving..." : "Save Cargo"}

@@ -85,7 +85,7 @@ const ClientsPage = () => {
       </Head>
 
       <main
-        className="flex-1 min-h-screen bg-[#F2F5F9] px-3 py-3 md:px-8 md:py-3 text-[#17222E]"
+        className="flex-1 min-h-screen bg-[#F2F5F9] px-6 py-10 md:px-8 md:py-12 text-[#17222E]"
       >
         <div className=" mx-auto flex flex-col gap-7">
           <PageHeader total={total} />

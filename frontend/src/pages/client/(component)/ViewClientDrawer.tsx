@@ -109,7 +109,7 @@ const ViewClientDrawer: React.FC<ViewClientDrawerProps> = ({ clientId, onClose }
               </button>
               <Link
                 href={`/client/update?id=${client.id}`}
-                className="flex items-center gap-2 h-10 px-4 bg-[#0F2A47] text-white border border-[#0F2A47] rounded font-medium text-[13px] transition-colors hover:bg-[#17395E]"
+                className="flex items-center gap-2 h-10 px-4 bg-blue-700 text-white border border-blue-400 rounded font-medium text-[13px] transition-colors hover:bg-blue-500"
               >
                 <Pencil size={13} />
                 Edit Client

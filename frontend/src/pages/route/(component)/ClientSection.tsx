@@ -42,7 +42,7 @@ const ClientSection: React.FC<ClientSectionProps> = ({
 
   return (
     <div className="bg-white">
-      <div className="flex items-center h-10 px-5 bg-[#0F2A47] text-white">
+      <div className="flex items-center h-10 px-5 text-black">
         <h2 className="m-0 text-xs font-semibold tracking-[0.08em] uppercase">
           Client Details
         </h2>

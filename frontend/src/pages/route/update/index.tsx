@@ -7,6 +7,7 @@ import apiService from "../../../services/api";
 import UpdatePageHeader from "../(component)/UpdatePageHeader";
 import ClientSection from "../(component)/ClientSection";
 import PointSection from "../(component)/PointSection";
+import FormActions from "../(component)/FormActions";
 import { geocodeAddress } from "@/utils/geocode";
 import { RouteFormData, RoutePoint } from "@/types/route-entry/types";
 
@@ -225,7 +226,7 @@ const RouteUpdatePage = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <UpdatePageHeader saving={saving} onCancel={handleCancel} />
+              <UpdatePageHeader />
 
               <div className="bg-white border border-[#D5DDE6] rounded-md overflow-hidden shadow-[0_1px_2px_rgba(15,42,71,0.06),0_4px_16px_rgba(15,42,71,0.04)]">
                 <ClientSection
@@ -284,6 +285,13 @@ const RouteUpdatePage = () => {
                   −90 to 90 · Longitude −180 to 180
                 </div>
               </div>
+
+              <FormActions
+                saving={saving}
+                secondaryLabel="Cancel"
+                submitLabel="Update Route"
+                onSecondary={handleCancel}
+              />
             </form>
           )}
         </div>
