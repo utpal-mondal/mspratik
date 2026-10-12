@@ -127,6 +127,12 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         path: "/client",
         
       },
+      {
+        name: "Cargos",
+        icon: <Package  size={20} />,
+        path: "/cargo",
+        
+      },
     ],
     [],
   );

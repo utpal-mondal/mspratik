@@ -137,6 +137,13 @@ class ApiService {
     updateClient = (clientId: number, data: any) => this.api.put(`/clients/${clientId}/update-client`, data);
     deleteClient = (clientId: number) => this.api.delete(`/clients/${clientId}/delete-client`);
 
+    // Cargo methods
+    getAllCargos = (params: { page?: number; limit?: number; query?: string } = {}) =>
+        this.api.get('/cargos/get-all-cargo', { params: { page: params.page ?? 1, limit: params.limit ?? 10, query: params.query } });
+    createCargo = (data: { cargo_name: string; status?: string }) => this.api.post('/cargos/create-cargo', data);
+    updateCargoStatus = (cargoId: number, data: { status: string }) =>
+        this.api.put(`/cargos/${cargoId}/update-cargo-status`, data);
+
     // Pump methods
     getAllPumps = (params: { page?: number; limit?: number; query?: string } = {}) =>
         this.api.get('/pumps/get-all-pump', { params: { page: params.page ?? 1, limit: params.limit ?? 10, query: params.query } });

@@ -62,6 +62,7 @@ func main() {
 	routes.SetupDriverRoutes(api, db)
 	routes.SetupBrokerRoutes(api, db)
 	routes.SetupClientRoutes(api, db)
+	routes.SetupCargoRoutes(api, db)
 	routes.SetupBankRoutes(api, db)
 	routes.SetupVessalRoutes(api, db)
 	routes.SetupProductRoutes(api, db)
