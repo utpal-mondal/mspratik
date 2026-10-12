@@ -63,7 +63,7 @@ const PointSection: React.FC<PointSectionProps> = ({
               onClick={() => onLookup()}
               disabled={lookingUp}
               title="Fetch latitude & longitude"
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-[#7B8896] hover:text-[#0F2A47] rounded transition-colors disabled:opacity-50"
+              className="absolute bg-[#0F2A47] right-2 top-1/2 -translate-y-1/2 p-1 text-white hover:text-[#0F2A47] rounded transition-colors disabled:opacity-50"
             >
               {lookingUp ? (
                 <Loader2 size={15} className="animate-spin" />
