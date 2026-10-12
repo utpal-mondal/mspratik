@@ -129,6 +129,14 @@ class ApiService {
     updateBroker = (brokerId: number, data: any) => this.api.put(`/brokers/${brokerId}/update-broker`, data);
     deleteBroker = (brokerId: number) => this.api.delete(`/brokers/${brokerId}/delete-broker`);
 
+    // Client methods
+    getAllClients = (params: { page?: number; limit?: number; query?: string } = {}) =>
+        this.api.get('/clients/get-all-client', { params: { page: params.page ?? 1, limit: params.limit ?? 10, query: params.query } });
+    getClient = (clientId: number) => this.api.get(`/clients/${clientId}/get-client-details`);
+    createClient = (data: any) => this.api.post('/clients/create-client', data);
+    updateClient = (clientId: number, data: any) => this.api.put(`/clients/${clientId}/update-client`, data);
+    deleteClient = (clientId: number) => this.api.delete(`/clients/${clientId}/delete-client`);
+
     // Pump methods
     getAllPumps = (params: { page?: number; limit?: number; query?: string } = {}) =>
         this.api.get('/pumps/get-all-pump', { params: { page: params.page ?? 1, limit: params.limit ?? 10, query: params.query } });

@@ -121,6 +121,12 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         path: "/pump",
         
       },
+      {
+        name: "Clients",
+        icon: <User  size={20} />,
+        path: "/client",
+        
+      },
     ],
     [],
   );
