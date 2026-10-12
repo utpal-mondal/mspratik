@@ -12,9 +12,9 @@ const PageHeader: React.FC<PageHeaderProps> = ({ total }) => {
         <div className="text-xs font-semibold tracking-[0.1em] uppercase text-[#4D6178]">
           Client Master · {total} records
         </div>
-        <h1 className="m-0 text-[32px] leading-[1.2] font-semibold text-[#0F2A47]">
+        <h3 className="m-0 text-[24px] leading-[1.2] font-semibold text-[#0F2A47]">
           Clients
-        </h1>
+        </h3>
         <div className="text-[15px] leading-[1.5] text-[#4D5B6A]">
           Manage your clients and their contact details.
         </div>

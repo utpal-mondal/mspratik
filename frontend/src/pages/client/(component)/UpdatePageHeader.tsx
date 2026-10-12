@@ -12,7 +12,7 @@ const UpdatePageHeader: React.FC = () => {
           <ChevronLeft size={13} />
           Client Master
         </Link>
-        <h3 className="m-0 text-[25px] leading-[1.2] font-semibold text-[#0F2A47]">
+        <h3 className="m-0 text-[24px] leading-[1.2] font-semibold text-[#0F2A47]">
           Update Client
         </h3>
         <div className="text-[15px] leading-[1.5] text-[#4D5B6A]">

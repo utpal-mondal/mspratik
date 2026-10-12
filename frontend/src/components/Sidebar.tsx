@@ -15,6 +15,7 @@ import {
   Ship,
   Package,
   Sprout,
+  MapPin,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -131,6 +132,12 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         name: "Cargos",
         icon: <Package  size={20} />,
         path: "/cargo",
+        
+      },
+      {
+        name: "Routes",
+        icon: <MapPin  size={20} />,
+        path: "/route",
         
       },
     ],

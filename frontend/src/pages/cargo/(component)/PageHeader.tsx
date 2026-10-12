@@ -12,7 +12,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ total, onAdd }) => {
         <div className="text-xs font-semibold tracking-[0.1em] uppercase text-[#4D6178]">
           Cargo Master · {total} records
         </div>
-        <h3 className="m-0 text-[25px] leading-[1.2] font-semibold text-[#0F2A47]">
+        <h3 className="m-0 text-[24px] leading-[1.2] font-semibold text-[#0F2A47]">
           Cargo
         </h3>
         <div className="text-[15px] leading-[1.5] text-[#4D5B6A]">

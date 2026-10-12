@@ -13,7 +13,7 @@ interface CargoTableProps {
 const thBase =
   "bg-[#0F2A47] text-white text-left px-4 py-3.5 text-xs font-semibold tracking-[0.07em] uppercase whitespace-nowrap";
 const tdBase =
-  "px-2 py-3 border-b border-[#E6EBF1] text-[#3B4957] whitespace-nowrap";
+  "px-4 py-3 border-b border-[#E6EBF1] text-[#3B4957] whitespace-nowrap";
 
 const CargoTable: React.FC<CargoTableProps> = ({
   cargos,
