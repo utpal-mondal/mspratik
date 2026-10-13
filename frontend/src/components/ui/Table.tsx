@@ -25,12 +25,12 @@ export default function Table<T>({
   return (
     <div className="overflow-x-auto">
       <table className={`min-w-full divide-y divide-slate-100 ${className}`}>
-        <thead className="bg-slate-50/80">
+        <thead className="bg-slate-200">
           <tr className="border-y border-gray-200">
             {columns.map((col) => (
               <th
                 key={col.key}
-                className={`px-4 py-3 text-xs font-semibold text-slate-500 uppercase tracking-wider ${
+                className={`px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider ${
                   col.align === "right" ? "text-right" : "text-left"
                 }`}
               >
@@ -55,7 +55,7 @@ export default function Table<T>({
               {columns.map((col) => (
                 <td
                   key={col.key}
-                  className={`px-4 py-3.5 whitespace-nowrap text-sm text-slate-600 ${
+                  className={`px-4 py-3.5 whitespace-nowrap text-[13px] font-medium text-gray-800 ${
                     col.align === "right" ? "text-right" : "text-left"
                   }`}
                 >

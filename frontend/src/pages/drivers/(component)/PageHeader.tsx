@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { ChevronDown, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 
 interface PageHeaderProps {
   total: number;
@@ -8,24 +7,26 @@ interface PageHeaderProps {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ total, onAddDriver }) => {
   return (
-    <div className="mb-3">
-      <div className="flex items-center justify-between mb-1">
-        <div className="flex items-center space-x-2">
-          <Link href="/dashboard" className="text-gray-500 hover:text-gray-700">
-            <ChevronDown size={14} className="rotate-90" />
-          </Link>
-          <div>
-            <h1 className="text-lg font-bold text-gray-800">Drivers</h1>
-            <p className="text-xs text-gray-500">{total} drivers</p>
-          </div>
+    <div className="flex flex-wrap items-end justify-between gap-5">
+      <div className="flex flex-col gap-2">
+        <div className="text-xs font-semibold tracking-[0.1em] uppercase text-[#4D6178]">
+          Driver Master · {total} records
         </div>
+        <h3 className="m-0 text-[24px] leading-[1.2] font-semibold text-[#0F2A47]">
+          Drivers
+        </h3>
+        <div className="text-[15px] leading-[1.5] text-[#4D5B6A]">
+          Manage your drivers and their licence details.
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-3">
         <button
           type="button"
           onClick={onAddDriver}
-          className="flex items-center space-x-1 px-2.5 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 text-xs font-medium"
+          className="flex items-center gap-2 h-11 px-5 bg-blue-700 text-white border border-blue-600 rounded font-medium text-sm cursor-pointer transition-colors hover:bg-blue-600"
         >
-          <Plus size={12} />
-          <span>Add Driver</span>
+          <Plus size={15} />
+          Add Driver
         </button>
       </div>
     </div>

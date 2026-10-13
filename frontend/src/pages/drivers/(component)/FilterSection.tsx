@@ -1,38 +1,39 @@
 import { Search, X } from "lucide-react";
 
 interface FilterSectionProps {
+  title: string;
   searchQuery: string;
   onSearchChange: (value: string) => void;
-  onReset: () => void;
 }
 
 const FilterSection: React.FC<FilterSectionProps> = ({
+  title,
   searchQuery,
   onSearchChange,
-  onReset,
 }) => {
   return (
-    <div className="flex items-center gap-2 px-3 py-2.5 border-b border-gray-100">
-      <div className="relative w-full max-w-xs">
+    <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-b border-[#D5DDE6]">
+      <div className="text-base font-semibold text-[#0F2A47]">{title}</div>
+      <div className="relative w-full max-w-[260px]">
         <Search
-          className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-400"
-          size={13}
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-[#7B8896]"
+          size={14}
         />
         <input
           type="text"
           placeholder="Search name or phone..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full pl-8 pr-7 py-1.5 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-xs"
+          className="w-full h-10 pl-9 pr-8 border border-[#C5CFDB] rounded bg-white text-[13px] text-[#17222E] placeholder-[#7B8896] focus:outline-none focus:ring-2 focus:ring-[#0F2A47]/20 focus:border-[#0F2A47]"
         />
         {searchQuery !== "" && (
           <button
             type="button"
-            onClick={onReset}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 text-gray-400 hover:text-gray-600 rounded transition-colors"
+            onClick={() => onSearchChange("")}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 text-[#7B8896] hover:text-[#3B4957] rounded transition-colors"
             title="Clear search"
           >
-            <X size={11} />
+            <X size={12} />
           </button>
         )}
       </div>

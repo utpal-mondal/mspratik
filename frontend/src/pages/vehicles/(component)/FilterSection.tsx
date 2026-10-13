@@ -1,73 +1,63 @@
 import { Search, X, ChevronDown } from "lucide-react";
 
 interface FilterSectionProps {
+  title: string;
   searchQuery: string;
   vehicleType: string;
   onSearchChange: (value: string) => void;
   onVehicleTypeChange: (value: string) => void;
-  onReset: () => void;
 }
 
 const FilterSection: React.FC<FilterSectionProps> = ({
+  title,
   searchQuery,
   vehicleType,
   onSearchChange,
   onVehicleTypeChange,
-  onReset,
 }) => {
-  const hasFilters = searchQuery !== "" || vehicleType !== "";
-
   return (
-    <div className="flex items-center gap-2 px-3 py-2.5 border-b border-gray-100">
-      <div className="relative w-full max-w-xs">
-        <Search
-          className="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-400"
-          size={13}
-        />
-        <input
-          type="text"
-          placeholder="Search number, owner or RC..."
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full pl-8 pr-7 py-1.5 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-xs"
-        />
-        {searchQuery !== "" && (
-          <button
-            type="button"
-            onClick={() => onSearchChange("")}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 text-gray-400 hover:text-gray-600 rounded transition-colors"
-            title="Clear search"
+    <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-b border-[#D5DDE6]">
+      <div className="text-base font-semibold text-[#0F2A47]">{title}</div>
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="relative">
+          <select
+            value={vehicleType}
+            onChange={(e) => onVehicleTypeChange(e.target.value)}
+            className="appearance-none h-10 pl-3 pr-8 border border-[#C5CFDB] rounded bg-white text-[13px] text-[#17222E] capitalize focus:outline-none focus:ring-2 focus:ring-[#0F2A47]/20 focus:border-[#0F2A47]"
           >
-            <X size={11} />
-          </button>
-        )}
+            <option value="">All Types</option>
+            <option value="self">Self</option>
+            <option value="others">Others</option>
+          </select>
+          <ChevronDown
+            size={12}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#7B8896] pointer-events-none"
+          />
+        </div>
+        <div className="relative w-full max-w-[260px]">
+          <Search
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[#7B8896]"
+            size={14}
+          />
+          <input
+            type="text"
+            placeholder="Search number, owner or RC..."
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            className="w-full h-10 pl-9 pr-8 border border-[#C5CFDB] rounded bg-white text-[13px] text-[#17222E] placeholder-[#7B8896] focus:outline-none focus:ring-2 focus:ring-[#0F2A47]/20 focus:border-[#0F2A47]"
+          />
+          {searchQuery !== "" && (
+            <button
+              type="button"
+              onClick={() => onSearchChange("")}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 text-[#7B8896] hover:text-[#3B4957] rounded transition-colors"
+              title="Clear search"
+            >
+              <X size={12} />
+            </button>
+          )}
+        </div>
       </div>
-
-      <div className="relative">
-        <select
-          value={vehicleType}
-          onChange={(e) => onVehicleTypeChange(e.target.value)}
-          className="appearance-none pl-3 pr-7 py-1.5 border border-gray-200 rounded-full bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-xs text-gray-700 capitalize"
-        >
-          <option value="">All Types</option>
-          <option value="self">Self</option>
-          <option value="others">Others</option>
-        </select>
-        <ChevronDown
-          size={12}
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-        />
-      </div>
-
-      {hasFilters && (
-        <button
-          type="button"
-          onClick={onReset}
-          className="px-2.5 py-1.5 text-[11px] text-gray-500 hover:text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
-        >
-          Reset
-        </button>
-      )}
     </div>
   );
 };

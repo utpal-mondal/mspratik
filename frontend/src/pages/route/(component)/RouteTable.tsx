@@ -12,9 +12,9 @@ interface RouteTableProps {
 }
 
 const thBase =
-  "bg-gray-100 text-black text-left px-4 py-3.5 text-xs font-semibold tracking-[0.07em] uppercase whitespace-nowrap";
+  "bg-slate-200 text-gray-500 text-left px-4 py-3.5 text-xs font-semibold tracking-[0.07em] uppercase whitespace-nowrap";
 const tdBase =
-  "px-4 py-3 border-b border-[#E6EBF1] text-[#3B4957] whitespace-nowrap";
+  "px-4 py-3 border-b border-[#E6EBF1] text-[13px] font-medium text-gray-800 whitespace-nowrap";
 
 const PointCell = ({ name, lat, long }: { name?: string; lat?: string; long?: string }) => (
   <div className="flex flex-col gap-0.5">
