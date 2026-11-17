@@ -2,6 +2,9 @@
 package handlers
 
 import (
+	"encoding/json"
+	"fmt"
+	"log"
 	"strconv"
 	"strings"
 	"time"
@@ -13,16 +16,21 @@ import (
 )
 
 type routeRequest struct {
-	ClientID  string `json:"client_id"`
-	StartName string `json:"start_name"`
-	StartLat  string `json:"start_lat"`
-	StartLong string `json:"start_long"`
-	ViaName   string `json:"via_name"`
-	ViaLat    string `json:"via_lat"`
-	ViaLong   string `json:"via_long"`
-	EndName   string `json:"end_name"`
-	EndLat    string `json:"end_lat"`
-	EndLong   string `json:"end_long"`
+	RouteName string             `json:"route_name"`
+	StartName string             `json:"start_name"`
+	StartLat  string             `json:"start_lat"`
+	StartLong string             `json:"start_long"`
+	ViaPoints []routePointRequest `json:"via_points"`
+	EndName   string             `json:"end_name"`
+	EndLat    string             `json:"end_lat"`
+	EndLong   string             `json:"end_long"`
+}
+
+type routePointRequest struct {
+	Name   string `json:"name"`
+	Lat    string `json:"lat"`
+	Long   string `json:"long"`
+	Notify bool   `json:"notify"`
 }
 
 // parseRouteRequest accepts both JSON and multipart/form-data bodies
@@ -34,32 +42,31 @@ func parseRouteRequest(c *fiber.Ctx) (routeRequest, error) {
 		}
 		return req, nil
 	}
-	return routeRequest{
-		ClientID:  c.FormValue("client_id"),
+	req := routeRequest{
+		RouteName: c.FormValue("route_name"),
 		StartName: c.FormValue("start_name"),
 		StartLat:  c.FormValue("start_lat"),
 		StartLong: c.FormValue("start_long"),
-		ViaName:   c.FormValue("via_name"),
-		ViaLat:    c.FormValue("via_lat"),
-		ViaLong:   c.FormValue("via_long"),
 		EndName:   c.FormValue("end_name"),
 		EndLat:    c.FormValue("end_lat"),
 		EndLong:   c.FormValue("end_long"),
-	}, nil
+	}
+	if viaPoints := c.FormValue("via_points"); viaPoints != "" {
+		if err := json.Unmarshal([]byte(viaPoints), &req.ViaPoints); err != nil {
+			return req, err
+		}
+	}
+	return req, nil
 }
 
-func validateRouteRequest(req *routeRequest) (map[string]string, *uint) {
+func validateRouteRequest(req *routeRequest) map[string]string {
 	errors := map[string]string{}
-	var clientID *uint
 
-	req.ClientID = strings.TrimSpace(req.ClientID)
-	if req.ClientID == "" {
-		errors["client_id"] = "Client name is required"
-	} else if n, err := strconv.ParseUint(req.ClientID, 10, 64); err != nil {
-		errors["client_id"] = "Select a valid client"
-	} else {
-		id := uint(n)
-		clientID = &id
+	req.RouteName = strings.TrimSpace(req.RouteName)
+	if req.RouteName == "" {
+		errors["route_name"] = "Route name is required"
+	} else if len(req.RouteName) > 100 {
+		errors["route_name"] = "Route name must be less than 100 characters"
 	}
 
 	req.StartName = strings.TrimSpace(req.StartName)
@@ -70,43 +77,28 @@ func validateRouteRequest(req *routeRequest) (map[string]string, *uint) {
 	}
 
 	req.StartLat = strings.TrimSpace(req.StartLat)
-	if req.StartLat != "" {
-		if len(req.StartLat) > 20 {
-			errors["start_lat"] = "Enter a valid latitude"
-		} else if _, err := strconv.ParseFloat(req.StartLat, 64); err != nil {
-			errors["start_lat"] = "Enter a valid latitude"
-		}
+	if !validCoordinate(req.StartLat, -90, 90) {
+		errors["start_lat"] = "Enter a valid latitude"
 	}
 
 	req.StartLong = strings.TrimSpace(req.StartLong)
-	if req.StartLong != "" {
-		if len(req.StartLong) > 20 {
-			errors["start_long"] = "Enter a valid longitude"
-		} else if _, err := strconv.ParseFloat(req.StartLong, 64); err != nil {
-			errors["start_long"] = "Enter a valid longitude"
+	if !validCoordinate(req.StartLong, -180, 180) {
+		errors["start_long"] = "Enter a valid longitude"
+	}
+
+	for i := range req.ViaPoints {
+		point := &req.ViaPoints[i]
+		point.Name = strings.TrimSpace(point.Name)
+		point.Lat = strings.TrimSpace(point.Lat)
+		point.Long = strings.TrimSpace(point.Long)
+		if point.Name == "" || len(point.Name) > 100 {
+			errors["via_points"] = "Each via point must have a name under 100 characters"
 		}
-	}
-
-	req.ViaName = strings.TrimSpace(req.ViaName)
-	if len(req.ViaName) > 100 {
-		errors["via_name"] = "Via point name must be less than 100 characters"
-	}
-
-	req.ViaLat = strings.TrimSpace(req.ViaLat)
-	if req.ViaLat != "" {
-		if len(req.ViaLat) > 20 {
-			errors["via_lat"] = "Enter a valid latitude"
-		} else if _, err := strconv.ParseFloat(req.ViaLat, 64); err != nil {
-			errors["via_lat"] = "Enter a valid latitude"
+		if !validCoordinate(point.Lat, -90, 90) {
+			errors["via_points"] = "Each via point must have a valid latitude"
 		}
-	}
-
-	req.ViaLong = strings.TrimSpace(req.ViaLong)
-	if req.ViaLong != "" {
-		if len(req.ViaLong) > 20 {
-			errors["via_long"] = "Enter a valid longitude"
-		} else if _, err := strconv.ParseFloat(req.ViaLong, 64); err != nil {
-			errors["via_long"] = "Enter a valid longitude"
+		if !validCoordinate(point.Long, -180, 180) {
+			errors["via_points"] = "Each via point must have a valid longitude"
 		}
 	}
 
@@ -118,37 +110,45 @@ func validateRouteRequest(req *routeRequest) (map[string]string, *uint) {
 	}
 
 	req.EndLat = strings.TrimSpace(req.EndLat)
-	if req.EndLat != "" {
-		if len(req.EndLat) > 20 {
-			errors["end_lat"] = "Enter a valid latitude"
-		} else if _, err := strconv.ParseFloat(req.EndLat, 64); err != nil {
-			errors["end_lat"] = "Enter a valid latitude"
-		}
+	if !validCoordinate(req.EndLat, -90, 90) {
+		errors["end_lat"] = "Enter a valid latitude"
 	}
 
 	req.EndLong = strings.TrimSpace(req.EndLong)
-	if req.EndLong != "" {
-		if len(req.EndLong) > 20 {
-			errors["end_long"] = "Enter a valid longitude"
-		} else if _, err := strconv.ParseFloat(req.EndLong, 64); err != nil {
-			errors["end_long"] = "Enter a valid longitude"
-		}
+	if !validCoordinate(req.EndLong, -180, 180) {
+		errors["end_long"] = "Enter a valid longitude"
 	}
 
-	return errors, clientID
+	return errors
 }
 
-// resolveClientName fetches the client name for the given id within the company
-func resolveClientName(db *gorm.DB, companyID *uint, clientID uint) (string, error) {
-	var client models.Client
-	query := db.Select("id", "client_name")
-	if companyID != nil {
-		query = query.Where("company_id = ?", *companyID)
+func validCoordinate(value string, min, max float64) bool {
+	if value == "" || len(value) > 20 {
+		return false
 	}
-	if err := query.First(&client, clientID).Error; err != nil {
-		return "", err
+	number, err := strconv.ParseFloat(value, 64)
+	return err == nil && number >= min && number <= max
+}
+
+func persistViaPoints(db *gorm.DB, routeID uint, points []routePointRequest) error {
+	if err := db.Where("route_id = ?", routeID).Delete(&models.RouteStop{}).Error; err != nil {
+		return err
 	}
-	return client.ClientName, nil
+	if len(points) == 0 {
+		return nil
+	}
+	records := make([]models.RouteStop, len(points))
+	for i, point := range points {
+		records[i] = models.RouteStop{
+			RouteID:  routeID,
+			Name:     point.Name,
+			Lat:      point.Lat,
+			Long:     point.Long,
+			Position: i + 1,
+			Notify:   point.Notify,
+		}
+	}
+	return db.Create(&records).Error
 }
 
 // CreateRoute creates a route for the current company
@@ -164,27 +164,17 @@ func CreateRoute(c *fiber.Ctx, db *gorm.DB) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "message": "Invalid request body"})
 	}
 
-	errors, clientID := validateRouteRequest(&req)
+	errors := validateRouteRequest(&req)
 	if len(errors) > 0 {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
 	}
 
-	clientName, err := resolveClientName(db, authUser.CompanyID, *clientID)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": map[string]string{"client_id": "Select a valid client"}})
-	}
-
 	now := time.Now()
 	route := models.Route{
-		CompanyID:  authUser.CompanyID,
-		ClientID:   clientID,
-		ClientName: clientName,
+		RouteName:  req.RouteName,
 		StartName:  req.StartName,
 		StartLat:   req.StartLat,
 		StartLong:  req.StartLong,
-		ViaName:    req.ViaName,
-		ViaLat:     req.ViaLat,
-		ViaLong:    req.ViaLong,
 		EndName:    req.EndName,
 		EndLat:     req.EndLat,
 		EndLong:    req.EndLong,
@@ -193,8 +183,37 @@ func CreateRoute(c *fiber.Ctx, db *gorm.DB) error {
 		UpdatedAt:  &now,
 	}
 
-	if err := db.Create(&route).Error; err != nil {
+	if err := db.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Create(&route).Error; err != nil {
+			return fmt.Errorf("insert route: %w", err)
+		}
+		if authUser.CompanyID != nil {
+			owner := models.RouteCompany{
+				RouteID:   route.ID,
+				CompanyID: *authUser.CompanyID,
+			}
+			if err := tx.Create(&owner).Error; err != nil {
+				return fmt.Errorf("associate route with company: %w", err)
+			}
+		}
+		if err := persistViaPoints(tx, route.ID, req.ViaPoints); err != nil {
+			return fmt.Errorf("save route via points: %w", err)
+		}
+		return nil
+	}); err != nil {
+		log.Printf("Failed to create route: %v", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "message": "Failed to create route"})
+	}
+	route.ViaPoints = make([]models.RouteStop, len(req.ViaPoints))
+	for i, point := range req.ViaPoints {
+		route.ViaPoints[i] = models.RouteStop{
+			RouteID:  route.ID,
+			Name:     point.Name,
+			Lat:      point.Lat,
+			Long:     point.Long,
+			Position: i + 1,
+			Notify:   point.Notify,
+		}
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{"status": "success", "data": route})
@@ -219,11 +238,17 @@ func GetRoutes(c *fiber.Ctx, db *gorm.DB) error {
 
 	query := db.Model(&models.Route{})
 	if authUser.CompanyID != nil {
-		query = query.Where("company_id = ?", *authUser.CompanyID)
+		query = query.Where(
+			"EXISTS (SELECT 1 FROM route_companies WHERE route_companies.route_id = routes.id AND route_companies.company_id = ?)",
+			*authUser.CompanyID,
+		)
 	}
 	if search := strings.TrimSpace(c.Query("query")); search != "" {
 		like := "%" + search + "%"
-		query = query.Where("client_name LIKE ? OR start_name LIKE ? OR via_name LIKE ? OR end_name LIKE ?", like, like, like, like)
+		query = query.Where(
+			"(route_name LIKE ? OR start_name LIKE ? OR end_name LIKE ? OR EXISTS (SELECT 1 FROM route_stops WHERE route_stops.route_id = routes.id AND route_stops.name LIKE ?))",
+			like, like, like, like,
+		)
 	}
 
 	var total int64
@@ -233,11 +258,11 @@ func GetRoutes(c *fiber.Ctx, db *gorm.DB) error {
 
 	var routes []models.Route
 	if err := query.
-		Select("id", "client_id", "client_name", "start_name", "start_lat", "start_long", "via_name", "via_lat", "via_long", "end_name", "end_lat", "end_long").
+		Preload("ViaPoints", func(db *gorm.DB) *gorm.DB { return db.Order("position ASC") }).
+		Select("id", "route_name", "start_name", "start_lat", "start_long", "end_name", "end_lat", "end_long").
 		Order("id DESC").Offset((page - 1) * limit).Limit(limit).Find(&routes).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "message": "Failed to fetch routes"})
 	}
-
 	totalPages := int((total + int64(limit) - 1) / int64(limit))
 	return c.JSON(fiber.Map{
 		"status": "success",
@@ -267,12 +292,14 @@ func GetRoute(c *fiber.Ctx, db *gorm.DB) error {
 	var route models.Route
 	query := db
 	if authUser.CompanyID != nil {
-		query = query.Where("company_id = ?", *authUser.CompanyID)
+		query = query.Where(
+			"EXISTS (SELECT 1 FROM route_companies WHERE route_companies.route_id = routes.id AND route_companies.company_id = ?)",
+			*authUser.CompanyID,
+		)
 	}
-	if err := query.First(&route, routeID).Error; err != nil {
+	if err := query.Preload("ViaPoints", func(db *gorm.DB) *gorm.DB { return db.Order("position ASC") }).First(&route, routeID).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "fail", "message": "Route not found"})
 	}
-
 	return c.JSON(fiber.Map{"status": "success", "data": route})
 }
 
@@ -292,7 +319,10 @@ func UpdateRoute(c *fiber.Ctx, db *gorm.DB) error {
 	var route models.Route
 	query := db
 	if authUser.CompanyID != nil {
-		query = query.Where("company_id = ?", *authUser.CompanyID)
+		query = query.Where(
+			"EXISTS (SELECT 1 FROM route_companies WHERE route_companies.route_id = routes.id AND route_companies.company_id = ?)",
+			*authUser.CompanyID,
+		)
 	}
 	if err := query.First(&route, routeID).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "fail", "message": "Route not found"})
@@ -303,32 +333,39 @@ func UpdateRoute(c *fiber.Ctx, db *gorm.DB) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "message": "Invalid request body"})
 	}
 
-	errors, clientID := validateRouteRequest(&req)
+	errors := validateRouteRequest(&req)
 	if len(errors) > 0 {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
 	}
 
-	clientName, err := resolveClientName(db, authUser.CompanyID, *clientID)
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": map[string]string{"client_id": "Select a valid client"}})
-	}
-
 	now := time.Now()
-	route.ClientID = clientID
-	route.ClientName = clientName
+	route.RouteName = req.RouteName
 	route.StartName = req.StartName
 	route.StartLat = req.StartLat
 	route.StartLong = req.StartLong
-	route.ViaName = req.ViaName
-	route.ViaLat = req.ViaLat
-	route.ViaLong = req.ViaLong
 	route.EndName = req.EndName
 	route.EndLat = req.EndLat
 	route.EndLong = req.EndLong
 	route.UpdatedAt = &now
 
-	if err := db.Save(&route).Error; err != nil {
+	if err := db.Transaction(func(tx *gorm.DB) error {
+		if err := tx.Omit("ViaPoints").Save(&route).Error; err != nil {
+			return err
+		}
+		return persistViaPoints(tx, route.ID, req.ViaPoints)
+	}); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "message": "Failed to update route"})
+	}
+	route.ViaPoints = make([]models.RouteStop, len(req.ViaPoints))
+	for i, point := range req.ViaPoints {
+		route.ViaPoints[i] = models.RouteStop{
+			RouteID:  route.ID,
+			Name:     point.Name,
+			Lat:      point.Lat,
+			Long:     point.Long,
+			Position: i + 1,
+			Notify:   point.Notify,
+		}
 	}
 
 	return c.JSON(fiber.Map{"status": "success", "data": route})
@@ -350,7 +387,10 @@ func DeleteRoute(c *fiber.Ctx, db *gorm.DB) error {
 	var route models.Route
 	query := db
 	if authUser.CompanyID != nil {
-		query = query.Where("company_id = ?", *authUser.CompanyID)
+		query = query.Where(
+			"EXISTS (SELECT 1 FROM route_companies WHERE route_companies.route_id = routes.id AND route_companies.company_id = ?)",
+			*authUser.CompanyID,
+		)
 	}
 	if err := query.First(&route, routeID).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "fail", "message": "Route not found"})

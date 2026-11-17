@@ -5,40 +5,47 @@ import { toast } from "react-toastify";
 import withAuth from "../../../components/withAuth";
 import apiService from "../../../services/api";
 import CreatePageHeader from "../(component)/CreatePageHeader";
-import ClientSection from "../(component)/ClientSection";
-import PointSection from "../(component)/PointSection";
+import RouteMapEditor from "../(component)/RouteMapEditor";
 import FormActions from "../(component)/FormActions";
-import { geocodeAddress } from "@/utils/geocode";
 import { RouteFormData, RoutePoint } from "@/types/route-entry/types";
 
 const emptyPoint: RoutePoint = { name: "", lat: "", long: "" };
 
 const initialFormData: RouteFormData = {
-  clientId: "",
+  routeName: "",
   startPoint: { ...emptyPoint },
-  viaPoint: { ...emptyPoint },
+  viaPoints: [],
   endPoint: { ...emptyPoint },
 };
 
 const RouteEntryPage = () => {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
-  const [geoSection, setGeoSection] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
-  const [formData, setFormData] = useState<RouteFormData>(initialFormData);
+  const [formData, setFormData] = useState<RouteFormData>({
+    ...initialFormData,
+    startPoint: { ...emptyPoint },
+    viaPoints: [],
+    endPoint: { ...emptyPoint },
+  });
 
   const validateForm = () => {
     const errors: { [key: string]: string } = {};
 
-    if (!formData.clientId) {
-      errors.clientId = "Client name is required";
+    if (!formData.routeName.trim()) {
+      errors.routeName = "Route name is required";
     }
-    if (!formData.startPoint.name.trim()) {
-      errors["startPoint.name"] = "Start point name is required";
+    if (!formData.startPoint.name.trim() || !formData.startPoint.lat || !formData.startPoint.long) {
+      errors["startPoint.name"] = "Select a start place from Google Maps";
     }
-    if (!formData.endPoint.name.trim()) {
-      errors["endPoint.name"] = "End point name is required";
+    if (!formData.endPoint.name.trim() || !formData.endPoint.lat || !formData.endPoint.long) {
+      errors["endPoint.name"] = "Select an end place from Google Maps";
     }
+    formData.viaPoints.forEach((point, index) => {
+      if (!point.name.trim() || !point.lat || !point.long) {
+        errors[`viaPoints.${index}`] = "Select a place for this via point or remove it";
+      }
+    });
 
     return errors;
   };
@@ -57,13 +64,16 @@ const RouteEntryPage = () => {
     try {
       setSaving(true);
       await apiService.createRoute({
-        client_id: formData.clientId,
+        route_name: formData.routeName.trim(),
         start_name: formData.startPoint.name.trim(),
         start_lat: formData.startPoint.lat,
         start_long: formData.startPoint.long,
-        via_name: formData.viaPoint.name.trim(),
-        via_lat: formData.viaPoint.lat,
-        via_long: formData.viaPoint.long,
+        via_points: formData.viaPoints.map((point) => ({
+          name: point.name.trim(),
+          lat: point.lat,
+          long: point.long,
+          notify: point.notify ?? false,
+        })),
         end_name: formData.endPoint.name.trim(),
         end_lat: formData.endPoint.lat,
         end_long: formData.endPoint.long,
@@ -75,13 +85,11 @@ const RouteEntryPage = () => {
       const apiErrors = error?.response?.data?.errors;
       if (apiErrors && typeof apiErrors === "object") {
         const keyMap: { [key: string]: string } = {
-          client_id: "clientId",
+          route_name: "routeName",
           start_name: "startPoint.name",
           start_lat: "startPoint.lat",
           start_long: "startPoint.long",
-          via_name: "viaPoint.name",
-          via_lat: "viaPoint.lat",
-          via_long: "viaPoint.long",
+          via_points: "viaPoints",
           end_name: "endPoint.name",
           end_lat: "endPoint.lat",
           end_long: "endPoint.long",
@@ -98,64 +106,15 @@ const RouteEntryPage = () => {
     }
   };
 
-  const handlePointChange = (
-    section: "startPoint" | "viaPoint" | "endPoint",
-    field: keyof RoutePoint,
-    value: string
-  ) => {
-    setFormData({
-      ...formData,
-      [section]: { ...formData[section], [field]: value },
-    });
-  };
-
-  const lookupSection = async (
-    section: "startPoint" | "viaPoint" | "endPoint",
-    auto?: boolean
-  ) => {
-    const point = formData[section];
-    const name = point.name.trim();
-    if (!name) return;
-    if (auto && (point.lat.trim() || point.long.trim())) return;
-
-    try {
-      setGeoSection(section);
-      const coords = await geocodeAddress(name);
-      if (coords) {
-        setFormData((prev) => ({
-          ...prev,
-          [section]: { ...prev[section], lat: coords.lat, long: coords.long },
-        }));
-      } else if (!auto) {
-        toast.warn(`No location found for "${name}"`);
-      }
-    } catch {
-      if (!auto) toast.error("Failed to fetch location");
-    } finally {
-      setGeoSection(null);
-    }
-  };
-
-  const handleClearError = (field: string) => {
-    setFieldErrors({ ...fieldErrors, [field]: "" });
-  };
-
   const handleReset = () => {
     setFormData({
-      clientId: "",
+      routeName: "",
       startPoint: { ...emptyPoint },
-      viaPoint: { ...emptyPoint },
+      viaPoints: [],
       endPoint: { ...emptyPoint },
     });
     setFieldErrors({});
   };
-
-  const inputClass = (field: string) =>
-    `w-full h-10 px-3 border rounded text-[13px] placeholder-[#6B7886] hover:border-[#8C9BAD] focus:outline-none focus:ring-2 transition-colors ${
-      fieldErrors[field]
-        ? "border-red-500 focus:ring-red-500/30"
-        : "border-[#C5CFDB] focus:ring-[#0F2A47] focus:border-[#0F2A47]"
-    }`;
 
   return (
     <>
@@ -174,61 +133,92 @@ const RouteEntryPage = () => {
             <CreatePageHeader />
 
             <div className="bg-white border border-[#D5DDE6] rounded-md overflow-hidden shadow-[0_1px_2px_rgba(15,42,71,0.06),0_4px_16px_rgba(15,42,71,0.04)]">
-              <ClientSection
-                clientId={formData.clientId}
-                error={fieldErrors.clientId}
-                onChange={(value) => {
-                  setFormData({ ...formData, clientId: value });
-                  if (fieldErrors.clientId) handleClearError("clientId");
-                }}
-                onClearError={() => handleClearError("clientId")}
-              />
-              <PointSection
-                title="Start Point"
-                point={formData.startPoint}
-                errorKeyPrefix="startPoint"
-                fieldErrors={fieldErrors}
-                inputClass={inputClass}
-                nameRequired
-                lookingUp={geoSection === "startPoint"}
-                onLookup={(auto) => lookupSection("startPoint", auto)}
-                onFieldChange={(field, value) =>
-                  handlePointChange("startPoint", field, value)
-                }
-                onClearError={handleClearError}
-              />
-              <PointSection
-                title="Via Point"
-                point={formData.viaPoint}
-                errorKeyPrefix="viaPoint"
-                fieldErrors={fieldErrors}
-                inputClass={inputClass}
-                lookingUp={geoSection === "viaPoint"}
-                onLookup={(auto) => lookupSection("viaPoint", auto)}
-                onFieldChange={(field, value) =>
-                  handlePointChange("viaPoint", field, value)
-                }
-                onClearError={handleClearError}
-              />
-              <PointSection
-                title="End Point"
-                point={formData.endPoint}
-                errorKeyPrefix="endPoint"
-                fieldErrors={fieldErrors}
-                inputClass={inputClass}
-                nameRequired
-                lookingUp={geoSection === "endPoint"}
-                onLookup={(auto) => lookupSection("endPoint", auto)}
-                onFieldChange={(field, value) =>
-                  handlePointChange("endPoint", field, value)
-                }
-                onClearError={handleClearError}
-              />
-
-              <div className="px-5 py-2.5 bg-[#F8FAFC] border-t border-[#D5DDE6] text-xs text-[#5B6A7A]">
-                <span className="text-[#A12B2B]">*</span> Required fields · Latitude −90
-                to 90 · Longitude −180 to 180
+              <div className="border-b border-[#D5DDE6] px-5 py-4">
+                <label className="mb-1.5 block text-xs font-medium text-[#3B4957]">
+                  Route Name <span className="text-[#A12B2B]">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={formData.routeName}
+                  onChange={(event) => {
+                    setFormData({ ...formData, routeName: event.target.value });
+                    setFieldErrors({ ...fieldErrors, routeName: "" });
+                  }}
+                  className={`h-10 w-full rounded border px-3 text-[13px] outline-none focus:ring-2 ${
+                    fieldErrors.routeName
+                      ? "border-red-500 focus:ring-red-500/20"
+                      : "border-[#C5CFDB] focus:border-[#0F2A47] focus:ring-[#0F2A47]/20"
+                  }`}
+                  placeholder="Enter route name"
+                  maxLength={100}
+                />
+                {fieldErrors.routeName && (
+                  <p className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.routeName}</p>
+                )}
               </div>
+              <RouteMapEditor
+                startPoint={formData.startPoint}
+                viaPoints={formData.viaPoints}
+                endPoint={formData.endPoint}
+                fieldErrors={fieldErrors}
+                onStartChange={(point) => {
+                  setFormData((previous) => ({ ...previous, startPoint: point }))
+                  if (point.lat && point.long) {
+                    setFieldErrors((previous) => ({ ...previous, "startPoint.name": "" }))
+                  }
+                }}
+                onViaChange={(index, point) => {
+                  setFormData((previous) => ({
+                    ...previous,
+                    viaPoints: previous.viaPoints.map((via, i) =>
+                      i === index ? point : via
+                    ),
+                  }))
+                  if (point.lat && point.long) {
+                    setFieldErrors((previous) => ({
+                      ...previous,
+                      [`viaPoints.${index}`]: "",
+                      viaPoints: "",
+                    }))
+                  }
+                }}
+                onReorderStops={(points) => {
+                  setFormData((previous) => ({
+                    ...previous,
+                    startPoint: points[0],
+                    viaPoints: points.slice(1, -1),
+                    endPoint: points[points.length - 1],
+                  }))
+                  setFieldErrors((previous) => {
+                    const next = { ...previous }
+                    delete next["startPoint.name"]
+                    delete next["endPoint.name"]
+                    delete next.viaPoints
+                    Object.keys(next).forEach((key) => {
+                      if (key.startsWith("viaPoints.")) delete next[key]
+                    })
+                    return next
+                  })
+                }}
+                onAddVia={() =>
+                  setFormData((previous) => ({
+                    ...previous,
+                    viaPoints: [...previous.viaPoints, { ...emptyPoint }],
+                  }))
+                }
+                onRemoveVia={(index) =>
+                  setFormData((previous) => ({
+                    ...previous,
+                    viaPoints: previous.viaPoints.filter((_, i) => i !== index),
+                  }))
+                }
+                onEndChange={(point) => {
+                  setFormData((previous) => ({ ...previous, endPoint: point }))
+                  if (point.lat && point.long) {
+                    setFieldErrors((previous) => ({ ...previous, "endPoint.name": "" }))
+                  }
+                }}
+              />
             </div>
 
             <FormActions

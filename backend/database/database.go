@@ -61,6 +61,8 @@ func runMigrations() error {
 		&models.Client{},
 		&models.Cargo{},
 		&models.Route{},
+		&models.RouteCompany{},
+		&models.RouteStop{},
 		&models.Bank{},
 		&models.Vessal{},
 		&models.Product{},

@@ -9,15 +9,11 @@ import (
 
 type Route struct {
 	ID         uint           `gorm:"primaryKey" json:"id"`
-	CompanyID  *uint          `gorm:"index" json:"company_id,omitempty"`
-	ClientID   *uint          `gorm:"index" json:"client_id,omitempty"`
-	ClientName string         `gorm:"type:varchar(50)" json:"client_name,omitempty"`
+	RouteName  string         `gorm:"type:varchar(100);not null" json:"route_name"`
 	StartName  string         `gorm:"type:varchar(100)" json:"start_name,omitempty"`
 	StartLat   string         `gorm:"type:varchar(20)" json:"start_lat,omitempty"`
 	StartLong  string         `gorm:"type:varchar(20)" json:"start_long,omitempty"`
-	ViaName    string         `gorm:"type:varchar(100)" json:"via_name,omitempty"`
-	ViaLat     string         `gorm:"type:varchar(20)" json:"via_lat,omitempty"`
-	ViaLong    string         `gorm:"type:varchar(20)" json:"via_long,omitempty"`
+	ViaPoints  []RouteStop    `gorm:"foreignKey:RouteID" json:"via_points,omitempty"`
 	EndName    string         `gorm:"type:varchar(100)" json:"end_name,omitempty"`
 	EndLat     string         `gorm:"type:varchar(20)" json:"end_lat,omitempty"`
 	EndLong    string         `gorm:"type:varchar(20)" json:"end_long,omitempty"`
@@ -27,7 +23,30 @@ type Route struct {
 	DeletedAt  gorm.DeletedAt `gorm:"index" json:"deleted_at,omitempty"`
 }
 
+type RouteCompany struct {
+	RouteID   uint `gorm:"primaryKey;not null" json:"route_id"`
+	CompanyID uint `gorm:"primaryKey;index;not null" json:"company_id"`
+}
+
+type RouteStop struct {
+	ID       uint   `gorm:"primaryKey" json:"id"`
+	RouteID  uint   `gorm:"index;not null" json:"route_id,omitempty"`
+	Name     string `gorm:"type:varchar(100);not null" json:"name"`
+	Lat      string `gorm:"type:varchar(20);not null" json:"lat"`
+	Long     string `gorm:"type:varchar(20);not null" json:"long"`
+	Position int    `gorm:"not null;default:1" json:"position"`
+	Notify   bool   `gorm:"not null;default:false" json:"notify"`
+}
+
 // TableName specifies the table name
 func (Route) TableName() string {
 	return "routes"
+}
+
+func (RouteCompany) TableName() string {
+	return "route_companies"
+}
+
+func (RouteStop) TableName() string {
+	return "route_stops"
 }

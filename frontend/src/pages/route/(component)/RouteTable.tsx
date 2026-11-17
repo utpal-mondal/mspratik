@@ -5,8 +5,6 @@ import { RouteRecord } from "@/types/routes/types";
 interface RouteTableProps {
   routes: RouteRecord[];
   loading: boolean;
-  page: number;
-  limit: number;
   onView: (routeId: number) => void;
   onDelete: (route: RouteRecord) => void;
 }
@@ -19,19 +17,25 @@ const tdBase =
 const PointCell = ({ name, lat, long }: { name?: string; lat?: string; long?: string }) => (
   <div className="flex flex-col gap-0.5">
     <span className="font-medium text-[#17222E] capitalize">{name || "-"}</span>
-    {(lat || long) && (
-      <span className="text-xs text-[#7B8896] [font-variant-numeric:tabular-nums]">
-        {lat || "-"}, {long || "-"}
-      </span>
-    )}
+  </div>
+);
+
+const CoordinateCell = ({
+  start,
+  end,
+}: {
+  start?: string;
+  end?: string;
+}) => (
+  <div className="flex flex-col gap-0.5 text-xs text-[#5B6A7A] [font-variant-numeric:tabular-nums]">
+    <span>From: {start || "-"}</span>
+    <span>To: {end || "-"}</span>
   </div>
 );
 
 const RouteTable: React.FC<RouteTableProps> = ({
   routes,
   loading,
-  page,
-  limit,
   onView,
   onDelete,
 }) => {
@@ -56,23 +60,26 @@ const RouteTable: React.FC<RouteTableProps> = ({
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full min-w-[860px] border-collapse text-sm [font-variant-numeric:tabular-nums]">
+      <table className="w-full min-w-[980px] border-collapse text-sm [font-variant-numeric:tabular-nums]">
         <thead>
           <tr>
             <th scope="col" className={`${thBase} pl-6 w-14`}>
-              Sl
+              ID
             </th>
             <th scope="col" className={thBase}>
-              Client Name
+              Route Name
             </th>
             <th scope="col" className={thBase}>
-              Start Point
+              Start Point (From)
             </th>
             <th scope="col" className={thBase}>
-              Via Points
+              End Point (To)
             </th>
             <th scope="col" className={thBase}>
-              End Point
+              Long
+            </th>
+            <th scope="col" className={thBase}>
+              Lat
             </th>
             <th scope="col" className={`${thBase} pr-6`}>
               Action
@@ -82,13 +89,13 @@ const RouteTable: React.FC<RouteTableProps> = ({
         <tbody>
           {loading ? (
             <tr>
-              <td colSpan={6} className="px-6 py-10 text-center text-[13px] text-[#5B6A7A]">
+              <td colSpan={7} className="px-6 py-10 text-center text-[13px] text-[#5B6A7A]">
                 Loading routes...
               </td>
             </tr>
           ) : routes.length === 0 ? (
             <tr>
-              <td colSpan={6} className="px-6 py-12 text-center">
+              <td colSpan={7} className="px-6 py-12 text-center">
                 <Route className="mx-auto h-8 w-8 text-[#C5CFDB]" />
                 <p className="mt-2 text-[13px] text-[#5B6A7A]">No routes found</p>
               </td>
@@ -102,36 +109,31 @@ const RouteTable: React.FC<RouteTableProps> = ({
                 }`}
               >
                 <td className={`${tdBase} pl-6 text-[#7B8896]`}>
-                  {(page - 1) * limit + index + 1}
+                  {route.id}
                 </td>
                 <td className={`${tdBase} font-semibold text-[#0F2A47]`}>
                   <span
                     className="capitalize cursor-pointer hover:underline"
                     onClick={() => onView(route.id)}
                   >
-                    {route.client_name || "-"}
+                    {route.route_name || `Route #${route.id}`}
                   </span>
                 </td>
                 <td className={tdBase}>
                   <PointCell
                     name={route.start_name}
-                    lat={route.start_lat}
-                    long={route.start_long}
-                  />
-                </td>
-                <td className={tdBase}>
-                  <PointCell
-                    name={route.via_name}
-                    lat={route.via_lat}
-                    long={route.via_long}
                   />
                 </td>
                 <td className={tdBase}>
                   <PointCell
                     name={route.end_name}
-                    lat={route.end_lat}
-                    long={route.end_long}
                   />
+                </td>
+                <td className={tdBase}>
+                  <CoordinateCell start={route.start_long} end={route.end_long} />
+                </td>
+                <td className={tdBase}>
+                  <CoordinateCell start={route.start_lat} end={route.end_lat} />
                 </td>
                 <td className={`${tdBase} pr-6`}>
                   <ActionMenu items={actions(route)} buttonLabel="Route actions" />

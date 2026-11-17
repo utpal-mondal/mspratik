@@ -1,4 +1,5 @@
 import axios, { type AxiosInstance } from 'axios';
+import type { RoutePayload } from '@/types/route-entry/types';
 
 class ApiService {
     public api: AxiosInstance;
@@ -154,8 +155,8 @@ class ApiService {
     getAllRoutes = (params: { page?: number; limit?: number; query?: string } = {}) =>
         this.api.get('/routes/get-all-route', { params: { page: params.page ?? 1, limit: params.limit ?? 10, query: params.query } });
     getRoute = (routeId: number) => this.api.get(`/routes/${routeId}/get-route-details`);
-    createRoute = (data: any) => this.api.post('/routes/create-route', data);
-    updateRoute = (routeId: number, data: any) => this.api.put(`/routes/${routeId}/update-route`, data);
+    createRoute = (data: RoutePayload) => this.api.post('/routes/create-route', data);
+    updateRoute = (routeId: number, data: RoutePayload) => this.api.put(`/routes/${routeId}/update-route`, data);
     deleteRoute = (routeId: number) => this.api.delete(`/routes/${routeId}/delete-route`);
 
     // Pump methods

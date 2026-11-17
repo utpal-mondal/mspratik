@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import { Search, X } from "lucide-react";
 import withAuth from "../../components/withAuth";
@@ -7,18 +8,17 @@ import apiService from "../../services/api";
 import { useDebounce } from "../../hook/useDebounce";
 import PageHeader from "./(component)/PageHeader";
 import RouteTable from "./(component)/RouteTable";
-import ViewRouteDrawer from "./(component)/ViewRouteDrawer";
 import DeleteRouteModal from "./(component)/DeleteRouteModal";
 import { RouteRecord } from "@/types/routes/types";
 
 const RoutesPage = () => {
+  const router = useRouter();
   const [routes, setRoutes] = useState<RouteRecord[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [viewId, setViewId] = useState<number | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<RouteRecord | null>(null);
   const [deleting, setDeleting] = useState(false);
 
@@ -49,6 +49,10 @@ const RoutesPage = () => {
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);
     setPage(1);
+  };
+
+  const handleView = (routeId: number) => {
+    void router.push(`/route/view/${routeId}`);
   };
 
   const handleDelete = async () => {
@@ -101,7 +105,7 @@ const RoutesPage = () => {
                 />
                 <input
                   type="text"
-                  placeholder="Search client or point name..."
+                  placeholder="Search route or place..."
                   value={searchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   className="w-full h-10 pl-9 pr-8 border border-[#C5CFDB] rounded bg-white text-[13px] text-[#17222E] placeholder-[#7B8896] focus:outline-none focus:ring-2 focus:ring-[#0F2A47]/20 focus:border-[#0F2A47]"
@@ -122,9 +126,7 @@ const RoutesPage = () => {
             <RouteTable
               routes={routes}
               loading={loading}
-              page={page}
-              limit={limit}
-              onView={setViewId}
+              onView={handleView}
               onDelete={setDeleteTarget}
             />
 
@@ -163,13 +165,11 @@ const RoutesPage = () => {
         </div>
       </main>
 
-      <ViewRouteDrawer routeId={viewId} onClose={() => setViewId(null)} />
-
       <DeleteRouteModal
         isOpen={!!deleteTarget}
         onClose={() => setDeleteTarget(null)}
         onConfirm={handleDelete}
-        routeName={deleteTarget?.client_name}
+        routeName={deleteTarget?.route_name || `Route #${deleteTarget?.id ?? ""}`}
         isDeleting={deleting}
       />
     </>
