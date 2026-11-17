@@ -5,6 +5,7 @@ import apiService from "../../../services/api";
 import RightDrawer from "../../../components/ui/RightDrawer";
 import ProductInfoSection, { ProductFormData } from "./ProductInfoSection";
 import { ProductItem } from "./ProductList";
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 interface EditProductDrawerProps {
   product: ProductItem | null;
@@ -61,6 +62,7 @@ const EditProductDrawer: React.FC<EditProductDrawerProps> = ({
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       toast.error("Please fill the required fields");
       return;
     }
@@ -82,6 +84,7 @@ const EditProductDrawer: React.FC<EditProductDrawerProps> = ({
           mapped[key] = String(msg);
         }
         setFieldErrors(mapped);
+        scrollToFirstError();
       }
       toast.error(error?.response?.data?.message || "Failed to update product");
     } finally {

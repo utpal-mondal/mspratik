@@ -42,7 +42,7 @@ const TiptapEditor = ({ content, onChange, label, placeholder }: TiptapEditorPro
   return (
     <div className="w-full">
       {label && (
-        <label className="block mb-2 text-sm font-medium text-slate-700">
+        <label className="block mb-2 text-[15px] font-medium text-slate-700">
           {label}
         </label>
       )}

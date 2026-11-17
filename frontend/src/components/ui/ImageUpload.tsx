@@ -25,7 +25,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1.5">
+      <label className="block text-[15px] font-medium text-gray-700 mb-1.5">
         {label}
       </label>
       <input
@@ -73,7 +73,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           Click to upload
         </button>
       )}
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+      {error && <p data-field-error className="mt-1 text-xs text-red-600">{error}</p>}
     </div>
   );
 };

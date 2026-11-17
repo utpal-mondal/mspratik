@@ -1,6 +1,6 @@
 import { SectionProps } from "@/types/client-entry/types";
 
-const labelClass = "block text-[13px] font-medium text-[#3B4957] mb-1.5";
+const labelClass = "block text-[15px] font-medium text-[#3B4957] mb-1.5";
 const errorClass = "mt-1 text-xs text-[#A12B2B]";
 
 const TaxDetailsSection: React.FC<SectionProps> = ({
@@ -31,7 +31,7 @@ const TaxDetailsSection: React.FC<SectionProps> = ({
               maxLength={15}
             />
             {fieldErrors.gstnNo && (
-              <p className={errorClass}>{fieldErrors.gstnNo}</p>
+              <p data-field-error className={errorClass}>{fieldErrors.gstnNo}</p>
             )}
           </div>
 
@@ -49,7 +49,7 @@ const TaxDetailsSection: React.FC<SectionProps> = ({
               maxLength={10}
             />
             {fieldErrors.panNo && (
-              <p className={errorClass}>{fieldErrors.panNo}</p>
+              <p data-field-error className={errorClass}>{fieldErrors.panNo}</p>
             )}
           </div>
 

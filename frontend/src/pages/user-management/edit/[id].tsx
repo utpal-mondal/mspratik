@@ -9,6 +9,7 @@ import { settingsApi } from "@/lib/api";
 import AccessDenied from "@/components/AccessDenied";
 import { SearchableDropdown } from "@/components/ui/SearchableDropdown";
 import withAuth from "@/components/withAuth";
+import { scrollToFirstError } from "@/utils/scrollToError";
 // import withAuth from "../../../../components/withAuth";
 // import usePermission from "../../../../hook/usePermission";
 // import AccessDenied from "../../../../components/AccessDenied";
@@ -126,6 +127,7 @@ const EditUserPage = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       return;
     }
 
@@ -150,6 +152,7 @@ const EditUserPage = () => {
       console.error("Error updating user:", error);
       if (error.response?.data?.field) {
         setFieldErrors({ [error.response.data.field]: error.response.data.message });
+        scrollToFirstError();
       } else {
         toast.error("Failed to update user");
       }
@@ -208,7 +211,7 @@ const EditUserPage = () => {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="firstName" className="block text-[15px] font-medium text-gray-700 mb-2">
                       First Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -225,12 +228,12 @@ const EditUserPage = () => {
                       placeholder="Enter first name"
                     />
                     {fieldErrors.firstName && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.firstName}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.firstName}</p>
                     )}
                   </div>
 
                   <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="lastName" className="block text-[15px] font-medium text-gray-700 mb-2">
                       Last Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -247,12 +250,12 @@ const EditUserPage = () => {
                       placeholder="Enter last name"
                     />
                     {fieldErrors.lastName && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.lastName}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.lastName}</p>
                     )}
                   </div>
 
                   <div>
-                    <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="phoneNumber" className="block text-[15px] font-medium text-gray-700 mb-2">
                       Phone Number
                     </label>
                     <input
@@ -269,7 +272,7 @@ const EditUserPage = () => {
                       placeholder="Enter phone number"
                     />
                     {fieldErrors.phoneNumber && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.phoneNumber}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.phoneNumber}</p>
                     )}
                   </div>
                 </div>
@@ -286,7 +289,7 @@ const EditUserPage = () => {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div>
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="username" className="block text-[15px] font-medium text-gray-700 mb-2">
                       Username <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -303,12 +306,12 @@ const EditUserPage = () => {
                       placeholder="Enter username"
                     />
                     {fieldErrors.username && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.username}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.username}</p>
                     )}
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="email" className="block text-[15px] font-medium text-gray-700 mb-2">
                       Email <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -325,7 +328,7 @@ const EditUserPage = () => {
                       placeholder="Enter email address"
                     />
                     {fieldErrors.email && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.email}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.email}</p>
                     )}
                   </div>
                 </div>
@@ -342,7 +345,7 @@ const EditUserPage = () => {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">
                       Role
                     </label>
                     <SearchableDropdown
@@ -358,7 +361,7 @@ const EditUserPage = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">
                       Language
                     </label>
                     <select

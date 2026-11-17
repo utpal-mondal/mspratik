@@ -1,6 +1,6 @@
 import { SectionProps } from "@/types/client-entry/types";
 
-const labelClass = "block text-[13px] font-medium text-[#3B4957] mb-1.5";
+const labelClass = "block text-[15px] font-medium text-[#3B4957] mb-1.5";
 const errorClass = "mt-1 text-xs text-[#A12B2B]";
 
 const ClientDetailsSection: React.FC<SectionProps> = ({
@@ -33,7 +33,7 @@ const ClientDetailsSection: React.FC<SectionProps> = ({
               maxLength={50}
             />
             {fieldErrors.clientName && (
-              <p className={errorClass}>{fieldErrors.clientName}</p>
+              <p data-field-error className={errorClass}>{fieldErrors.clientName}</p>
             )}
           </div>
 
@@ -51,7 +51,7 @@ const ClientDetailsSection: React.FC<SectionProps> = ({
               maxLength={10}
             />
             {fieldErrors.contactNo && (
-              <p className={errorClass}>{fieldErrors.contactNo}</p>
+              <p data-field-error className={errorClass}>{fieldErrors.contactNo}</p>
             )}
           </div>
 
@@ -69,7 +69,7 @@ const ClientDetailsSection: React.FC<SectionProps> = ({
               maxLength={50}
             />
             {fieldErrors.emailId && (
-              <p className={errorClass}>{fieldErrors.emailId}</p>
+              <p data-field-error className={errorClass}>{fieldErrors.emailId}</p>
             )}
           </div>
 
@@ -87,7 +87,7 @@ const ClientDetailsSection: React.FC<SectionProps> = ({
               maxLength={50}
             />
             {fieldErrors.contactPerson && (
-              <p className={errorClass}>{fieldErrors.contactPerson}</p>
+              <p data-field-error className={errorClass}>{fieldErrors.contactPerson}</p>
             )}
           </div>
 
@@ -105,7 +105,7 @@ const ClientDetailsSection: React.FC<SectionProps> = ({
               maxLength={100}
             />
             {fieldErrors.address1 && (
-              <p className={errorClass}>{fieldErrors.address1}</p>
+              <p data-field-error className={errorClass}>{fieldErrors.address1}</p>
             )}
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 interface PermissionCategory {
   category: string;
@@ -56,6 +57,7 @@ const RoleModal: React.FC<RoleModalProps> = ({
   const handleSave = async () => {
     if (!roleName.trim()) {
       setRoleNameError('Role name is required');
+      scrollToFirstError();
       return;
     }
 
@@ -84,7 +86,7 @@ const RoleModal: React.FC<RoleModalProps> = ({
 
         <div className="p-6 overflow-y-auto flex-1">
           <div className="mb-6">
-            <label htmlFor="roleName" className="block text-sm font-medium text-gray-700 mb-2">Role Name</label>
+            <label htmlFor="roleName" className="block text-[15px] font-medium text-gray-700 mb-2">Role Name</label>
             <input
               type="text"
               id="roleName"
@@ -100,7 +102,7 @@ const RoleModal: React.FC<RoleModalProps> = ({
               placeholder="Enter role name"
             />
             {roleNameError && (
-              <p className="mt-1 text-xs text-red-600">{roleNameError}</p>
+              <p data-field-error className="mt-1 text-xs text-red-600">{roleNameError}</p>
             )}
           </div>
 

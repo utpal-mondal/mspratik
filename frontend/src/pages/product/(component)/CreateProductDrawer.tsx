@@ -4,6 +4,7 @@ import { Save } from "lucide-react";
 import apiService from "../../../services/api";
 import RightDrawer from "../../../components/ui/RightDrawer";
 import ProductInfoSection, { ProductFormData } from "./ProductInfoSection";
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 const initialFormData: ProductFormData = {
   name: "",
@@ -58,6 +59,7 @@ const CreateProductDrawer: React.FC<CreateProductDrawerProps> = ({
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       toast.error("Please fill the required fields");
       return;
     }
@@ -79,6 +81,7 @@ const CreateProductDrawer: React.FC<CreateProductDrawerProps> = ({
           mapped[key] = String(msg);
         }
         setFieldErrors(mapped);
+        scrollToFirstError();
       }
       toast.error(error?.response?.data?.message || "Failed to save product");
     } finally {

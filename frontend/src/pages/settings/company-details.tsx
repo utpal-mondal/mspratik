@@ -7,6 +7,7 @@ import withAuth from "../../components/withAuth";
 import usePermission from "../../hook/usePermission";
 import AccessDenied from "../../components/AccessDenied";
 import apiService from "../../services/api";
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 const CompanyDetailsPage = () => {
   const { isCadmin } = usePermission();
@@ -98,6 +99,7 @@ const CompanyDetailsPage = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       return;
     }
 
@@ -186,7 +188,7 @@ const CompanyDetailsPage = () => {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">
                       Company Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -200,12 +202,12 @@ const CompanyDetailsPage = () => {
                       placeholder="Enter company name"
                     />
                     {fieldErrors.name && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.name}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.name}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">
                       Email
                     </label>
                     <input
@@ -219,12 +221,12 @@ const CompanyDetailsPage = () => {
                       placeholder="Enter email address"
                     />
                     {fieldErrors.email && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.email}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.email}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">
                       Phone Number
                     </label>
                     <input
@@ -238,12 +240,12 @@ const CompanyDetailsPage = () => {
                       placeholder="Enter phone number"
                     />
                     {fieldErrors.phoneNumber && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.phoneNumber}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.phoneNumber}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">
                       VAT Number
                     </label>
                     <input
@@ -256,7 +258,7 @@ const CompanyDetailsPage = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">
                       Language
                     </label>
                     <select
@@ -270,7 +272,7 @@ const CompanyDetailsPage = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">
                       Currency
                     </label>
                     <input
@@ -295,7 +297,7 @@ const CompanyDetailsPage = () => {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">Address</label>
                     <input
                       type="text"
                       value={formData.address}
@@ -305,7 +307,7 @@ const CompanyDetailsPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Address 2</label>
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">Address 2</label>
                     <input
                       type="text"
                       value={formData.address2}
@@ -315,7 +317,7 @@ const CompanyDetailsPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Post Code</label>
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">Post Code</label>
                     <input
                       type="text"
                       value={formData.postCode}
@@ -325,7 +327,7 @@ const CompanyDetailsPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">City</label>
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">City</label>
                     <input
                       type="text"
                       value={formData.city}
@@ -335,7 +337,7 @@ const CompanyDetailsPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Region</label>
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">Region</label>
                     <input
                       type="text"
                       value={formData.region}
@@ -345,7 +347,7 @@ const CompanyDetailsPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">Country</label>
                     <input
                       type="text"
                       value={formData.country}
@@ -368,7 +370,7 @@ const CompanyDetailsPage = () => {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Contact Name</label>
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">Contact Name</label>
                     <input
                       type="text"
                       value={formData.contactName}
@@ -378,7 +380,7 @@ const CompanyDetailsPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Contact Email</label>
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">Contact Email</label>
                     <input
                       type="email"
                       value={formData.contactEmail}
@@ -388,7 +390,7 @@ const CompanyDetailsPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Contact Phone</label>
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">Contact Phone</label>
                     <input
                       type="text"
                       value={formData.contactPhone}
@@ -410,7 +412,7 @@ const CompanyDetailsPage = () => {
               </div>
               <div className="p-6 space-y-5">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Remarks</label>
+                  <label className="block text-[15px] font-medium text-gray-700 mb-2">Remarks</label>
                   <textarea
                     value={formData.remark}
                     onChange={(e) => setFormData({ ...formData, remark: e.target.value })}
@@ -420,7 +422,7 @@ const CompanyDetailsPage = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Location API</label>
+                  <label className="block text-[15px] font-medium text-gray-700 mb-2">Location API</label>
                   <textarea
                     value={formData.locationApi}
                     onChange={(e) => setFormData({ ...formData, locationApi: e.target.value })}

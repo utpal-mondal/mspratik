@@ -153,7 +153,9 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
           const hasActiveSub = item.submenu.some(
             (sub) => router.pathname === sub.path,
           );
-          const isParentActive = router.pathname === item.path;
+          const isParentActive =
+            router.pathname === item.path ||
+            router.pathname.startsWith(item.path + "/");
           if (hasActiveSub || isParentActive) {
             if (!newSet.has(item.name)) {
               newSet.add(item.name);
@@ -245,7 +247,8 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
             {visibleMenuItems.map((item, index) => {
               const isActive = item.submenu
                 ? item.submenu.some((sub) => router.pathname === sub.path)
-                : router.pathname === item.path;
+                : router.pathname === item.path ||
+                  router.pathname.startsWith(item.path + "/");
 
               const isExpanded = expandedItems.has(item.name);
 

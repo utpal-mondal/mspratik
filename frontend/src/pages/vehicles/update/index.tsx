@@ -10,6 +10,7 @@ import VehicleInfoSection from "../create/(component)/VehicleInfoSection";
 import DocumentsSection from "../create/(component)/DocumentsSection";
 import FormActions from "./(component)/FormActions";
 import { VehicleFormData } from "@/types/vehicle-entry/types";
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -157,6 +158,7 @@ const UpdateVehiclePage = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       toast.error("Please enter valid vahicle number");
       return;
     }
@@ -207,6 +209,7 @@ const UpdateVehiclePage = () => {
           mapped[keyMap[key] || key] = String(msg);
         }
         setFieldErrors(mapped);
+        scrollToFirstError();
       }
       toast.error(error?.response?.data?.message || "Failed to update vehicle");
     } finally {
@@ -237,10 +240,10 @@ const UpdateVehiclePage = () => {
   };
 
   const inputClass = (field: string) =>
-    `w-[27rem] px-2 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-xs ${
+    `w-full h-10 px-3 border rounded text-[13px] focus:outline-none focus:ring-2 transition-colors ${
       fieldErrors[field]
-        ? "border-red-500 focus:ring-red-500"
-        : "border-gray-300 focus:ring-blue-500"
+        ? "border-red-500 focus:ring-red-500/20"
+        : "border-[#C5CFDB] focus:ring-[#0F2A47]/20 focus:border-[#0F2A47]"
     }`;
 
   const sectionProps = {
@@ -259,8 +262,8 @@ const UpdateVehiclePage = () => {
         <meta name="description" content="Update vehicle" />
       </Head>
 
-      <div className="min-h-screen bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-4">
+      <div className="min-h-screen bg-[#F2F5F9] px-6 py-10 md:px-8 md:py-12 text-[#17222E]">
+        <div className="mx-auto flex flex-col gap-7">
           <PageHeader />
 
           {loading ? (
@@ -268,13 +271,9 @@ const UpdateVehiclePage = () => {
               <p className="text-sm text-gray-500">Loading vehicle details...</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="bg-white">
-                <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-gray-200">
-                  <VehicleInfoSection {...sectionProps} />
-                  <DocumentsSection {...sectionProps} />
-                </div>
-              </div>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-7">
+              <VehicleInfoSection {...sectionProps} />
+              <DocumentsSection {...sectionProps} />
               <FormActions saving={saving} />
             </form>
           )}

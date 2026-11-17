@@ -5,6 +5,7 @@ import RightDrawer from "../../../components/ui/RightDrawer";
 import DriverInfoSection from "../create/(component)/DriverInfoSection";
 import FormActions from "../create/(component)/FormActions";
 import { DriverFormData } from "@/types/driver-entry/types";
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -84,6 +85,7 @@ const CreateDriverDrawer: React.FC<CreateDriverDrawerProps> = ({
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       toast.error("Please fill the required fields");
       return;
     }
@@ -116,6 +118,7 @@ const CreateDriverDrawer: React.FC<CreateDriverDrawerProps> = ({
           mapped[keyMap[key] || key] = String(msg);
         }
         setFieldErrors(mapped);
+        scrollToFirstError();
       }
       toast.error(error?.response?.data?.message || "Failed to save driver");
     } finally {

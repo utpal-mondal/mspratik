@@ -5,6 +5,7 @@ import apiService from "../../../services/api";
 import RightDrawer from "../../../components/ui/RightDrawer";
 import VessalInfoSection, { VessalFormData } from "./VessalInfoSection";
 import { VessalItem } from "./VessalList";
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 interface EditVessalDrawerProps {
   vessal: VessalItem | null;
@@ -61,6 +62,7 @@ const EditVessalDrawer: React.FC<EditVessalDrawerProps> = ({
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       toast.error("Please fill the required fields");
       return;
     }
@@ -82,6 +84,7 @@ const EditVessalDrawer: React.FC<EditVessalDrawerProps> = ({
           mapped[key] = String(msg);
         }
         setFieldErrors(mapped);
+        scrollToFirstError();
       }
       toast.error(error?.response?.data?.message || "Failed to update vessal");
     } finally {

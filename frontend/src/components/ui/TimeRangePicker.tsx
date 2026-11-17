@@ -77,7 +77,7 @@ export default function TimeRangePicker({
 
   return (
     <div className="relative w-full">
-      <label className="mb-1 block text-[13px] font-medium text-slate-700">
+      <label className="mb-1 block text-[15px] font-medium text-slate-700">
         Time Range
       </label>
 

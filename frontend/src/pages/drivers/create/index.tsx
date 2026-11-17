@@ -9,6 +9,7 @@ import DriverInfoSection from "./(component)/DriverInfoSection";
 // import DocumentsSection from "./(component)/DocumentsSection";
 import FormActions from "./(component)/FormActions";
 import { DriverFormData } from "@/types/driver-entry/types";
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -72,6 +73,7 @@ const DriverEntryPage = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       toast.error("Please enter the driver name");
       return;
     }
@@ -104,6 +106,7 @@ const DriverEntryPage = () => {
           mapped[keyMap[key] || key] = String(msg);
         }
         setFieldErrors(mapped);
+        scrollToFirstError();
       }
       toast.error(error?.response?.data?.message || "Failed to save driver");
     } finally {

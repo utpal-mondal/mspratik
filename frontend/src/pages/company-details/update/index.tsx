@@ -13,6 +13,7 @@ import ContactPersonSection from "../(component)/ContactPersonSection";
 import RemarksSection from "../(component)/RemarksSection";
 import FormActions from "../(component)/FormActions";
 import { CompanyFormData } from "@/types/company-details/types";
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 const UpdateCompanyPage = () => {
   const router = useRouter();
@@ -110,6 +111,7 @@ const UpdateCompanyPage = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       return;
     }
 

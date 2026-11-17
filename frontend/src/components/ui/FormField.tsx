@@ -63,7 +63,7 @@ const FormField = ({
       <label
         htmlFor={id}
         className={clsx(
-          "block text-sm font-medium text-slate-700",
+          "block text-[15px] font-medium text-slate-700",
           labelClassName,
         )}
       >
@@ -145,7 +145,7 @@ const FormField = ({
         </select>
       )}
 
-      {error && <p className="text-xs font-medium text-red-500">{error}</p>}
+      {error && <p data-field-error className="text-xs font-medium text-red-500">{error}</p>}
     </div>
   );
 };

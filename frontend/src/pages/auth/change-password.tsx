@@ -106,7 +106,7 @@ const ChangePasswordPage = () => {
             <div>
               <label
                 htmlFor="newPassword"
-                className="mb-1 block text-xs font-semibold text-slate-700"
+                className="mb-1 block text-[15px] font-semibold text-slate-700"
               >
                 New Password
               </label>
@@ -140,7 +140,7 @@ const ChangePasswordPage = () => {
             <div>
               <label
                 htmlFor="confirmPassword"
-                className="mb-1 block text-xs font-semibold text-slate-700"
+                className="mb-1 block text-[15px] font-semibold text-slate-700"
               >
                 Confirm New Password
               </label>

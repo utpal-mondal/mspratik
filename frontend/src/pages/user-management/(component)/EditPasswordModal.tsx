@@ -71,7 +71,7 @@ export default function EditPasswordModal({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1 block text-xs font-medium text-gray-700">
+            <label className="mb-1 block text-[15px] font-medium text-gray-700">
               New Password
             </label>
             <div className="relative">
@@ -99,7 +99,7 @@ export default function EditPasswordModal({
           </div>
 
           <div>
-            <label className="mb-1 block text-xs font-medium text-gray-700">
+            <label className="mb-1 block text-[15px] font-medium text-gray-700">
               Confirm Password
             </label>
             <div className="relative">

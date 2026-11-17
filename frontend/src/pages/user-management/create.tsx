@@ -9,6 +9,7 @@ import { settingsApi } from "@/lib/api";
 import AccessDenied from "@/components/AccessDenied";
 import { SearchableDropdown } from "@/components/ui/SearchableDropdown";
 import withAuth from "@/components/withAuth";
+import { scrollToFirstError } from "@/utils/scrollToError";
 // import withAuth from "../../../components/withAuth";
 // import usePermission from "../../../hook/usePermission";
 // import AccessDenied from "../../../components/AccessDenied";
@@ -108,7 +109,8 @@ const CreateUserPage = () => {
 
     if (formData.password !== formData.confirmPassword) {
 
-      toast.error("Passwords do not match");
+      setFieldErrors({ confirmPassword: "Passwords do not match" });
+      scrollToFirstError();
 
       return;
 
@@ -118,6 +120,7 @@ const CreateUserPage = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       return;
     }
 
@@ -148,6 +151,7 @@ const CreateUserPage = () => {
 
       if (error.response?.data?.field) {
         setFieldErrors({ [error.response.data.field]: error.response.data.message });
+        scrollToFirstError();
       } else {
         toast.error("Failed to create user");
       }
@@ -208,7 +212,7 @@ const CreateUserPage = () => {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="firstName" className="block text-[15px] font-medium text-gray-700 mb-2">
                       First Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -225,12 +229,12 @@ const CreateUserPage = () => {
                       placeholder="Enter first name"
                     />
                     {fieldErrors.firstName && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.firstName}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.firstName}</p>
                     )}
                   </div>
 
                   <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="lastName" className="block text-[15px] font-medium text-gray-700 mb-2">
                       Last Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -247,12 +251,12 @@ const CreateUserPage = () => {
                       placeholder="Enter last name"
                     />
                     {fieldErrors.lastName && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.lastName}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.lastName}</p>
                     )}
                   </div>
 
                   <div>
-                    <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="phoneNumber" className="block text-[15px] font-medium text-gray-700 mb-2">
                       Phone Number
                     </label>
                     <input
@@ -269,7 +273,7 @@ const CreateUserPage = () => {
                       placeholder="Enter phone number"
                     />
                     {fieldErrors.phoneNumber && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.phoneNumber}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.phoneNumber}</p>
                     )}
                   </div>
                 </div>
@@ -286,7 +290,7 @@ const CreateUserPage = () => {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div>
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="username" className="block text-[15px] font-medium text-gray-700 mb-2">
                       Username <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -303,12 +307,12 @@ const CreateUserPage = () => {
                       placeholder="Enter username"
                     />
                     {fieldErrors.username && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.username}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.username}</p>
                     )}
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="email" className="block text-[15px] font-medium text-gray-700 mb-2">
                       Email <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -325,36 +329,52 @@ const CreateUserPage = () => {
                       placeholder="Enter email address"
                     />
                     {fieldErrors.email && (
-                      <p className="mt-1 text-xs text-red-600">{fieldErrors.email}</p>
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.email}</p>
                     )}
                   </div>
 
                   <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="password" className="block text-[15px] font-medium text-gray-700 mb-2">
                       Password <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="password"
                       id="password"
                       value={formData.password}
-                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                      onChange={(e) => {
+                        setFormData({ ...formData, password: e.target.value });
+                        if (fieldErrors.password) {
+                          setFieldErrors({ ...fieldErrors, password: "" });
+                        }
+                      }}
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm ${fieldErrors.password ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"}`}
                       placeholder="Enter password"
                     />
+                    {fieldErrors.password && (
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.password}</p>
+                    )}
                   </div>
 
                   <div>
-                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label htmlFor="confirmPassword" className="block text-[15px] font-medium text-gray-700 mb-2">
                       Confirm Password <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="password"
                       id="confirmPassword"
                       value={formData.confirmPassword}
-                      onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                      onChange={(e) => {
+                        setFormData({ ...formData, confirmPassword: e.target.value });
+                        if (fieldErrors.confirmPassword) {
+                          setFieldErrors({ ...fieldErrors, confirmPassword: "" });
+                        }
+                      }}
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm ${fieldErrors.confirmPassword ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"}`}
                       placeholder="Confirm password"
                     />
+                    {fieldErrors.confirmPassword && (
+                      <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.confirmPassword}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -370,7 +390,7 @@ const CreateUserPage = () => {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">
                       Role
                     </label>
                     <SearchableDropdown
@@ -386,7 +406,7 @@ const CreateUserPage = () => {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-[15px] font-medium text-gray-700 mb-2">
                       Language
                     </label>
                     <select

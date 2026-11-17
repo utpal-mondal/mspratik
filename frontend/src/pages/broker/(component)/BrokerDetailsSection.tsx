@@ -1,4 +1,3 @@
-import { Briefcase } from "lucide-react";
 import { SectionProps } from "@/types/broker-entry/types";
 
 const BrokerDetailsSection: React.FC<SectionProps> = ({
@@ -9,17 +8,14 @@ const BrokerDetailsSection: React.FC<SectionProps> = ({
   onClearError,
 }) => {
   return (
-    <div className="bg-white">
-      <div className="px-4 py-3">
-        <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-          <Briefcase size={16} className="text-blue-600" />
-          Broker Details
-        </h2>
+    <div className="bg-white border border-[#D5DDE6] rounded-md overflow-hidden shadow-[0_1px_2px_rgba(15,42,71,0.06),0_8px_24px_rgba(15,42,71,0.05)]">
+      <div className="px-6 pt-4">
+        <h2 className="text-base font-semibold text-[#0F2A47]">Broker Details</h2>
       </div>
-      <div className="px-4 pb-4">
-        <div className="grid grid-cols-1 gap-3">
+      <div className="px-6 py-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Broker Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -34,12 +30,12 @@ const BrokerDetailsSection: React.FC<SectionProps> = ({
               maxLength={50}
             />
             {fieldErrors.brokerName && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.brokerName}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.brokerName}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Contact No
             </label>
             <input
@@ -54,12 +50,12 @@ const BrokerDetailsSection: React.FC<SectionProps> = ({
               maxLength={10}
             />
             {fieldErrors.contactNo && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.contactNo}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.contactNo}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Email Id
             </label>
             <input
@@ -74,12 +70,12 @@ const BrokerDetailsSection: React.FC<SectionProps> = ({
               maxLength={50}
             />
             {fieldErrors.emailId && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.emailId}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.emailId}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Contact Person
             </label>
             <input
@@ -94,12 +90,12 @@ const BrokerDetailsSection: React.FC<SectionProps> = ({
               maxLength={50}
             />
             {fieldErrors.contactPerson && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.contactPerson}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.contactPerson}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Add1
             </label>
             <input
@@ -114,12 +110,12 @@ const BrokerDetailsSection: React.FC<SectionProps> = ({
               maxLength={100}
             />
             {fieldErrors.address1 && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.address1}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.address1}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Add2
             </label>
             <input
@@ -134,12 +130,12 @@ const BrokerDetailsSection: React.FC<SectionProps> = ({
               maxLength={100}
             />
             {fieldErrors.address2 && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.address2}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.address2}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Add3
             </label>
             <input
@@ -154,12 +150,12 @@ const BrokerDetailsSection: React.FC<SectionProps> = ({
               maxLength={100}
             />
             {fieldErrors.address3 && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.address3}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.address3}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Opening Balance
             </label>
             <input
@@ -173,7 +169,7 @@ const BrokerDetailsSection: React.FC<SectionProps> = ({
               placeholder="Enter Opening Balance"
             />
             {fieldErrors.openingBalance && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.openingBalance}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.openingBalance}</p>
             )}
           </div>
         </div>

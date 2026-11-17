@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Landmark } from "lucide-react";
 import { SectionProps } from "@/types/broker-entry/types";
 import { SearchableDropdown } from "@/components/ui/SearchableDropdown";
 import apiService from "@/services/api";
@@ -37,17 +36,14 @@ const BankDetailsSection: React.FC<SectionProps> = ({
   }, []);
 
   return (
-    <div className="bg-white">
-      <div className="px-4 py-3">
-        <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-          <Landmark size={16} className="text-blue-600" />
-          Bank Details
-        </h2>
+    <div className="bg-white border border-[#D5DDE6] rounded-md overflow-hidden shadow-[0_1px_2px_rgba(15,42,71,0.06),0_8px_24px_rgba(15,42,71,0.05)]">
+      <div className="px-6 pt-4">
+        <h2 className="text-base font-semibold text-[#0F2A47]">Bank Details</h2>
       </div>
-      <div className="px-4 pb-4">
-        <div className="grid grid-cols-1 gap-3">
+      <div className="px-6 py-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Banker Name
             </label>
             <input
@@ -62,12 +58,12 @@ const BankDetailsSection: React.FC<SectionProps> = ({
               maxLength={50}
             />
             {fieldErrors.bankerName && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.bankerName}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.bankerName}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Bank
             </label>
             <SearchableDropdown
@@ -81,16 +77,16 @@ const BankDetailsSection: React.FC<SectionProps> = ({
               searchPlaceholder="Search bank..."
               labelKey="value"
               displayKey="label"
-              className="w-[27rem]"
-              buttonClassName="text-xs"
+              className="w-full"
+              buttonClassName="h-10 text-[13px] !rounded !border-[#C5CFDB]"
             />
             {fieldErrors.bankId && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.bankId}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.bankId}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Branch Name
             </label>
             <input
@@ -105,12 +101,12 @@ const BankDetailsSection: React.FC<SectionProps> = ({
               maxLength={50}
             />
             {fieldErrors.branchName && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.branchName}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.branchName}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Account No
             </label>
             <input
@@ -125,12 +121,12 @@ const BankDetailsSection: React.FC<SectionProps> = ({
               maxLength={20}
             />
             {fieldErrors.accountNo && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.accountNo}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.accountNo}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               IFSC Code
             </label>
             <input
@@ -145,7 +141,7 @@ const BankDetailsSection: React.FC<SectionProps> = ({
               maxLength={11}
             />
             {fieldErrors.ifscCode && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.ifscCode}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.ifscCode}</p>
             )}
           </div>
         </div>

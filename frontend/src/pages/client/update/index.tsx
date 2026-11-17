@@ -9,6 +9,7 @@ import ClientDetailsSection from "../(component)/ClientDetailsSection";
 import TaxDetailsSection from "../(component)/TaxDetailsSection";
 import UpdateFormActions from "../(component)/UpdateFormActions";
 import { ClientFormData } from "@/types/client-entry/types";
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 const initialFormData: ClientFormData = {
   clientName: "",
@@ -84,6 +85,7 @@ const UpdateClientPage = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       toast.error("Please fill the required fields");
       return;
     }
@@ -119,6 +121,7 @@ const UpdateClientPage = () => {
           mapped[keyMap[key] || key] = String(msg);
         }
         setFieldErrors(mapped);
+        scrollToFirstError();
       }
       toast.error(error?.response?.data?.message || "Failed to update client");
     } finally {

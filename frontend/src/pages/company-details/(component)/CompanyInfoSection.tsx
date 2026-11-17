@@ -1,6 +1,6 @@
 import { SectionProps } from "@/types/company-details/types";
 
-const labelClass = "block text-[13px] font-medium text-[#3B4957] mb-1.5";
+const labelClass = "block text-[15px] font-medium text-[#3B4957] mb-1.5";
 const errorClass = "mt-1 text-xs text-[#A12B2B]";
 
 const CompanyInfoSection: React.FC<SectionProps> = ({
@@ -35,7 +35,7 @@ const CompanyInfoSection: React.FC<SectionProps> = ({
               maxLength={30}
             />
             {fieldErrors.name && (
-              <p className={errorClass}>{fieldErrors.name}</p>
+              <p data-field-error className={errorClass}>{fieldErrors.name}</p>
             )}
           </div>
 
@@ -53,7 +53,7 @@ const CompanyInfoSection: React.FC<SectionProps> = ({
               maxLength={50}
             />
             {fieldErrors.email && (
-              <p className={errorClass}>{fieldErrors.email}</p>
+              <p data-field-error className={errorClass}>{fieldErrors.email}</p>
             )}
           </div>
 
@@ -71,7 +71,7 @@ const CompanyInfoSection: React.FC<SectionProps> = ({
               maxLength={20}
             />
             {fieldErrors.phoneNumber && (
-              <p className={errorClass}>{fieldErrors.phoneNumber}</p>
+              <p data-field-error className={errorClass}>{fieldErrors.phoneNumber}</p>
             )}
           </div>
 

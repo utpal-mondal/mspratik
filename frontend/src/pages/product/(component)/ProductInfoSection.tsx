@@ -31,7 +31,7 @@ const ProductInfoSection: React.FC<ProductInfoSectionProps> = ({
       <div className="p-2">
         <div className="grid grid-cols-1 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-[15px] font-medium text-gray-700 mb-1.5">
               Product Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -46,12 +46,12 @@ const ProductInfoSection: React.FC<ProductInfoSectionProps> = ({
               maxLength={100}
             />
             {fieldErrors.name && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.name}</p>
+              <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.name}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-[15px] font-medium text-gray-700 mb-1.5">
               Price
             </label>
             <input
@@ -67,7 +67,7 @@ const ProductInfoSection: React.FC<ProductInfoSectionProps> = ({
               maxLength={12}
             />
             {fieldErrors.price && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.price}</p>
+              <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.price}</p>
             )}
           </div>
         </div>

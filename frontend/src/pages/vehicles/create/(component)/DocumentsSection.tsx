@@ -1,4 +1,3 @@
-import { FileText } from "lucide-react";
 import { SectionProps } from "@/types/vehicle-entry/types";
 import CustomDatePicker from "@/components/ui/DatePicker";
 import { formatDate } from "@/utils/dateRangeUtils";
@@ -21,17 +20,14 @@ const DocumentsSection: React.FC<SectionProps> = ({
   // };
 
   return (
-    <div className="bg-white">
-      <div className="px-4 py-3">
-        <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-          <FileText size={16} className="text-blue-600" />
-          License Details
-        </h2>
+    <div className="bg-white border border-[#D5DDE6] rounded-md overflow-hidden shadow-[0_1px_2px_rgba(15,42,71,0.06),0_8px_24px_rgba(15,42,71,0.05)]">
+      <div className="px-6 pt-4">
+        <h2 className="text-base font-semibold text-[#0F2A47]">License Details</h2>
       </div>
-      <div className="px-4 pb-4">
-        <div className="grid grid-cols-1 gap-3">
+      <div className="px-6 py-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               RC Number
             </label>
             <input
@@ -46,12 +42,12 @@ const DocumentsSection: React.FC<SectionProps> = ({
               maxLength={20}
             />
             {fieldErrors.rcNumber && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.rcNumber}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.rcNumber}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Permit Number
             </label>
             <input
@@ -66,12 +62,12 @@ const DocumentsSection: React.FC<SectionProps> = ({
               maxLength={20}
             />
             {fieldErrors.permitNumber && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.permitNumber}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.permitNumber}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Insurance Number
             </label>
             <input
@@ -86,12 +82,12 @@ const DocumentsSection: React.FC<SectionProps> = ({
               maxLength={20}
             />
             {fieldErrors.insuranceNumber && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.insuranceNumber}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.insuranceNumber}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Insurance Expiry Date
             </label>
             <CustomDatePicker
@@ -105,12 +101,12 @@ const DocumentsSection: React.FC<SectionProps> = ({
               className={inputClass("insuranceExpiryDate")}
             />
             {fieldErrors.insuranceExpiryDate && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.insuranceExpiryDate}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.insuranceExpiryDate}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               PUC Number
             </label>
             <input
@@ -125,12 +121,12 @@ const DocumentsSection: React.FC<SectionProps> = ({
               maxLength={20}
             />
             {fieldErrors.pucNumber && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.pucNumber}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.pucNumber}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               PUC Expiry Date
             </label>
             <CustomDatePicker
@@ -144,12 +140,12 @@ const DocumentsSection: React.FC<SectionProps> = ({
               className={inputClass("pucExpiryDate")}
             />
             {fieldErrors.pucExpiryDate && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.pucExpiryDate}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.pucExpiryDate}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Road Tax Expiry Date
             </label>
             <CustomDatePicker
@@ -163,7 +159,7 @@ const DocumentsSection: React.FC<SectionProps> = ({
               className={inputClass("roadTaxExpiryDate")}
             />
             {fieldErrors.roadTaxExpiryDate && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.roadTaxExpiryDate}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.roadTaxExpiryDate}</p>
             )}
           </div>
 

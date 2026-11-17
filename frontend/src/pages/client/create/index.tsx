@@ -9,6 +9,7 @@ import ClientDetailsSection from "../(component)/ClientDetailsSection";
 import TaxDetailsSection from "../(component)/TaxDetailsSection";
 import FormActions from "../(component)/FormActions";
 import { ClientFormData } from "@/types/client-entry/types";
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 const initialFormData: ClientFormData = {
   clientName: "",
@@ -47,6 +48,7 @@ const ClientEntryPage = () => {
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       toast.error("Please fill the required fields");
       return;
     }
@@ -82,6 +84,7 @@ const ClientEntryPage = () => {
           mapped[keyMap[key] || key] = String(msg);
         }
         setFieldErrors(mapped);
+        scrollToFirstError();
       }
       toast.error(error?.response?.data?.message || "Failed to save client");
     } finally {

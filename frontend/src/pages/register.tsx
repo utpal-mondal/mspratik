@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 // List of countries for the dropdown
 const countries = [
@@ -113,6 +114,7 @@ const RegisterPage = () => {
     if (!formData.country) newErrors.country = "Country is required";
 
     setErrors(newErrors);
+    scrollToFirstError();
     return Object.keys(newErrors).length === 0;
   };
 
@@ -127,6 +129,7 @@ const RegisterPage = () => {
       newErrors.postCode = "Postal code is required";
 
     setErrors(newErrors);
+    scrollToFirstError();
     return Object.keys(newErrors).length === 0;
   };
 
@@ -196,6 +199,7 @@ const RegisterPage = () => {
       setErrors({
         submit: error.message || "Registration failed. Please try again.",
       });
+      scrollToFirstError();
     } finally {
       setIsSubmitting(false);
     }
@@ -207,7 +211,7 @@ const RegisterPage = () => {
         <div>
           <label
             htmlFor="firstName"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             First Name <span className="text-red-500">*</span>
           </label>
@@ -222,14 +226,14 @@ const RegisterPage = () => {
             }`}
           />
           {errors.firstName && (
-            <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>
+            <p data-field-error className="mt-1 text-sm text-red-600">{errors.firstName}</p>
           )}
         </div>
 
         <div>
           <label
             htmlFor="lastName"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             Last Name <span className="text-red-500">*</span>
           </label>
@@ -244,7 +248,7 @@ const RegisterPage = () => {
             }`}
           />
           {errors.lastName && (
-            <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>
+            <p data-field-error className="mt-1 text-sm text-red-600">{errors.lastName}</p>
           )}
         </div>
       </div>
@@ -253,7 +257,7 @@ const RegisterPage = () => {
         <div>
           <label
             htmlFor="username"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             Username <span className="text-red-500">*</span>
           </label>
@@ -268,14 +272,14 @@ const RegisterPage = () => {
             }`}
           />
           {errors.username && (
-            <p className="mt-1 text-sm text-red-600">{errors.username}</p>
+            <p data-field-error className="mt-1 text-sm text-red-600">{errors.username}</p>
           )}
         </div>
 
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             Email <span className="text-red-500">*</span>
           </label>
@@ -290,7 +294,7 @@ const RegisterPage = () => {
             }`}
           />
           {errors.email && (
-            <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+            <p data-field-error className="mt-1 text-sm text-red-600">{errors.email}</p>
           )}
         </div>
       </div>
@@ -299,7 +303,7 @@ const RegisterPage = () => {
         <div>
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             Password <span className="text-red-500">*</span>
           </label>
@@ -314,14 +318,14 @@ const RegisterPage = () => {
             }`}
           />
           {errors.password && (
-            <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+            <p data-field-error className="mt-1 text-sm text-red-600">{errors.password}</p>
           )}
         </div>
 
         <div>
           <label
             htmlFor="confirmPassword"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             Confirm Password <span className="text-red-500">*</span>
           </label>
@@ -336,7 +340,7 @@ const RegisterPage = () => {
             }`}
           />
           {errors.confirmPassword && (
-            <p className="mt-1 text-sm text-red-600">
+            <p data-field-error className="mt-1 text-sm text-red-600">
               {errors.confirmPassword}
             </p>
           )}
@@ -347,7 +351,7 @@ const RegisterPage = () => {
         <div>
           <label
             htmlFor="company"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             Company <span className="text-red-500">*</span>
           </label>
@@ -362,14 +366,14 @@ const RegisterPage = () => {
             }`}
           />
           {errors.company && (
-            <p className="mt-1 text-sm text-red-600">{errors.company}</p>
+            <p data-field-error className="mt-1 text-sm text-red-600">{errors.company}</p>
           )}
         </div>
 
         <div>
           <label
             htmlFor="country"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             Country <span className="text-red-500">*</span>
           </label>
@@ -390,7 +394,7 @@ const RegisterPage = () => {
             ))}
           </select>
           {errors.country && (
-            <p className="mt-1 text-sm text-red-600">{errors.country}</p>
+            <p data-field-error className="mt-1 text-sm text-red-600">{errors.country}</p>
           )}
         </div>
       </div>
@@ -413,7 +417,7 @@ const RegisterPage = () => {
         <div>
           <label
             htmlFor="phoneNumber"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             Phone Number <span className="text-red-500">*</span>
           </label>
@@ -428,14 +432,14 @@ const RegisterPage = () => {
             }`}
           />
           {errors.phoneNumber && (
-            <p className="mt-1 text-sm text-red-600">{errors.phoneNumber}</p>
+            <p data-field-error className="mt-1 text-sm text-red-600">{errors.phoneNumber}</p>
           )}
         </div>
 
         <div>
           <label
             htmlFor="city"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             City <span className="text-red-500">*</span>
           </label>
@@ -450,7 +454,7 @@ const RegisterPage = () => {
             }`}
           />
           {errors.city && (
-            <p className="mt-1 text-sm text-red-600">{errors.city}</p>
+            <p data-field-error className="mt-1 text-sm text-red-600">{errors.city}</p>
           )}
         </div>
       </div>
@@ -459,7 +463,7 @@ const RegisterPage = () => {
         <div>
           <label
             htmlFor="region"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             Region/State
           </label>
@@ -476,7 +480,7 @@ const RegisterPage = () => {
         <div>
           <label
             htmlFor="postCode"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             Postal Code <span className="text-red-500">*</span>
           </label>
@@ -491,7 +495,7 @@ const RegisterPage = () => {
             }`}
           />
           {errors.postCode && (
-            <p className="mt-1 text-sm text-red-600">{errors.postCode}</p>
+            <p data-field-error className="mt-1 text-sm text-red-600">{errors.postCode}</p>
           )}
         </div>
       </div>
@@ -499,7 +503,7 @@ const RegisterPage = () => {
       <div>
         <label
           htmlFor="address1"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-[15px] font-medium text-gray-700"
         >
           Address Line 1 <span className="text-red-500">*</span>
         </label>
@@ -514,14 +518,14 @@ const RegisterPage = () => {
           }`}
         />
         {errors.address1 && (
-          <p className="mt-1 text-sm text-red-600">{errors.address1}</p>
+          <p data-field-error className="mt-1 text-sm text-red-600">{errors.address1}</p>
         )}
       </div>
 
       <div>
         <label
           htmlFor="address2"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-[15px] font-medium text-gray-700"
         >
           Address Line 2 (Optional)
         </label>
@@ -539,7 +543,7 @@ const RegisterPage = () => {
         <div>
           <label
             htmlFor="minOrder"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-[15px] font-medium text-gray-700"
           >
             Minimum Order Value
           </label>
@@ -571,7 +575,7 @@ const RegisterPage = () => {
             />
           </div>
           <div className="ml-3 text-sm">
-            <label htmlFor="allowedIPs" className="font-medium text-gray-700">
+            <label htmlFor="allowedIPs" className="text-[15px] font-medium text-gray-700">
               Allow Multiple IPs
             </label>
             <p className="text-gray-500">
@@ -595,7 +599,7 @@ const RegisterPage = () => {
         <div className="ml-3 text-sm">
           <label
             htmlFor="portalNotifications"
-            className="font-medium text-gray-700"
+            className="text-[15px] font-medium text-gray-700"
           >
             Portal Notifications
           </label>
@@ -606,7 +610,7 @@ const RegisterPage = () => {
       <div>
         <label
           htmlFor="language"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-[15px] font-medium text-gray-700"
         >
           Language
         </label>
@@ -625,7 +629,7 @@ const RegisterPage = () => {
       <div>
         <label
           htmlFor="remarks"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-[15px] font-medium text-gray-700"
         >
           Remarks (Optional)
         </label>
@@ -659,7 +663,7 @@ const RegisterPage = () => {
               </svg>
             </div>
             <div className="ml-3">
-              <p className="text-sm text-red-700">{errors.submit}</p>
+              <p data-field-error className="text-sm text-red-700">{errors.submit}</p>
             </div>
           </div>
         </div>

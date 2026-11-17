@@ -234,7 +234,7 @@ const LoginPage = () => {
             <div>
               <label
                 htmlFor="username"
-                className="mb-1 block text-xs font-semibold text-slate-700"
+                className="mb-1 block text-[15px] font-semibold text-slate-700"
               >
                 Username or Email
               </label>
@@ -262,7 +262,7 @@ const LoginPage = () => {
             <div>
               <label
                 htmlFor="password"
-                className="mb-1 block text-xs font-semibold text-slate-700"
+                className="mb-1 block text-[15px] font-semibold text-slate-700"
               >
                 Password
               </label>

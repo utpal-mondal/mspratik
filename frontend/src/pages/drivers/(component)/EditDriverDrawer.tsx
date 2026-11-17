@@ -6,6 +6,7 @@ import DriverInfoSection from "../create/(component)/DriverInfoSection";
 import FormActions from "../update/(component)/FormActions";
 import { DriverFormData } from "@/types/driver-entry/types";
 import { DriverRecord } from "@/types/drivers/types";
+import { scrollToFirstError } from "@/utils/scrollToError";
 
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
 
@@ -84,6 +85,7 @@ const EditDriverDrawer: React.FC<EditDriverDrawerProps> = ({
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors);
+      scrollToFirstError();
       toast.error("Please fill the required fields");
       return;
     }
@@ -116,6 +118,7 @@ const EditDriverDrawer: React.FC<EditDriverDrawerProps> = ({
           mapped[keyMap[key] || key] = String(msg);
         }
         setFieldErrors(mapped);
+        scrollToFirstError();
       }
       toast.error(error?.response?.data?.message || "Failed to update driver");
     } finally {

@@ -1,6 +1,6 @@
 import { SectionProps } from "@/types/company-details/types";
 
-const labelClass = "block text-[13px] font-medium text-[#3B4957] mb-1.5";
+const labelClass = "block text-[15px] font-medium text-[#3B4957] mb-1.5";
 
 const AddressSection: React.FC<SectionProps> = ({
   formData,

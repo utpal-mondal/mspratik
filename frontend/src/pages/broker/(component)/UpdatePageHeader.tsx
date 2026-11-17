@@ -1,21 +1,23 @@
 import Link from "next/link";
-import { ChevronDown, Briefcase } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 
 const UpdatePageHeader: React.FC = () => {
   return (
-    <div className=" flex items-center">
-      <Link
-        href="/broker"
-        className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors mr-2"
-      >
-        <ChevronDown size={16} className="rotate-90" />
-      </Link>
-      <div className="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center mr-3">
-        <Briefcase size={18} className="text-blue-600" />
-      </div>
-      <div>
-        <h1 className="text-sm font-semibold text-gray-900">Update Broker</h1>
-        <p className="text-xs text-gray-500">Edit broker details</p>
+    <div className="flex flex-wrap items-end justify-between gap-5">
+      <div className="flex flex-col gap-2">
+        <Link
+          href="/broker"
+          className="flex items-center gap-1 text-xs font-semibold tracking-[0.1em] uppercase text-[#4D6178] hover:text-[#0F2A47] transition-colors w-fit"
+        >
+          <ChevronLeft size={13} />
+          Broker Master
+        </Link>
+        <h3 className="m-0 text-[24px] leading-[1.2] font-semibold text-[#0F2A47]">
+          Update Broker
+        </h3>
+        <div className="text-[15px] leading-[1.5] text-[#4D5B6A]">
+          Edit broker details.
+        </div>
       </div>
     </div>
   );

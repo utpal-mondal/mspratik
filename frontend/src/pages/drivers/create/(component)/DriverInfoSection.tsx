@@ -20,7 +20,7 @@ const DriverInfoSection: React.FC<SectionProps> = ({
       <div className="p-2">
         <div className={`grid grid-cols-1 gap-4${stacked ? "" : " md:grid-cols-3"}`}>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-[15px] font-medium text-gray-700 mb-1.5">
               Driver Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -35,12 +35,12 @@ const DriverInfoSection: React.FC<SectionProps> = ({
               maxLength={50}
             />
             {fieldErrors.driverName && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.driverName}</p>
+              <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.driverName}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-[15px] font-medium text-gray-700 mb-1.5">
               Phone Number
             </label>
             <input
@@ -55,12 +55,12 @@ const DriverInfoSection: React.FC<SectionProps> = ({
               maxLength={10}
             />
             {fieldErrors.phoneNumber && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.phoneNumber}</p>
+              <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.phoneNumber}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-[15px] font-medium text-gray-700 mb-1.5">
               Years of Experience
             </label>
             <input
@@ -76,12 +76,12 @@ const DriverInfoSection: React.FC<SectionProps> = ({
               placeholder="e.g. 5"
             />
             {fieldErrors.experienceYears && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.experienceYears}</p>
+              <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.experienceYears}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-[15px] font-medium text-gray-700 mb-1.5">
               Licence Number
             </label>
             <input
@@ -96,7 +96,7 @@ const DriverInfoSection: React.FC<SectionProps> = ({
               maxLength={20}
             />
             {fieldErrors.licenceNumber && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.licenceNumber}</p>
+              <p data-field-error className="mt-1 text-xs text-red-600">{fieldErrors.licenceNumber}</p>
             )}
           </div>
         </div>

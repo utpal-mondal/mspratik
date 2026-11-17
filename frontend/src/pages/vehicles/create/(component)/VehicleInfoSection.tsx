@@ -1,4 +1,3 @@
-import { Truck } from "lucide-react";
 import { SectionProps } from "@/types/vehicle-entry/types";
 import CustomDatePicker from "@/components/ui/DatePicker";
 import { SearchableDropdown } from "@/components/ui/SearchableDropdown";
@@ -17,17 +16,14 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
   onClearError,
 }) => {
   return (
-    <div className="bg-white">
-      <div className="px-4 py-3">
-        <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-          <Truck size={16} className="text-blue-600" />
-          Vehicle Information
-        </h2>
+    <div className="bg-white border border-[#D5DDE6] rounded-md overflow-hidden shadow-[0_1px_2px_rgba(15,42,71,0.06),0_8px_24px_rgba(15,42,71,0.05)]">
+      <div className="px-6 pt-4">
+        <h2 className="text-base font-semibold text-[#0F2A47]">Vehicle Information</h2>
       </div>
-      <div className="px-4 pb-4">
-        <div className="grid grid-cols-1 gap-3">
+      <div className="px-6 py-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Vehicle Number <span className="text-red-500">*</span>
             </label>
             <input
@@ -42,12 +38,12 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
               maxLength={13}
             />
             {fieldErrors.vehicleNumber && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.vehicleNumber}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.vehicleNumber}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Vehicle Type
             </label>
             <SearchableDropdown
@@ -62,16 +58,16 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
               labelKey="value"
               displayKey="label"
               allowClear={false}
-              className="w-[27rem]"
-              buttonClassName="text-xs"
+              className="w-full"
+              buttonClassName="h-10 text-[13px] !rounded !border-[#C5CFDB]"
             />
             {fieldErrors.vehicleType && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.vehicleType}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.vehicleType}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Number of Wheels
             </label>
             <input
@@ -87,12 +83,12 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
               placeholder="e.g. 4"
             />
             {fieldErrors.numberOfWheels && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.numberOfWheels}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.numberOfWheels}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Registration Expiry Date
             </label>
             {/* <input
@@ -114,7 +110,7 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
 
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Owner Phone Number
             </label>
             <input
@@ -129,12 +125,12 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
               maxLength={10}
             />
             {fieldErrors.ownerPhone && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.ownerPhone}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.ownerPhone}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
               Owner Name
             </label>
             <input
@@ -149,7 +145,7 @@ const VehicleInfoSection: React.FC<SectionProps> = ({
               maxLength={50}
             />
             {fieldErrors.ownerName && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.ownerName}</p>
+              <p data-field-error className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.ownerName}</p>
             )}
           </div>
         </div>
