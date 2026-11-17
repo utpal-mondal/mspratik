@@ -14,14 +14,31 @@ const RemarksSection: React.FC<SectionProps> = ({
           Remarks
         </h2>
       </div>
-      <div className="p-6">
-        <textarea
-          value={formData.remark}
-          onChange={(e) => onChange("remark", e.target.value)}
-          className={inputClass("remark")}
-          rows={4}
-          placeholder="Any notes about this company"
-        />
+      <div className="p-6 space-y-5">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Remarks
+          </label>
+          <textarea
+            value={formData.remark}
+            onChange={(e) => onChange("remark", e.target.value)}
+            className={inputClass("remark")}
+            rows={4}
+            placeholder="Any notes about this company"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Location API
+          </label>
+          <textarea
+            value={formData.locationApi}
+            onChange={(e) => onChange("locationApi", e.target.value)}
+            className={inputClass("locationApi")}
+            rows={4}
+            placeholder="Location API URL or configuration"
+          />
+        </div>
       </div>
     </div>
   );

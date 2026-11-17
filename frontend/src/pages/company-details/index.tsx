@@ -1,195 +1,193 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import { toast } from "react-toastify";
+import { Plus, Search, X } from "lucide-react";
 import withAuth from "../../components/withAuth";
 import usePermission from "../../hook/usePermission";
 import AccessDenied from "../../components/AccessDenied";
 import apiService from "../../services/api";
+import { useDebounce } from "../../hook/useDebounce";
 import PageHeader from "./(component)/PageHeader";
-import CompanyInfoSection from "./(component)/CompanyInfoSection";
-import AddressSection from "./(component)/AddressSection";
-import ContactPersonSection from "./(component)/ContactPersonSection";
-import RemarksSection from "./(component)/RemarksSection";
-import FormActions from "./(component)/FormActions";
-import { CompanyFormData }  from "@/types/company-details/types";;
+import CompanyTable from "./(component)/CompanyTable";
+import ViewCompanyDrawer from "./(component)/ViewCompanyDrawer";
+import DeleteCompanyModal from "./(component)/DeleteCompanyModal";
+import { CompanyRecord } from "@/types/company-details/types";
 
-const CompanyDetailsPage = () => {
+const CompaniesPage = () => {
   const { isCadmin } = usePermission();
+  const [companies, setCompanies] = useState<CompanyRecord[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit] = useState(10);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
+  const [viewId, setViewId] = useState<number | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<CompanyRecord | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
-  const [formData, setFormData] = useState<CompanyFormData>({
-    name: "",
-    email: "",
-    phoneNumber: "",
-    vatNumber: "",
-    address: "",
-    address2: "",
-    postCode: "",
-    region: "",
-    city: "",
-    country: "",
-    language: "nl",
-    currency: "",
-    contactName: "",
-    contactEmail: "",
-    contactPhone: "",
-    remark: "",
-  });
+  const debouncedQuery = useDebounce(searchQuery, 400);
+
+  const getCompanies = async () => {
+    try {
+      setLoading(true);
+      const res = await apiService.getAllCompanies({
+        page,
+        limit,
+        query: debouncedQuery || undefined,
+      });
+      setCompanies(res?.data?.data || []);
+      setTotal(res?.data?.meta?.total || 0);
+    } catch (error) {
+      console.error("Error fetching companies:", error);
+      toast.error("Failed to fetch companies");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchCompany = async () => {
-      try {
-        setLoading(true);
-        const res = await apiService.getCompanyDetails();
-        const company = res?.data?.data || res?.data;
-        if (company) {
-          setFormData({
-            name: company.name || "",
-            email: company.email || "",
-            phoneNumber: company.phone_number || "",
-            vatNumber: company.vat_number || "",
-            address: company.address || "",
-            address2: company.address_2 || "",
-            postCode: company.post_code || "",
-            region: company.region || "",
-            city: company.city || "",
-            country: company.country || "",
-            language: company.language || "nl",
-            currency: company.currency || "",
-            contactName: company.contact_name || "",
-            contactEmail: company.contact_email || "",
-            contactPhone: company.contact_phone || "",
-            remark: company.remark || "",
-          });
-        }
-      } catch (error) {
-        console.error("Error fetching company details:", error);
-        toast.error("Failed to fetch company details");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCompany();
-  }, []);
+    getCompanies();
+  }, [page, limit, debouncedQuery]);
 
-  const validateForm = () => {
-    const errors: { [key: string]: string } = {};
-
-    if (!formData.name.trim()) {
-      errors.name = "Company name is required";
-    } else if (formData.name.length > 30) {
-      errors.name = "Company name must be less than 30 characters";
-    }
-
-    if (formData.email && formData.email.length > 50) {
-      errors.email = "Email must be less than 50 characters";
-    }
-
-    if (formData.phoneNumber && formData.phoneNumber.length > 20) {
-      errors.phoneNumber = "Phone number must be less than 20 characters";
-    }
-
-    return errors;
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setPage(1);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    setFieldErrors({});
-    const validationErrors = validateForm();
-    if (Object.keys(validationErrors).length > 0) {
-      setFieldErrors(validationErrors);
-      return;
-    }
-
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
     try {
-      setSaving(true);
-      await apiService.updateCompanyDetails({
-        name: formData.name,
-        email: formData.email,
-        phone_number: formData.phoneNumber,
-        vat_number: formData.vatNumber,
-        address: formData.address,
-        address_2: formData.address2,
-        post_code: formData.postCode,
-        region: formData.region,
-        city: formData.city,
-        country: formData.country,
-        language: formData.language,
-        currency: formData.currency,
-        contact_name: formData.contactName,
-        contact_email: formData.contactEmail,
-        contact_phone: formData.contactPhone,
-        remark: formData.remark,
-      });
-      toast.success("Company details updated successfully");
-    } catch (error: any) {
-      console.error("Error updating company details:", error);
-      toast.error(error?.response?.data?.message || "Failed to update company details");
+      setDeleting(true);
+      await apiService.deleteCompany(deleteTarget.id);
+      setCompanies(companies.filter((c) => c.id !== deleteTarget.id));
+      setTotal((prev) => Math.max(prev - 1, 0));
+      toast.success("Company deleted successfully");
+      setDeleteTarget(null);
+    } catch (error) {
+      console.error("Error deleting company:", error);
+      toast.error("Failed to delete company");
     } finally {
-      setSaving(false);
+      setDeleting(false);
     }
-  };
-
-  const handleChange = (field: keyof CompanyFormData, value: string) => {
-    setFormData({ ...formData, [field]: value });
-  };
-
-  const handleClearError = (field: string) => {
-    setFieldErrors({ ...fieldErrors, [field]: "" });
   };
 
   if (!isCadmin()) {
     return <AccessDenied />;
   }
 
-  if (loading) {
-    return (
-      <main className="flex-1 p-4 md:p-8 flex items-center justify-center">
-        <p className="text-sm text-gray-500">Loading company details...</p>
-      </main>
-    );
-  }
+  const start = total === 0 ? 0 : (page - 1) * limit + 1;
+  const end = Math.min(page * limit, total);
+  const prevDisabled = page <= 1;
+  const nextDisabled = page * limit >= total;
 
-  const inputClass = (field: string) =>
-    `w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm ${
-      fieldErrors[field]
-        ? "border-red-500 focus:ring-red-500"
-        : "border-gray-300 focus:ring-blue-500"
-    }`;
-
-  const sectionProps = {
-    formData,
-    fieldErrors,
-    inputClass,
-    onChange: handleChange,
-    onClearError: handleClearError,
-  };
+  const pagerBtn =
+    "h-10 px-4 bg-white border border-[#D5DDE6] rounded text-[13px] font-medium transition-colors";
 
   return (
     <>
       <Head>
-        <title>Company Details | Pratik Transport</title>
-        <meta name="description" content="Company details" />
+        <title>Companies | Pratik Transport</title>
+        <meta name="description" content="Company list" />
       </Head>
 
       <div className="min-h-screen bg-gray-50">
-        <PageHeader />
+        <PageHeader title="Companies">
+          <Link
+            href="/company-details/create"
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+          >
+            <Plus size={15} />
+            Add Company
+          </Link>
+        </PageHeader>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <CompanyInfoSection {...sectionProps} />
-            <AddressSection {...sectionProps} />
-            <ContactPersonSection {...sectionProps} />
-            <RemarksSection {...sectionProps} />
-            <FormActions saving={saving} />
-          </form>
+          <div className="bg-white border border-[#D5DDE6] rounded-md overflow-hidden shadow-[0_1px_2px_rgba(15,42,71,0.06),0_8px_24px_rgba(15,42,71,0.05)]">
+            <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-b border-[#D5DDE6]">
+              <div className="text-base font-semibold text-[#0F2A47]">
+                Company list
+              </div>
+              <div className="relative w-full max-w-[260px]">
+                <Search
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-[#7B8896]"
+                  size={14}
+                />
+                <input
+                  type="text"
+                  placeholder="Search name, email or city..."
+                  value={searchQuery}
+                  onChange={(e) => handleSearchChange(e.target.value)}
+                  className="w-full h-10 pl-9 pr-8 border border-[#C5CFDB] rounded bg-white text-[13px] text-[#17222E] placeholder-[#7B8896] focus:outline-none focus:ring-2 focus:ring-[#0F2A47]/20 focus:border-[#0F2A47]"
+                />
+                {searchQuery !== "" && (
+                  <button
+                    type="button"
+                    onClick={() => handleSearchChange("")}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 text-[#7B8896] hover:text-[#3B4957] rounded transition-colors"
+                    title="Clear search"
+                  >
+                    <X size={12} />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <CompanyTable
+              companies={companies}
+              loading={loading}
+              page={page}
+              limit={limit}
+              onView={setViewId}
+              onDelete={setDeleteTarget}
+            />
+
+            <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3.5 border-t border-[#D5DDE6] bg-white">
+              <div className="text-[13px] text-[#5B6A7A]">
+                Showing {start}–{end} of {total} companies
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  disabled={prevDisabled}
+                  onClick={() => setPage((p) => Math.max(p - 1, 1))}
+                  className={`${pagerBtn} ${
+                    prevDisabled
+                      ? "text-[#7B8896] cursor-not-allowed"
+                      : "text-[#0F2A47] cursor-pointer hover:bg-[#F1F4F8]"
+                  }`}
+                >
+                  Previous
+                </button>
+                <button
+                  type="button"
+                  disabled={nextDisabled}
+                  onClick={() => setPage((p) => p + 1)}
+                  className={`${pagerBtn} ${
+                    nextDisabled
+                      ? "text-[#7B8896] cursor-not-allowed"
+                      : "text-[#0F2A47] cursor-pointer hover:bg-[#F1F4F8]"
+                  }`}
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <ViewCompanyDrawer companyId={viewId} onClose={() => setViewId(null)} />
+
+      <DeleteCompanyModal
+        isOpen={!!deleteTarget}
+        onClose={() => setDeleteTarget(null)}
+        onConfirm={handleDelete}
+        companyName={deleteTarget?.name}
+        isDeleting={deleting}
+      />
     </>
   );
 };
 
-export default withAuth(CompanyDetailsPage);
+export default withAuth(CompaniesPage);

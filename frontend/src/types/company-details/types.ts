@@ -15,6 +15,28 @@ export interface CompanyFormData {
   contactEmail: string;
   contactPhone: string;
   remark: string;
+  locationApi: string;
+}
+
+export interface CompanyRecord {
+  id: number;
+  name: string;
+  email?: string;
+  phone_number?: string;
+  vat_number?: string;
+  address?: string;
+  address_2?: string;
+  post_code?: string;
+  region?: string;
+  city?: string;
+  country?: string;
+  language?: string;
+  currency?: string;
+  contact_name?: string;
+  contact_email?: string;
+  contact_phone?: string;
+  remark?: string;
+  location_api?: string;
 }
 
 export interface SectionProps {

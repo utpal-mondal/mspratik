@@ -29,6 +29,7 @@ type Company struct {
 	ContactEmail        string         `gorm:"type:varchar(50)" json:"contact_email,omitempty"`
 	ContactPhone        string         `gorm:"type:varchar(20)" json:"contact_phone,omitempty"`
 	Remark              string         `gorm:"type:text" json:"remark,omitempty"`
+	LocationAPI         string         `gorm:"type:text" json:"location_api,omitempty"`
 	Status              bool           `gorm:"not null;default:false" json:"status"`
 	IsVerified          bool           `gorm:"not null;default:false" json:"is_verified"`
 	IsBlock             bool           `gorm:"not null;default:true" json:"is_block"`

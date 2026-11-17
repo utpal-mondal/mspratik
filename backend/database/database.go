@@ -40,9 +40,9 @@ func Init() (*gorm.DB, error) {
 	}
 
 	// Auto migrate models
-	if err := runMigrations(); err != nil {
-		return nil, fmt.Errorf("failed to run migrations: %w", err)
-	}
+	// if err := runMigrations(); err != nil {
+	// 	return nil, fmt.Errorf("failed to run migrations: %w", err)
+	// }
 
 	log.Println("Database connection established")
 	return DB, nil

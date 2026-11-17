@@ -31,6 +31,7 @@ const CompanyDetailsPage = () => {
     contactEmail: "",
     contactPhone: "",
     remark: "",
+    locationApi: "",
   });
 
   useEffect(() => {
@@ -57,6 +58,7 @@ const CompanyDetailsPage = () => {
             contactEmail: company.contact_email || "",
             contactPhone: company.contact_phone || "",
             remark: company.remark || "",
+            locationApi: company.location_api || "",
           });
         }
       } catch (error) {
@@ -118,6 +120,7 @@ const CompanyDetailsPage = () => {
         contact_email: formData.contactEmail,
         contact_phone: formData.contactPhone,
         remark: formData.remark,
+        location_api: formData.locationApi,
       });
       toast.success("Company details updated successfully");
     } catch (error: any) {
@@ -405,14 +408,27 @@ const CompanyDetailsPage = () => {
                   Remarks
                 </h2>
               </div>
-              <div className="p-6">
-                <textarea
-                  value={formData.remark}
-                  onChange={(e) => setFormData({ ...formData, remark: e.target.value })}
-                  className={inputClass("remark")}
-                  rows={4}
-                  placeholder="Any notes about this company"
-                />
+              <div className="p-6 space-y-5">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Remarks</label>
+                  <textarea
+                    value={formData.remark}
+                    onChange={(e) => setFormData({ ...formData, remark: e.target.value })}
+                    className={inputClass("remark")}
+                    rows={4}
+                    placeholder="Any notes about this company"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Location API</label>
+                  <textarea
+                    value={formData.locationApi}
+                    onChange={(e) => setFormData({ ...formData, locationApi: e.target.value })}
+                    className={inputClass("locationApi")}
+                    rows={4}
+                    placeholder="Location API URL or configuration"
+                  />
+                </div>
               </div>
             </div>
 

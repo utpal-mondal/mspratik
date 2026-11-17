@@ -86,6 +86,12 @@ class ApiService {
     // Settings methods
     getCompanyDetails = () => this.api.get('/settings/company-details');
     updateCompanyDetails = (data: any) => this.api.put('/settings/company-details', data);
+    getAllCompanies = (params: { page?: number; limit?: number; query?: string } = {}) =>
+        this.api.get('/companies/get-all-company', { params: { page: params.page ?? 1, limit: params.limit ?? 10, query: params.query } });
+    createCompany = (data: any) => this.api.post('/companies/create-company', data);
+    getCompany = (companyId: number) => this.api.get(`/companies/${companyId}/get-company-details`);
+    updateCompany = (companyId: number, data: any) => this.api.put(`/companies/${companyId}/update-company`, data);
+    deleteCompany = (companyId: number) => this.api.delete(`/companies/${companyId}/delete-company`);
     getMySubscription = () => this.api.get('/subscription');
     getAvailableSubscriptions = () => this.api.get('/subscription/choose');
     upgradeSubscription = (subscriptionId: number) => this.api.post(`/subscription/upgrade/${subscriptionId}`);
