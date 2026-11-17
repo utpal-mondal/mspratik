@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import { toast } from "react-toastify";
-import { Plus, Search, X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import withAuth from "../../components/withAuth";
 import usePermission from "../../hook/usePermission";
 import AccessDenied from "../../components/AccessDenied";
 import apiService from "../../services/api";
 import { useDebounce } from "../../hook/useDebounce";
-import PageHeader from "./(component)/PageHeader";
+import ListPageHeader from "./(component)/ListPageHeader";
 import CompanyTable from "./(component)/CompanyTable";
 import ViewCompanyDrawer from "./(component)/ViewCompanyDrawer";
 import DeleteCompanyModal from "./(component)/DeleteCompanyModal";
@@ -91,18 +90,10 @@ const CompaniesPage = () => {
         <meta name="description" content="Company list" />
       </Head>
 
-      <div className="min-h-screen bg-gray-50">
-        <PageHeader title="Companies">
-          <Link
-            href="/company-details/create"
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
-          >
-            <Plus size={15} />
-            Add Company
-          </Link>
-        </PageHeader>
+      <main className="flex-1 min-h-screen bg-[#F2F5F9] px-6 py-10 md:px-8 md:py-12 text-[#17222E]">
+        <div className="mx-auto flex flex-col gap-7">
+          <ListPageHeader total={total} />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="bg-white border border-[#D5DDE6] rounded-md overflow-hidden shadow-[0_1px_2px_rgba(15,42,71,0.06),0_8px_24px_rgba(15,42,71,0.05)]">
             <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 border-b border-[#D5DDE6]">
               <div className="text-base font-semibold text-[#0F2A47]">
@@ -175,7 +166,7 @@ const CompaniesPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </main>
 
       <ViewCompanyDrawer companyId={viewId} onClose={() => setViewId(null)} />
 

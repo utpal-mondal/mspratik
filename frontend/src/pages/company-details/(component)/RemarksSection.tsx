@@ -1,5 +1,6 @@
-import { Globe } from "lucide-react";
 import { SectionProps } from "@/types/company-details/types";
+
+const labelClass = "block text-[13px] font-medium text-[#3B4957] mb-1.5";
 
 const RemarksSection: React.FC<SectionProps> = ({
   formData,
@@ -7,34 +8,27 @@ const RemarksSection: React.FC<SectionProps> = ({
   onChange,
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-      <div className="px-6 py-4 border-b border-gray-200">
-        <h2 className="text-lg font-medium text-gray-900 flex items-center gap-2">
-          <Globe size={20} className="text-gray-500" />
-          Remarks
-        </h2>
+    <div className="bg-white border border-[#D5DDE6] rounded-md overflow-hidden shadow-[0_1px_2px_rgba(15,42,71,0.06),0_8px_24px_rgba(15,42,71,0.05)]">
+      <div className="px-6 pt-4">
+        <h2 className="text-base font-semibold text-[#0F2A47]">Remarks</h2>
       </div>
-      <div className="p-6 space-y-5">
+      <div className="px-6 py-5 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Remarks
-          </label>
+          <label className={labelClass}>Remarks</label>
           <textarea
             value={formData.remark}
             onChange={(e) => onChange("remark", e.target.value)}
-            className={inputClass("remark")}
+            className={`${inputClass("remark")} !h-auto py-2`}
             rows={4}
             placeholder="Any notes about this company"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Location API
-          </label>
+          <label className={labelClass}>Location API</label>
           <textarea
             value={formData.locationApi}
             onChange={(e) => onChange("locationApi", e.target.value)}
-            className={inputClass("locationApi")}
+            className={`${inputClass("locationApi")} !h-auto py-2`}
             rows={4}
             placeholder="Location API URL or configuration"
           />

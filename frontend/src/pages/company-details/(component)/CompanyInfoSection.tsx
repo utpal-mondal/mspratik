@@ -1,5 +1,7 @@
-import { Building2 } from "lucide-react";
 import { SectionProps } from "@/types/company-details/types";
+
+const labelClass = "block text-[13px] font-medium text-[#3B4957] mb-1.5";
+const errorClass = "mt-1 text-xs text-[#A12B2B]";
 
 const CompanyInfoSection: React.FC<SectionProps> = ({
   formData,
@@ -9,18 +11,17 @@ const CompanyInfoSection: React.FC<SectionProps> = ({
   onClearError,
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
-      <div className="px-6 py-4 border-b border-gray-200">
-        <h2 className="text-lg font-medium text-gray-900 flex items-center gap-2">
-          <Building2 size={20} className="text-gray-500" />
+    <div className="bg-white border border-[#D5DDE6] rounded-md overflow-hidden shadow-[0_1px_2px_rgba(15,42,71,0.06),0_8px_24px_rgba(15,42,71,0.05)]">
+      <div className="px-6 pt-4">
+        <h2 className="text-base font-semibold text-[#0F2A47]">
           Company Information
         </h2>
       </div>
-      <div className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="px-6 py-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Company Name <span className="text-red-500">*</span>
+            <label className={labelClass}>
+              Company Name <span className="text-[#A12B2B]">*</span>
             </label>
             <input
               type="text"
@@ -29,18 +30,17 @@ const CompanyInfoSection: React.FC<SectionProps> = ({
                 onChange("name", e.target.value);
                 if (fieldErrors.name) onClearError("name");
               }}
-              className={inputClass("name")}
+              className={`${inputClass("name")} capitalize`}
               placeholder="Enter company name"
+              maxLength={30}
             />
             {fieldErrors.name && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.name}</p>
+              <p className={errorClass}>{fieldErrors.name}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email
-            </label>
+            <label className={labelClass}>Email</label>
             <input
               type="email"
               value={formData.email}
@@ -50,16 +50,15 @@ const CompanyInfoSection: React.FC<SectionProps> = ({
               }}
               className={inputClass("email")}
               placeholder="Enter email address"
+              maxLength={50}
             />
             {fieldErrors.email && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.email}</p>
+              <p className={errorClass}>{fieldErrors.email}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Phone Number
-            </label>
+            <label className={labelClass}>Phone Number</label>
             <input
               type="text"
               value={formData.phoneNumber}
@@ -69,29 +68,27 @@ const CompanyInfoSection: React.FC<SectionProps> = ({
               }}
               className={inputClass("phoneNumber")}
               placeholder="Enter phone number"
+              maxLength={20}
             />
             {fieldErrors.phoneNumber && (
-              <p className="mt-1 text-xs text-red-600">{fieldErrors.phoneNumber}</p>
+              <p className={errorClass}>{fieldErrors.phoneNumber}</p>
             )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              VAT Number
-            </label>
+            <label className={labelClass}>VAT Number</label>
             <input
               type="text"
               value={formData.vatNumber}
               onChange={(e) => onChange("vatNumber", e.target.value)}
               className={inputClass("vatNumber")}
               placeholder="Enter VAT number"
+              maxLength={20}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Language
-            </label>
+            <label className={labelClass}>Language</label>
             <select
               value={formData.language}
               onChange={(e) => onChange("language", e.target.value)}
@@ -103,15 +100,14 @@ const CompanyInfoSection: React.FC<SectionProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Currency
-            </label>
+            <label className={labelClass}>Currency</label>
             <input
               type="text"
               value={formData.currency}
               onChange={(e) => onChange("currency", e.target.value)}
               className={inputClass("currency")}
               placeholder="e.g. EUR"
+              maxLength={20}
             />
           </div>
         </div>

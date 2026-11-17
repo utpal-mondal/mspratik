@@ -6,7 +6,7 @@ import withAuth from "../../../components/withAuth";
 import usePermission from "../../../hook/usePermission";
 import AccessDenied from "../../../components/AccessDenied";
 import apiService from "../../../services/api";
-import PageHeader from "../(component)/PageHeader";
+import FormPageHeader from "../(component)/FormPageHeader";
 import CompanyInfoSection from "../(component)/CompanyInfoSection";
 import AddressSection from "../(component)/AddressSection";
 import ContactPersonSection from "../(component)/ContactPersonSection";
@@ -116,10 +116,10 @@ const CreateCompanyPage = () => {
   }
 
   const inputClass = (field: string) =>
-    `w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent text-sm ${
+    `w-full h-10 px-3 border rounded text-[13px] focus:outline-none focus:ring-2 transition-colors ${
       fieldErrors[field]
-        ? "border-red-500 focus:ring-red-500"
-        : "border-gray-300 focus:ring-blue-500"
+        ? "border-red-500 focus:ring-red-500/20"
+        : "border-[#C5CFDB] focus:ring-[#0F2A47]/20 focus:border-[#0F2A47]"
     }`;
 
   const sectionProps = {
@@ -137,11 +137,14 @@ const CreateCompanyPage = () => {
         <meta name="description" content="Add company" />
       </Head>
 
-      <div className="min-h-screen bg-gray-50">
-        <PageHeader title="Add Company" backHref="/company-details" />
+      <div className="min-h-screen bg-[#F2F5F9] px-6 py-10 md:px-8 md:py-12 text-[#17222E]">
+        <div className="mx-auto flex flex-col gap-7">
+          <FormPageHeader
+            title="Create Company"
+            description="Add a new company with its details."
+          />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-7">
             <CompanyInfoSection {...sectionProps} />
             <AddressSection {...sectionProps} />
             <ContactPersonSection {...sectionProps} />
