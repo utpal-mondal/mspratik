@@ -16,14 +16,14 @@ import (
 )
 
 type routeRequest struct {
-	RouteName string             `json:"route_name"`
-	StartName string             `json:"start_name"`
-	StartLat  string             `json:"start_lat"`
-	StartLong string             `json:"start_long"`
+	RouteName string              `json:"route_name"`
+	StartName string              `json:"start_name"`
+	StartLat  string              `json:"start_lat"`
+	StartLong string              `json:"start_long"`
 	ViaPoints []routePointRequest `json:"via_points"`
-	EndName   string             `json:"end_name"`
-	EndLat    string             `json:"end_lat"`
-	EndLong   string             `json:"end_long"`
+	EndName   string              `json:"end_name"`
+	EndLat    string              `json:"end_lat"`
+	EndLong   string              `json:"end_long"`
 }
 
 type routePointRequest struct {
@@ -151,6 +151,18 @@ func persistViaPoints(db *gorm.DB, routeID uint, points []routePointRequest) err
 	return db.Create(&records).Error
 }
 
+func routesForCompany(db *gorm.DB, companyID *uint) *gorm.DB {
+	query := db.Model(&models.Route{})
+	if companyID == nil {
+		return query
+	}
+
+	companyUserIDs := db.Model(&models.User{}).
+		Select("id").
+		Where("company_id = ?", *companyID)
+	return query.Where("routes.created_by IN (?)", companyUserIDs)
+}
+
 // CreateRoute creates a route for the current company
 // POST /routes/create-route
 func CreateRoute(c *fiber.Ctx, db *gorm.DB) error {
@@ -171,30 +183,21 @@ func CreateRoute(c *fiber.Ctx, db *gorm.DB) error {
 
 	now := time.Now()
 	route := models.Route{
-		RouteName:  req.RouteName,
-		StartName:  req.StartName,
-		StartLat:   req.StartLat,
-		StartLong:  req.StartLong,
-		EndName:    req.EndName,
-		EndLat:     req.EndLat,
-		EndLong:    req.EndLong,
-		CreatedBy:  int64(authUser.ID),
-		CreatedAt:  &now,
-		UpdatedAt:  &now,
+		RouteName: req.RouteName,
+		StartName: req.StartName,
+		StartLat:  req.StartLat,
+		StartLong: req.StartLong,
+		EndName:   req.EndName,
+		EndLat:    req.EndLat,
+		EndLong:   req.EndLong,
+		CreatedBy: int64(authUser.ID),
+		CreatedAt: &now,
+		UpdatedAt: &now,
 	}
 
 	if err := db.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&route).Error; err != nil {
 			return fmt.Errorf("insert route: %w", err)
-		}
-		if authUser.CompanyID != nil {
-			owner := models.RouteCompany{
-				RouteID:   route.ID,
-				CompanyID: *authUser.CompanyID,
-			}
-			if err := tx.Create(&owner).Error; err != nil {
-				return fmt.Errorf("associate route with company: %w", err)
-			}
 		}
 		if err := persistViaPoints(tx, route.ID, req.ViaPoints); err != nil {
 			return fmt.Errorf("save route via points: %w", err)
@@ -236,13 +239,7 @@ func GetRoutes(c *fiber.Ctx, db *gorm.DB) error {
 		limit = 10
 	}
 
-	query := db.Model(&models.Route{})
-	if authUser.CompanyID != nil {
-		query = query.Where(
-			"EXISTS (SELECT 1 FROM route_companies WHERE route_companies.route_id = routes.id AND route_companies.company_id = ?)",
-			*authUser.CompanyID,
-		)
-	}
+	query := routesForCompany(db, authUser.CompanyID)
 	if search := strings.TrimSpace(c.Query("query")); search != "" {
 		like := "%" + search + "%"
 		query = query.Where(
@@ -290,13 +287,7 @@ func GetRoute(c *fiber.Ctx, db *gorm.DB) error {
 	}
 
 	var route models.Route
-	query := db
-	if authUser.CompanyID != nil {
-		query = query.Where(
-			"EXISTS (SELECT 1 FROM route_companies WHERE route_companies.route_id = routes.id AND route_companies.company_id = ?)",
-			*authUser.CompanyID,
-		)
-	}
+	query := routesForCompany(db, authUser.CompanyID)
 	if err := query.Preload("ViaPoints", func(db *gorm.DB) *gorm.DB { return db.Order("position ASC") }).First(&route, routeID).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "fail", "message": "Route not found"})
 	}
@@ -317,13 +308,7 @@ func UpdateRoute(c *fiber.Ctx, db *gorm.DB) error {
 	}
 
 	var route models.Route
-	query := db
-	if authUser.CompanyID != nil {
-		query = query.Where(
-			"EXISTS (SELECT 1 FROM route_companies WHERE route_companies.route_id = routes.id AND route_companies.company_id = ?)",
-			*authUser.CompanyID,
-		)
-	}
+	query := routesForCompany(db, authUser.CompanyID)
 	if err := query.First(&route, routeID).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "fail", "message": "Route not found"})
 	}
@@ -385,13 +370,7 @@ func DeleteRoute(c *fiber.Ctx, db *gorm.DB) error {
 	}
 
 	var route models.Route
-	query := db
-	if authUser.CompanyID != nil {
-		query = query.Where(
-			"EXISTS (SELECT 1 FROM route_companies WHERE route_companies.route_id = routes.id AND route_companies.company_id = ?)",
-			*authUser.CompanyID,
-		)
-	}
+	query := routesForCompany(db, authUser.CompanyID)
 	if err := query.First(&route, routeID).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "fail", "message": "Route not found"})
 	}
