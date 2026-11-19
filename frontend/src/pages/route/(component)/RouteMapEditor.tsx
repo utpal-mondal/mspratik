@@ -740,7 +740,7 @@ const RouteMapEditor: React.FC<RouteMapEditorProps> = ({
                               }
                               className="h-4 w-4 accent-[#0F2A47]"
                             />
-                            Notify before arrival
+                            Notify when reached
                           </label>
                         )}
                       </div>
