@@ -27,6 +27,13 @@ interface GoogleAutocomplete {
   getPlace: () => GooglePlace;
 }
 
+const indiaMapBounds = {
+  north: 37.2,
+  south: 6.5,
+  east: 97.5,
+  west: 68.0,
+};
+
 interface GoogleMap {
   setMap: (map: GoogleMapInstance | null) => void;
   setOptions: (options: {
@@ -79,6 +86,15 @@ interface GoogleMapsApi {
         mapTypeControl: boolean;
         streetViewControl: boolean;
         fullscreenControl: boolean;
+        restriction: {
+          latLngBounds: {
+            north: number;
+            south: number;
+            east: number;
+            west: number;
+          };
+          strictBounds: boolean;
+        };
       }
     ) => GoogleMapInstance;
     LatLngBounds: new () => GoogleLatLngBounds;
@@ -99,7 +115,11 @@ interface GoogleMapsApi {
     places: {
       Autocomplete: new (
         input: HTMLInputElement,
-        options: { fields: string[]; types: string[] }
+        options: {
+          fields: string[];
+          types: string[];
+          componentRestrictions: { country: string };
+        }
       ) => GoogleAutocomplete;
     };
     DirectionsRenderer: new (options: {
@@ -211,10 +231,13 @@ const LocationInput: React.FC<LocationInputProps> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const onChangeRef = useRef(onChange);
+  const pointRef = useRef(point);
   const lookupRequestRef = useRef(0);
   const resolvedValueRef = useRef("");
+  const resolvedCoordinatesRef = useRef("");
   const [lookupError, setLookupError] = useState("");
   onChangeRef.current = onChange;
+  pointRef.current = point;
 
   useEffect(() => {
     const maps = (window as GoogleWindow).google?.maps;
@@ -223,22 +246,74 @@ const LocationInput: React.FC<LocationInputProps> = ({
     const autocomplete = new maps.places.Autocomplete(inputRef.current, {
       fields: ["formatted_address", "geometry", "name"],
       types: ["geocode"],
+      componentRestrictions: { country: "in" },
     });
     autocomplete.addListener("place_changed", () => {
       const place = autocomplete.getPlace();
       const location = place.geometry?.location;
       if (!location) return;
-      const name = place.name || place.formatted_address || "";
+      const name = place.formatted_address || place.name || "";
+      const lat = String(location.lat());
+      const long = String(location.lng());
       lookupRequestRef.current += 1;
       resolvedValueRef.current = name;
+      resolvedCoordinatesRef.current = `${lat},${long}`;
       setLookupError("");
       onChangeRef.current({
         name,
-        lat: String(location.lat()),
-        long: String(location.lng()),
+        lat,
+        long,
       });
     });
   }, [googleReady, readOnly]);
+
+  useEffect(() => {
+    const maps = (window as GoogleWindow).google?.maps;
+    const name = point.name.trim();
+    const lat = Number(point.lat);
+    const lng = Number(point.long);
+    const coordinates = `${point.lat},${point.long}`;
+    if (
+      readOnly ||
+      !googleReady ||
+      !maps ||
+      !name ||
+      name.includes(",") ||
+      !point.lat ||
+      !point.long ||
+      !Number.isFinite(lat) ||
+      !Number.isFinite(lng) ||
+      resolvedCoordinatesRef.current === coordinates
+    ) {
+      return;
+    }
+
+    const requestId = ++lookupRequestRef.current;
+    new maps.Geocoder().geocode({ location: { lat, lng } }, (results, status) => {
+      if (requestId !== lookupRequestRef.current) return;
+      const currentPoint = pointRef.current;
+      if (
+        currentPoint.lat !== point.lat ||
+        currentPoint.long !== point.long ||
+        currentPoint.name.trim() !== name
+      ) {
+        return;
+      }
+
+      const fullAddress = results?.[0]?.formatted_address;
+      if (status !== maps.GeocoderStatus.OK || !fullAddress) {
+        setLookupError("Could not load the full address for this place.");
+        return;
+      }
+
+      resolvedCoordinatesRef.current = coordinates;
+      resolvedValueRef.current = fullAddress;
+      setLookupError("");
+      if (fullAddress !== currentPoint.name) {
+        onChangeRef.current({ ...currentPoint, name: fullAddress });
+      }
+    });
+  }, [googleReady, point.lat, point.long, point.name, readOnly]);
 
   return (
     <div className="min-w-0 flex-1">
@@ -350,6 +425,7 @@ const RouteMapEditor: React.FC<RouteMapEditorProps> = ({
   const markersRef = useRef<Record<string, GoogleMapMarker>>({});
   const routeLinesRef = useRef<GoogleMap[]>([]);
   const directionsRequestRef = useRef(0);
+  const lastDirectionsInputRef = useRef("");
   const directionsServiceRef = useRef<InstanceType<
     GoogleMapsApi["maps"]["DirectionsService"]
   > | null>(null);
@@ -358,6 +434,12 @@ const RouteMapEditor: React.FC<RouteMapEditorProps> = ({
   const [routeOptions, setRouteOptions] = useState<RouteOption[]>([]);
   const [selectedRouteIndex, setSelectedRouteIndex] = useState(0);
   const [draggedStopKey, setDraggedStopKey] = useState<string | null>(null);
+  const [routeStopsWidth, setRouteStopsWidth] = useState(400);
+  const routeStopsResizeRef = useRef<{
+    pointerId: number;
+    startX: number;
+    startWidth: number;
+  } | null>(null);
   const lastViaRowRef = useRef<HTMLDivElement>(null);
   const focusNextViaRef = useRef(false);
   const previousViaCountRef = useRef(viaPoints.length);
@@ -410,11 +492,15 @@ const RouteMapEditor: React.FC<RouteMapEditorProps> = ({
     if (!googleReady || !maps || !mapElementRef.current || mapRef.current) return;
 
     const map = new maps.Map(mapElementRef.current, {
-      center: { lat: 22.5726, lng: 88.3639 },
-      zoom: 6,
+      center: { lat: 22.0667, lng: 88.0698 },
+      zoom: 11,
       mapTypeControl: false,
       streetViewControl: false,
       fullscreenControl: true,
+      restriction: {
+        latLngBounds: indiaMapBounds,
+        strictBounds: true,
+      },
     });
     mapRef.current = map;
     directionsServiceRef.current = new maps.DirectionsService();
@@ -510,13 +596,41 @@ const RouteMapEditor: React.FC<RouteMapEditorProps> = ({
     const maps = (window as GoogleWindow).google?.maps;
     const service = directionsServiceRef.current;
     if (!googleReady || !maps || !service) return;
+    const hasUnselectedViaPoint = viaPoints.some(
+      (point) => point.name.trim() && (!point.lat || !point.long)
+    );
+    if (
+      hasUnselectedViaPoint &&
+      startPoint.lat &&
+      startPoint.long &&
+      endPoint.lat &&
+      endPoint.long
+    ) {
+      return;
+    }
+
+    const directionsInput = JSON.stringify([
+      startPoint.lat,
+      startPoint.long,
+      viaPoints.map((point) => [point.lat, point.long]),
+      endPoint.lat,
+      endPoint.long,
+    ]);
+    if (directionsInput === lastDirectionsInputRef.current) return;
+    lastDirectionsInputRef.current = directionsInput;
+
     const requestId = ++directionsRequestRef.current;
     routeLinesRef.current.forEach((routeLine) => routeLine.setMap(null));
     routeLinesRef.current = [];
     setRouteOptions([]);
     setSelectedRouteIndex(0);
     setMapError("");
-    if (!startPoint.lat || !startPoint.long || !endPoint.lat || !endPoint.long) {
+    if (
+      !startPoint.lat ||
+      !startPoint.long ||
+      !endPoint.lat ||
+      !endPoint.long
+    ) {
       return;
     }
     const map = mapRef.current;
@@ -607,7 +721,10 @@ const RouteMapEditor: React.FC<RouteMapEditorProps> = ({
 
   return (
     <section className="overflow-hidden rounded-md border border-[#D5DDE6] bg-white shadow-[0_1px_2px_rgba(15,42,71,0.06)]">
-      <div className="grid min-h-[560px] grid-cols-1 lg:grid-cols-[minmax(280px,340px)_minmax(0,1fr)]">
+      <div
+        className="grid min-h-[560px] grid-cols-1 lg:grid-cols-[var(--route-stops-width)_8px_minmax(0,1fr)]"
+        style={{ "--route-stops-width": `${routeStopsWidth}px` } as React.CSSProperties}
+      >
         <aside className="border-b border-[#D5DDE6] p-4 lg:border-b-0 lg:border-r">
           <h2 className="mb-4 text-sm font-semibold text-[#17222E]">Route stops</h2>
           <div className="flex flex-col gap-3">
@@ -782,6 +899,50 @@ const RouteMapEditor: React.FC<RouteMapEditorProps> = ({
             )}
           </div>
         </aside>
+        <div
+          role="separator"
+          aria-label="Resize route stops panel"
+          aria-orientation="vertical"
+          aria-valuemin={320}
+          aria-valuemax={640}
+          aria-valuenow={routeStopsWidth}
+          tabIndex={0}
+          onPointerDown={(event) => {
+            event.preventDefault();
+            routeStopsResizeRef.current = {
+              pointerId: event.pointerId,
+              startX: event.clientX,
+              startWidth: routeStopsWidth,
+            };
+            event.currentTarget.setPointerCapture(event.pointerId);
+          }}
+          onPointerMove={(event) => {
+            const resize = routeStopsResizeRef.current;
+            if (!resize || resize.pointerId !== event.pointerId) return;
+            setRouteStopsWidth(
+              Math.min(640, Math.max(320, resize.startWidth + event.clientX - resize.startX))
+            );
+          }}
+          onPointerUp={() => {
+            routeStopsResizeRef.current = null;
+          }}
+          onPointerCancel={() => {
+            routeStopsResizeRef.current = null;
+          }}
+          onLostPointerCapture={() => {
+            routeStopsResizeRef.current = null;
+          }}
+          onKeyDown={(event) => {
+            if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+            event.preventDefault();
+            setRouteStopsWidth((width) =>
+              Math.min(640, Math.max(320, width + (event.key === "ArrowRight" ? 16 : -16)))
+            );
+          }}
+          className="group hidden cursor-col-resize touch-none items-center justify-center bg-[#F8FAFC] outline-none hover:bg-[#E9EEF4] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0F2A47] lg:flex"
+        >
+          <div className="h-full w-px bg-[#D5DDE6] group-hover:bg-[#0F2A47]" />
+        </div>
         <div className="flex min-w-0 flex-col gap-3 p-3">
           {mapError && <p className="text-xs text-[#A12B2B]">{mapError}</p>}
           <div

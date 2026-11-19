@@ -202,13 +202,12 @@ const RouteUpdatePage = () => {
                       setFormData({ ...formData, routeName: event.target.value });
                       setFieldErrors({ ...fieldErrors, routeName: "" });
                     }}
-                    className={`h-10 w-full max-w-[480px] rounded border px-3 text-[13px] outline-none focus:ring-2 ${
+                    className={`h-10 w-full rounded border px-3 text-[13px] outline-none focus:ring-2 ${
                       fieldErrors.routeName
                         ? "border-red-500 focus:ring-red-500/20"
                         : "border-[#C5CFDB] focus:border-[#0F2A47] focus:ring-[#0F2A47]/20"
                     }`}
                     placeholder="Enter route name"
-                    maxLength={100}
                   />
                   {fieldErrors.routeName && (
                     <p className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.routeName}</p>

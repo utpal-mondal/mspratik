@@ -150,7 +150,6 @@ const RouteEntryPage = () => {
                       : "border-[#C5CFDB] focus:border-[#0F2A47] focus:ring-[#0F2A47]/20"
                   }`}
                   placeholder="Enter route name"
-                  maxLength={100}
                 />
                 {fieldErrors.routeName && (
                   <p className="mt-1 text-xs text-[#A12B2B]">{fieldErrors.routeName}</p>
