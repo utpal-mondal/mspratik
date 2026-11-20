@@ -31,7 +31,7 @@ const EditUserPage = () => {
     username: "",
     email: "",
     phoneNumber: "",
-    language: "Dutch",
+    language: "English",
     portalNotifications: false,
     allowedIPs: false,
   });
@@ -51,7 +51,7 @@ const EditUserPage = () => {
             username: user.username || "",
             email: user.email || "",
             phoneNumber: user.phone_number || "",
-            language: user.language === "en" ? "English" : "Dutch",
+            language: user.language === "nl" ? "Dutch" : "English",
             portalNotifications: user.receive_notify || false,
             allowedIPs: user.login_allowed_ip || false,
           }));
@@ -369,8 +369,8 @@ const EditUserPage = () => {
                       onChange={(e) => setFormData({ ...formData, language: e.target.value })}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                     >
-                      <option value="Dutch">Dutch</option>
                       <option value="English">English</option>
+                      <option value="Dutch">Dutch</option>
                     </select>
                   </div>
                 </div>

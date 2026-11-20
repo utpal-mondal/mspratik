@@ -1,4 +1,4 @@
-import { User, Eye, Pencil, Trash2 } from "lucide-react";
+import { User, Eye, Pencil, Trash2, FileText } from "lucide-react";
 import ActionMenu, { ActionMenuItem } from "@/components/ui/ActionMenu";
 import { DriverRecord } from "@/types/drivers/types";
 import { useRouter } from "next/navigation";
@@ -10,6 +10,7 @@ interface DriverTableProps {
   limit: number;
   onEdit: (driver: DriverRecord) => void;
   onDelete: (driver: DriverRecord) => void;
+  onDocuments: (driver: DriverRecord) => void;
 }
 
 const formatDate = (value?: string) => {
@@ -35,6 +36,7 @@ const DriverTable: React.FC<DriverTableProps> = ({
   limit,
   onEdit,
   onDelete,
+  onDocuments,
 }) => {
   const router = useRouter();
   const actions = (driver: DriverRecord): ActionMenuItem[] => [
@@ -132,7 +134,18 @@ const DriverTable: React.FC<DriverTableProps> = ({
                 </td>
                 <td className={tdBase}>{formatDate(driver.created_at)}</td>
                 <td className={`${tdBase} pr-6`}>
-                  <ActionMenu items={actions(driver)} buttonLabel="Driver actions" />
+                  <div className="flex items-center gap-2">
+                    <ActionMenu items={actions(driver)} buttonLabel="Driver actions" />
+                    <button
+                      type="button"
+                      onClick={() => onDocuments(driver)}
+                      aria-label={`Upload or view documents for ${driver.driver_name}`}
+                      title="Upload or view documents"
+                      className="inline-flex h-7 w-7 items-center justify-center rounded-md border border-slate-200/70 bg-white text-slate-500 transition-colors hover:bg-slate-50 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    >
+                      <FileText size={15} />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))

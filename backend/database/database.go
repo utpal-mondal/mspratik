@@ -39,6 +39,10 @@ func Init() (*gorm.DB, error) {
 		return nil, fmt.Errorf("failed to connect to database: %w", err)
 	}
 
+	if err := DB.AutoMigrate(&models.DriverDocument{}); err != nil {
+		return nil, fmt.Errorf("failed to migrate driver documents table: %w", err)
+	}
+
 	// Auto migrate models
 	// if err := runMigrations(); err != nil {
 	// 	return nil, fmt.Errorf("failed to run migrations: %w", err)

@@ -10,6 +10,8 @@ import DriverTable from "./(component)/DriverTable";
 import DeleteDriverModal from "./(component)/DeleteDriverModal";
 import CreateDriverDrawer from "./(component)/CreateDriverDrawer";
 import EditDriverDrawer from "./(component)/EditDriverDrawer";
+import DriverDocumentsModal from "./(component)/DriverDocumentsModal";
+import type { DocumentUploadPayload } from "./(component)/DriverDocumentsModal";
 import { DriverRecord } from "@/types/drivers/types";
 
 const DriversPage = () => {
@@ -23,6 +25,8 @@ const DriversPage = () => {
   const [deleting, setDeleting] = useState(false);
   const [createOpen, setCreateOpen] = useState(false);
   const [editTarget, setEditTarget] = useState<DriverRecord | null>(null);
+  const [documentsTarget, setDocumentsTarget] = useState<DriverRecord | null>(null);
+  const [uploadingDocuments, setUploadingDocuments] = useState(false);
 
   const debouncedQuery = useDebounce(searchQuery, 400);
 
@@ -65,6 +69,33 @@ const DriversPage = () => {
   const handleDriverUpdated = () => {
     setEditTarget(null);
     getDrivers();
+  };
+
+  const handleDocumentsUpload = async (payload: DocumentUploadPayload) => {
+    if (!documentsTarget) return;
+
+    let uploaded = 0;
+    setUploadingDocuments(true);
+    try {
+      for (const file of payload.files) {
+        const formData = new FormData();
+        formData.append("document_type", payload.documentType);
+        if (payload.expiryDate) formData.append("expiry_date", payload.expiryDate);
+        formData.append("file", file);
+        await apiService.uploadDriverDocument(documentsTarget.id, formData);
+        uploaded += 1;
+      }
+
+      toast.success(
+        uploaded === 1 ? "Document uploaded successfully" : `${uploaded} documents uploaded successfully`,
+      );
+      setDocumentsTarget(null);
+    } catch (error) {
+      console.error("Error uploading driver documents:", error);
+      toast.error(`Uploaded ${uploaded} of ${payload.files.length} documents`);
+    } finally {
+      setUploadingDocuments(false);
+    }
   };
 
   const handleDelete = async () => {
@@ -117,6 +148,7 @@ const DriversPage = () => {
               limit={limit}
               onEdit={setEditTarget}
               onDelete={setDeleteTarget}
+              onDocuments={setDocumentsTarget}
             />
 
             <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3.5 border-t border-[#D5DDE6] bg-white">
@@ -172,6 +204,13 @@ const DriversPage = () => {
         onConfirm={handleDelete}
         driverName={deleteTarget?.driver_name}
         isDeleting={deleting}
+      />
+
+      <DriverDocumentsModal
+        driver={documentsTarget}
+        onClose={() => setDocumentsTarget(null)}
+        onUpload={handleDocumentsUpload}
+        isUploading={uploadingDocuments}
       />
     </>
   );
