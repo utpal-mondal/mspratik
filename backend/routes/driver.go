@@ -29,4 +29,13 @@ func SetupDriverRoutes(api fiber.Router, db *gorm.DB) {
 	drivers.Delete("/:id/delete-driver", func(c *fiber.Ctx) error {
 		return handlers.DeleteDriver(c, db)
 	})
+	drivers.Get("/:id/documents", func(c *fiber.Ctx) error {
+		return handlers.GetDriverDocuments(c, db)
+	})
+	drivers.Post("/:id/documents", func(c *fiber.Ctx) error {
+		return handlers.UploadDriverDocument(c, db)
+	})
+	drivers.Get("/:id/documents/:documentId/file", func(c *fiber.Ctx) error {
+		return handlers.GetDriverDocumentFile(c, db)
+	})
 }

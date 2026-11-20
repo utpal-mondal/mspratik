@@ -7,6 +7,7 @@ import (
 
 	"wms-backend/database"
 	"wms-backend/handlers" // Added missing import
+	"wms-backend/middleware"
 	"wms-backend/routes"
 
 	"github.com/gofiber/fiber/v2"
@@ -39,7 +40,8 @@ func main() {
 
 	// Create Fiber app
 	app := fiber.New(fiber.Config{
-		AppName: "WMS Backend",
+		AppName:   "WMS Backend",
+		BodyLimit: 11 * 1024 * 1024,
 	})
 
 	// Middleware
@@ -60,6 +62,12 @@ func main() {
 	routes.SetupCompanyRoutes(api, db)
 	routes.SetupVehicleRoutes(api, db)
 	routes.SetupDriverRoutes(api, db)
+	app.Get("/uploads/driver-documents/:filename", middleware.AuthMiddleware(db), func(c *fiber.Ctx) error {
+		return handlers.GetDriverDocumentByFilename(c, db)
+	})
+	app.Get("/images/driver/:filename", middleware.AuthMiddleware(db), func(c *fiber.Ctx) error {
+		return handlers.GetDriverDocumentByFilename(c, db)
+	})
 	routes.SetupBrokerRoutes(api, db)
 	routes.SetupClientRoutes(api, db)
 	routes.SetupCargoRoutes(api, db)
