@@ -51,6 +51,9 @@ func main() {
 	}))
 	app.Use(logger.New())
 
+	// Serve uploaded files (vehicle documents, etc.)
+	app.Static("/uploads", "./uploads")
+
 	// Setup routes
 	api := app.Group("/api")
 	routes.SetupAuthRoutes(api, db)

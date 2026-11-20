@@ -1,7 +1,11 @@
-import { Truck, Eye, Pencil, Trash2 } from "lucide-react";
+import { Truck, Eye, Pencil, Trash2, FileText } from "lucide-react";
 import ActionMenu, { ActionMenuItem } from "@/components/ui/ActionMenu";
 import { VehicleRecord } from "@/types/vehicles/types";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import DocumentUploadDialog, { DocumentUploadPayload } from "./DocumentUploadDialog";
+import apiService from "@/services/api";
 
 interface VehicleTableProps {
   vehicles: VehicleRecord[];
@@ -35,6 +39,37 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
   onDelete,
 }) => {
   const router = useRouter();
+  const [uploadVehicle, setUploadVehicle] = useState<VehicleRecord | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleUpload = async (payload: DocumentUploadPayload) => {
+    if (!uploadVehicle) return;
+    setIsUploading(true);
+    try {
+      // One request per document type, each with its own files
+      const groups = new Map<string, File[]>();
+      payload.files.forEach(({ file, documentType }) => {
+        const list = groups.get(documentType) || [];
+        list.push(file);
+        groups.set(documentType, list);
+      });
+      for (const [documentType, groupFiles] of groups) {
+        const form = new FormData();
+        form.append("document_type", documentType);
+        if (payload.expiryDate) form.append("expiry_date", payload.expiryDate);
+        groupFiles.forEach((f) => form.append("documents", f));
+        await apiService.uploadVehicleDocuments(uploadVehicle.id, form);
+      }
+      toast.success(
+        `${payload.files.length} document${payload.files.length > 1 ? "s" : ""} uploaded`
+      );
+      setUploadVehicle(null);
+    } catch (err) {
+      toast.error("Failed to upload documents");
+    } finally {
+      setIsUploading(false);
+    }
+  };
   const actions = (vehicle: VehicleRecord): ActionMenuItem[] => [
     {
       label: "View",
@@ -164,13 +199,33 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
                   {formatDate(vehicle.road_tax_expiry_date)}
                 </td>
                 <td className={`${tdBase} pr-6`}>
-                  <ActionMenu items={actions(vehicle)} buttonLabel="Vehicle actions" />
+                  <div className="flex items-center gap-1">
+                    <ActionMenu items={actions(vehicle)} buttonLabel="Vehicle actions" />
+                    <button
+                      type="button"
+                      title="Document Upload"
+                      aria-label="Upload documents"
+                      onClick={() => setUploadVehicle(vehicle)}
+                      className="p-1.5 rounded-md text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                    >
+                      <FileText size={16} />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))
           )}
         </tbody>
       </table>
+
+      <DocumentUploadDialog
+        isOpen={!!uploadVehicle}
+        onClose={() => !isUploading && setUploadVehicle(null)}
+        onUpload={handleUpload}
+        vehicleId={uploadVehicle?.id}
+        vehicleNumber={uploadVehicle?.vehicle_number}
+        isUploading={isUploading}
+      />
     </div>
   );
 };

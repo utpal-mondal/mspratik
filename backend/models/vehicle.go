@@ -29,6 +29,9 @@ type Vehicle struct {
 	CreatedAt              *time.Time     `json:"created_at,omitempty"`
 	UpdatedAt              *time.Time     `json:"updated_at,omitempty"`
 	DeletedAt              gorm.DeletedAt `gorm:"index" json:"deleted_at,omitempty"`
+
+	// Has-many relation: documents uploaded for this vehicle
+	Documents              []VehicleDocument `gorm:"foreignKey:VehicleID" json:"documents,omitempty"`
 }
 
 // TableName specifies the table name

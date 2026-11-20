@@ -1,5 +1,5 @@
 // frontend/src/components/ConfirmationModal.tsx
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { X, AlertTriangle } from 'lucide-react';
 
 interface ConfirmationModalProps {
@@ -7,10 +7,11 @@ interface ConfirmationModalProps {
   onClose: () => void;
   onConfirm: () => void;
   title: string;
-  message: string;
+  message: ReactNode;
+  confirmLabel?: string;
 }
 
-const ConfirmationModal: FC<ConfirmationModalProps> = ({ isOpen, onClose, onConfirm, title, message }) => {
+const ConfirmationModal: FC<ConfirmationModalProps> = ({ isOpen, onClose, onConfirm, title, message, confirmLabel = "Confirm" }) => {
   if (!isOpen) return null;
 
   return (
@@ -18,8 +19,8 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({ isOpen, onClose, onConf
       <div className="bg-white rounded-2xl shadow-xl w-full max-w-md transform transition-all duration-300 scale-95 hover:scale-100">
         <div className="p-8">
           <div className="flex items-start">
-            <div className="mr-4 flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100">
-              <AlertTriangle className="h-6 w-6 text-blue-600" />
+            <div className="mr-4 flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+              <AlertTriangle className="h-6 w-6 text-red-600" />
             </div>
             <div className="flex-1">
               <h3 className="text-lg font-bold text-gray-900" id="modal-title">
@@ -45,7 +46,7 @@ const ConfirmationModal: FC<ConfirmationModalProps> = ({ isOpen, onClose, onConf
             type="button" 
             onClick={onConfirm} 
             className="px-6 py-2.5 border border-transparent text-sm font-semibold text-white bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all">
-            Confirm Upgrade
+            {confirmLabel}
           </button>
         </div>
       </div>

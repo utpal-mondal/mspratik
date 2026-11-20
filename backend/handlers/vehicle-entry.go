@@ -238,7 +238,7 @@ func GetVehicles(c *fiber.Ctx, db *gorm.DB) error {
 	}
 
 	var vehicles []models.Vehicle
-	if err := query.Order("id DESC").Offset((page - 1) * limit).Limit(limit).Find(&vehicles).Error; err != nil {
+	if err := query.Preload("Documents").Order("id DESC").Offset((page - 1) * limit).Limit(limit).Find(&vehicles).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "message": "Failed to fetch vehicles"})
 	}
 

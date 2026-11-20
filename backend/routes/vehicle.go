@@ -29,4 +29,13 @@ func SetupVehicleRoutes(api fiber.Router, db *gorm.DB) {
 	vehicles.Delete("/:id/delete-vehicle", func(c *fiber.Ctx) error {
 		return handlers.DeleteVehicle(c, db)
 	})
+	vehicles.Post("/:id/upload-document", func(c *fiber.Ctx) error {
+		return handlers.UploadVehicleDocument(c, db)
+	})
+	vehicles.Get("/:id/documents", func(c *fiber.Ctx) error {
+		return handlers.GetVehicleDocuments(c, db)
+	})
+	vehicles.Delete("/:id/documents/:docId/delete-document", func(c *fiber.Ctx) error {
+		return handlers.DeleteVehicleDocument(c, db)
+	})
 }

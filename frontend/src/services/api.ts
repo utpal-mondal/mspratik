@@ -117,6 +117,11 @@ class ApiService {
     updateVehicle = (vehicleId: number, data: FormData) =>
         this.api.put(`/vehicles/${vehicleId}/update-vehicle`, data, { headers: { 'Content-Type': 'multipart/form-data' } });
     deleteVehicle = (vehicleId: number) => this.api.delete(`/vehicles/${vehicleId}/delete-vehicle`);
+    uploadVehicleDocuments = (vehicleId: number, data: FormData) =>
+        this.api.post(`/vehicles/${vehicleId}/upload-document`, data, { headers: { 'Content-Type': 'multipart/form-data' } });
+    getVehicleDocuments = (vehicleId: number) => this.api.get(`/vehicles/${vehicleId}/documents`);
+    deleteVehicleDocument = (vehicleId: number, docId: number) =>
+        this.api.delete(`/vehicles/${vehicleId}/documents/${docId}/delete-document`);
 
     // Driver methods
     getAllDrivers = (params: { page?: number; limit?: number; query?: string } = {}) =>

@@ -17,4 +17,16 @@ export interface VehicleRecord {
   rc_book_image?: string | null;
   created_at?: string;
   updated_at?: string;
+  documents?: VehicleDocument[];
+}
+
+export interface VehicleDocument {
+  id: number;
+  vehicle_id: number;
+  vehicle_number: string;
+  document_type: string;
+  expiry_date?: string;
+  document_name: string;
+  file_path: string;
+  created_at?: string;
 }
