@@ -143,7 +143,7 @@ const CreateUserPage = () => {
 
       toast.success("User created successfully");
 
-      router.push("/settings/user");
+      router.push("/user-management");
 
     } catch (error: any) {
 
@@ -188,7 +188,7 @@ const CreateUserPage = () => {
             <div className="flex items-center justify-between h-16">
               <div className="flex items-center gap-4">
                 <Link
-                  href="/settings/user"
+                  href="/user-management"
                   className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   <ArrowLeft size={20} />
@@ -474,7 +474,7 @@ const CreateUserPage = () => {
 
             <div className="flex items-center justify-end gap-4">
               <Link
-                href="/settings/user"
+                href="/user-management"
                 className="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors text-sm font-medium"
               >
                 Cancel

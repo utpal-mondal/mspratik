@@ -153,7 +153,7 @@ const UserPage = () => {
             </div>
             <div className="flex flex-wrap gap-3">
               <Link
-                href="/settings/user/create"
+                href="/user-management/create"
                 className="flex items-center gap-2 h-11 px-5 bg-blue-700 text-white border border-blue-600 rounded font-medium text-sm cursor-pointer transition-colors hover:bg-blue-600"
               >
                 <Plus size={15} />
