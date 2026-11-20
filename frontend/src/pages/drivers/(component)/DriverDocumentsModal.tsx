@@ -168,10 +168,7 @@ const DocumentUploadDialog: React.FC<DocumentUploadDialogProps> = ({
       }
       return true;
     });
-    setFiles((prev) => {
-      const existing = new Set(prev.map((f) => `${f.name}-${f.size}`));
-      return [...prev, ...valid.filter((f) => !existing.has(`${f.name}-${f.size}`))];
-    });
+    setFiles(valid);
     setError(rejected.length ? rejected.join(", ") : null);
   };
  
