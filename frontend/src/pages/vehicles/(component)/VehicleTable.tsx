@@ -109,9 +109,9 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
             <th scope="col" className={thBase}>
               Type
             </th>
-            <th scope="col" className={thBase}>
+            {/* <th scope="col" className={thBase}>
               Wheels
-            </th>
+            </th> */}
             <th scope="col" className={thBase}>
               RC Number
             </th>
@@ -121,12 +121,12 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
             <th scope="col" className={thBase}>
               Insurance Expiry
             </th>
-            <th scope="col" className={thBase}>
+            {/* <th scope="col" className={thBase}>
               PUC Expiry
             </th>
             <th scope="col" className={thBase}>
               Road Tax Expiry
-            </th>
+            </th> */}
             <th scope="col" className={`${thBase} pr-6`}>
               Action
             </th>
@@ -182,7 +182,7 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
                     {vehicle.vehicle_type || "-"}
                   </span>
                 </td>
-                <td className={tdBase}>{vehicle.number_of_wheels ?? "-"}</td>
+                {/* <td className={tdBase}>{vehicle.number_of_wheels ?? "-"}</td> */}
                 <td className={`${tdBase} uppercase`}>
                   {vehicle.rc_number || "-"}
                 </td>
@@ -192,12 +192,12 @@ const VehicleTable: React.FC<VehicleTableProps> = ({
                 <td className={tdBase}>
                   {formatDate(vehicle.insurance_expiry_date)}
                 </td>
-                <td className={tdBase}>
+                {/* <td className={tdBase}>
                   {formatDate(vehicle.puc_expiry_date)}
                 </td>
                 <td className={tdBase}>
                   {formatDate(vehicle.road_tax_expiry_date)}
-                </td>
+                </td> */}
                 <td className={`${tdBase} pr-6`}>
                   <div className="flex items-center gap-1">
                     <ActionMenu items={actions(vehicle)} buttonLabel="Vehicle actions" />

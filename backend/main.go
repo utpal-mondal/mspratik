@@ -3,11 +3,13 @@ package main
 
 import (
 	"log"
+	"mime"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"wms-backend/database"
 	"wms-backend/handlers" // Added missing import
-	"wms-backend/middleware"
 	"wms-backend/routes"
 
 	"github.com/gofiber/fiber/v2"
@@ -54,7 +56,32 @@ func main() {
 	app.Use(logger.New())
 
 	// Serve uploaded files (vehicle documents, etc.)
-	app.Static("/uploads", "./uploads")
+	// Read the file into memory per request so the handle is released
+	// immediately — app.Static/fasthttp caches open handles, which blocks
+	// os.Remove on Windows. Registered below, after the authenticated
+	// /uploads/driver-documents route so it doesn't shadow it.
+	serveUpload := func(c *fiber.Ctx) error {
+		rel := filepath.Clean(filepath.FromSlash(c.Params("*")))
+		if rel == "." || rel == "" || rel == ".." || strings.HasPrefix(rel, ".."+string(os.PathSeparator)) {
+			return fiber.ErrNotFound
+		}
+		abs, err := filepath.Abs(filepath.Join("uploads", rel))
+		if err != nil {
+			return fiber.ErrNotFound
+		}
+		root, _ := filepath.Abs("uploads")
+		if !strings.HasPrefix(abs, root+string(os.PathSeparator)) {
+			return fiber.ErrNotFound
+		}
+		data, err := os.ReadFile(abs)
+		if err != nil {
+			return fiber.ErrNotFound
+		}
+		if ct := mime.TypeByExtension(strings.ToLower(filepath.Ext(abs))); ct != "" {
+			c.Set("Content-Type", ct)
+		}
+		return c.Send(data)
+	}
 
 	// Setup routes
 	api := app.Group("/api")
@@ -65,12 +92,7 @@ func main() {
 	routes.SetupCompanyRoutes(api, db)
 	routes.SetupVehicleRoutes(api, db)
 	routes.SetupDriverRoutes(api, db)
-	app.Get("/uploads/driver-documents/:filename", middleware.AuthMiddleware(db), func(c *fiber.Ctx) error {
-		return handlers.GetDriverDocumentByFilename(c, db)
-	})
-	app.Get("/images/driver/:filename", middleware.AuthMiddleware(db), func(c *fiber.Ctx) error {
-		return handlers.GetDriverDocumentByFilename(c, db)
-	})
+	app.Get("/uploads/*", serveUpload)
 	routes.SetupBrokerRoutes(api, db)
 	routes.SetupClientRoutes(api, db)
 	routes.SetupCargoRoutes(api, db)

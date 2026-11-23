@@ -135,8 +135,8 @@ class ApiService {
     getDriverDocuments = (driverId: number) => this.api.get(`/drivers/${driverId}/documents`);
     uploadDriverDocument = (driverId: number, data: FormData) =>
         this.api.post(`/drivers/${driverId}/documents`, data, { headers: { 'Content-Type': 'multipart/form-data' } });
-    getDriverDocumentFile = (driverId: number, documentId: number) =>
-        this.api.get(`/drivers/${driverId}/documents/${documentId}/file`, { responseType: 'blob' });
+    deleteDriverDocument = (driverId: number, documentId: number) =>
+        this.api.delete(`/drivers/${driverId}/documents/${documentId}/delete-document`);
 
     // Broker methods
     getAllBrokers = (params: { page?: number; limit?: number; query?: string } = {}) =>

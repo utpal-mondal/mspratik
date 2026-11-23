@@ -3,6 +3,7 @@ package handlers
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -163,13 +164,34 @@ func DeleteVehicleDocument(c *fiber.Ctx, db *gorm.DB) error {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "fail", "message": "Document not found"})
 	}
 
-	if err := db.Delete(&doc).Error; err != nil {
+	// Unscoped() bypasses the gorm.DeletedAt soft delete and removes the row
+	if err := db.Unscoped().Delete(&doc).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "message": "Failed to delete document"})
 	}
 
-	// Best-effort cleanup of the stored file
+	// Best-effort cleanup of the stored file, resolved inside the upload dir
 	if doc.FilePath != "" {
-		_ = os.Remove(strings.TrimPrefix(doc.FilePath, "/"))
+		rel := filepath.Clean(filepath.FromSlash(strings.TrimPrefix(doc.FilePath, "/")))
+		uploadAbs, _ := filepath.Abs(vehicleDocsUploadDir)
+		fileAbs, err := filepath.Abs(rel)
+		if err != nil || !strings.HasPrefix(fileAbs, uploadAbs+string(os.PathSeparator)) {
+			log.Printf("Skipped document file cleanup: file_path %q resolved to %q", doc.FilePath, fileAbs)
+		} else {
+			// Retry briefly: a concurrent file serve may still hold the handle
+			var rmErr error
+			for attempt := 0; attempt < 5; attempt++ {
+				rmErr = os.Remove(fileAbs)
+				if rmErr == nil || os.IsNotExist(rmErr) {
+					break
+				}
+				time.Sleep(150 * time.Millisecond)
+			}
+			if rmErr != nil && !os.IsNotExist(rmErr) {
+				log.Printf("Failed to remove vehicle document file %q: %v", fileAbs, rmErr)
+			} else {
+				log.Printf("Removed vehicle document file %q", fileAbs)
+			}
+		}
 	}
 
 	return c.JSON(fiber.Map{"status": "success", "message": "Document deleted successfully"})

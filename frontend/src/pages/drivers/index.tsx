@@ -77,11 +77,11 @@ const DriversPage = () => {
     let uploaded = 0;
     setUploadingDocuments(true);
     try {
-      for (const file of payload.files) {
+      for (const item of payload.files) {
         const formData = new FormData();
-        formData.append("document_type", payload.documentType);
+        formData.append("document_type", item.documentType);
         if (payload.expiryDate) formData.append("expiry_date", payload.expiryDate);
-        formData.append("file", file);
+        formData.append("file", item.file);
         await apiService.uploadDriverDocument(documentsTarget.id, formData);
         uploaded += 1;
       }

@@ -19,6 +19,7 @@ interface SearchableDropdownProps<T> {
   buttonClassName?: string;
   showIcon?: boolean;
   icon?: React.ReactNode;
+  isOptionDisabled?: (option: T) => boolean;
 }
 
 export function SearchableDropdown<T extends Record<string, any>>({
@@ -39,6 +40,7 @@ export function SearchableDropdown<T extends Record<string, any>>({
   buttonClassName = '',
   showIcon = false,
   icon,
+  isOptionDisabled,
 }: SearchableDropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -53,6 +55,8 @@ export function SearchableDropdown<T extends Record<string, any>>({
   });
 
   const selectedDisplay = value ? String(value[displayKey] || '') : '';
+
+  const isDisabledAt = (index: number) => !!isOptionDisabled?.(filteredOptions[index]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -97,17 +101,33 @@ export function SearchableDropdown<T extends Record<string, any>>({
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
-        setHighlightedIndex((prev) => 
-          prev < filteredOptions.length - 1 ? prev + 1 : prev
-        );
+        setHighlightedIndex((prev) => {
+          let i = prev;
+          while (i < filteredOptions.length - 1) {
+            i++;
+            if (!isDisabledAt(i)) return i;
+          }
+          return prev;
+        });
         break;
       case 'ArrowUp':
         e.preventDefault();
-        setHighlightedIndex((prev) => (prev > 0 ? prev - 1 : -1));
+        setHighlightedIndex((prev) => {
+          let i = prev;
+          while (i > 0) {
+            i--;
+            if (!isDisabledAt(i)) return i;
+          }
+          return -1;
+        });
         break;
       case 'Enter':
         e.preventDefault();
-        if (highlightedIndex >= 0 && filteredOptions[highlightedIndex]) {
+        if (
+          highlightedIndex >= 0 &&
+          filteredOptions[highlightedIndex] &&
+          !isDisabledAt(highlightedIndex)
+        ) {
           handleSelect(filteredOptions[highlightedIndex]);
         }
         break;
@@ -189,17 +209,23 @@ export function SearchableDropdown<T extends Record<string, any>>({
               filteredOptions.map((option, index) => {
                 const isSelected = value && String(value[labelKey]) === String(option[labelKey]);
                 const isHighlighted = index === highlightedIndex;
-                
+                const isDisabledOption = !!isOptionDisabled?.(option);
+
                 return (
                   <div
                     key={String(option[labelKey])}
-                    onClick={() => handleSelect(option)}
+                    onClick={() => !isDisabledOption && handleSelect(option)}
+                    title={isDisabledOption ? 'Already added' : undefined}
                     className={`
-                      px-4 py-2 cursor-pointer transition-colors duration-150
+                      px-4 py-2 transition-colors duration-150
                       flex items-center justify-between
-                      ${isSelected ? 'bg-blue-50 text-blue-700' : 'text-gray-900'}
-                      ${isHighlighted && !isSelected ? 'bg-gray-100' : ''}
-                      hover:bg-gray-100
+                      ${
+                        isDisabledOption
+                          ? 'cursor-not-allowed bg-gray-50 text-gray-400'
+                          : `cursor-pointer ${
+                              isSelected ? 'bg-blue-50 text-blue-700' : 'text-gray-900'
+                            } ${isHighlighted && !isSelected ? 'bg-gray-100' : ''} hover:bg-gray-100`
+                      }
                     `}
                   >
                     <span className={`truncate ${optionClassName}`}>{String(option[displayKey] || '')}</span>

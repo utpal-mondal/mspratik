@@ -5,9 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"mime"
 	"mime/multipart"
-	"net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -23,7 +21,6 @@ import (
 
 const maxDriverDocumentSize = 5 * 1024 * 1024
 const driverDocumentRelativePath = "uploads/driver-documents/"
-const legacyDriverDocumentURLPath = "/images/driver/"
 
 var driverDocumentTypes = map[string]struct{}{
 	"Aadhar Card":     {},
@@ -47,13 +44,6 @@ func driverDocumentsDirectory() string {
 		return dir
 	}
 	return filepath.Join("uploads", "driver-documents")
-}
-
-func legacyImageDriverDocumentsDirectory() string {
-	if dir := os.Getenv("DRIVER_DOCUMENTS_DIR"); dir != "" {
-		return dir
-	}
-	return filepath.Join("images", "driver")
 }
 
 func safeDriverDocumentFilename(documentID uint, originalName string) string {
@@ -81,8 +71,13 @@ func safeDriverDocumentFilename(documentID uint, originalName string) string {
 }
 
 func driverDocumentStorageInfo(document models.DriverDocument) (string, string, string, error) {
-	if strings.HasPrefix(document.DocumentName, driverDocumentRelativePath) {
-		filename := strings.TrimPrefix(document.DocumentName, driverDocumentRelativePath)
+	// Newer rows store the storage path in file_path ("/uploads/driver-documents/<file>")
+	if fp := strings.TrimSpace(document.FilePath); fp != "" {
+		fp = strings.TrimPrefix(fp, "/")
+		if !strings.HasPrefix(fp, driverDocumentRelativePath) {
+			return "", "", "", fmt.Errorf("invalid stored driver document path")
+		}
+		filename := strings.TrimPrefix(fp, driverDocumentRelativePath)
 		if filename == "" || path.Base(filename) != filename {
 			return "", "", "", fmt.Errorf("invalid stored driver document filename")
 		}
@@ -93,13 +88,8 @@ func driverDocumentStorageInfo(document models.DriverDocument) (string, string, 
 		return filepath.Join(driverDocumentsDirectory(), filename), filename, extension, nil
 	}
 
-	parsed, err := url.Parse(document.DocumentName)
-	if err == nil && parsed.IsAbs() {
-		if parsed.Host == "" || parsed.RawQuery != "" || parsed.Fragment != "" ||
-			!strings.HasPrefix(parsed.Path, legacyDriverDocumentURLPath) {
-			return "", "", "", fmt.Errorf("invalid stored driver document URL")
-		}
-		filename := strings.TrimPrefix(parsed.Path, legacyDriverDocumentURLPath)
+	if strings.HasPrefix(document.DocumentName, driverDocumentRelativePath) {
+		filename := strings.TrimPrefix(document.DocumentName, driverDocumentRelativePath)
 		if filename == "" || path.Base(filename) != filename {
 			return "", "", "", fmt.Errorf("invalid stored driver document filename")
 		}
@@ -107,7 +97,7 @@ func driverDocumentStorageInfo(document models.DriverDocument) (string, string, 
 		if _, valid := driverDocumentExtensions[extension]; !valid {
 			return "", "", "", fmt.Errorf("invalid stored driver document type")
 		}
-		return filepath.Join(legacyImageDriverDocumentsDirectory(), filename), filename, extension, nil
+		return filepath.Join(driverDocumentsDirectory(), filename), filename, extension, nil
 	}
 
 	// Older rows stored only the original name and used ID-based filenames.
@@ -213,7 +203,8 @@ func UploadDriverDocument(c *fiber.Ctx, db *gorm.DB) error {
 	if err != nil {
 		return err
 	}
-	if _, err := loadDriverForDocuments(db, authUser.CompanyID, driverID); err != nil {
+	driver, err := loadDriverForDocuments(db, authUser.CompanyID, driverID)
+	if err != nil {
 		return err
 	}
 
@@ -254,11 +245,17 @@ func UploadDriverDocument(c *fiber.Ctx, db *gorm.DB) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "message": "Upload a PDF, SVG, PNG, JPG, or WEBP document"})
 	}
 
+	now := time.Now()
 	document := models.DriverDocument{
+		CompanyID:    authUser.CompanyID,
 		DriverID:     driverID,
+		DriverName:   driver.DriverName,
 		ExpiryDate:   expiryDate,
 		DocumentType: documentType,
 		DocumentName: originalName,
+		CreatedBy:    int64(authUser.ID),
+		CreatedAt:    &now,
+		UpdatedAt:    &now,
 	}
 	if err := db.Create(&document).Error; err != nil {
 		return fiber.NewError(fiber.StatusInternalServerError, "Failed to save document details")
@@ -278,8 +275,8 @@ func UploadDriverDocument(c *fiber.Ctx, db *gorm.DB) error {
 		}
 		return fiber.NewError(fiber.StatusInternalServerError, "Failed to store document")
 	}
-	document.DocumentName = driverDocumentRelativePath + filename
-	if err := db.Model(&document).Update("document_name", document.DocumentName).Error; err != nil {
+	document.FilePath = "/" + driverDocumentRelativePath + filename
+	if err := db.Model(&document).Update("file_path", document.FilePath).Error; err != nil {
 		removePartialDriverDocument(storagePath)
 		if rollbackErr := db.Delete(&document).Error; rollbackErr != nil {
 			log.Printf("Failed to remove driver document record %d after URL save failure: %v", document.ID, rollbackErr)
@@ -290,7 +287,9 @@ func UploadDriverDocument(c *fiber.Ctx, db *gorm.DB) error {
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{"status": "success", "data": document})
 }
 
-func GetDriverDocumentFile(c *fiber.Ctx, db *gorm.DB) error {
+// DeleteDriverDocument removes a driver document record and its stored file
+// DELETE /drivers/:id/documents/:documentId/delete-document
+func DeleteDriverDocument(c *fiber.Ctx, db *gorm.DB) error {
 	authUser, ok := getAuthUser(c)
 	if !ok {
 		return fiber.NewError(fiber.StatusForbidden, "Access denied")
@@ -315,73 +314,25 @@ func GetDriverDocumentFile(c *fiber.Ctx, db *gorm.DB) error {
 		return fiber.NewError(fiber.StatusInternalServerError, "Failed to fetch driver document")
 	}
 
-	storagePath, filename, extension, err := driverDocumentStorageInfo(document)
-	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, "Invalid stored document path")
-	}
-	return sendDriverDocumentFile(c, storagePath, filename, extension)
-}
-
-func GetDriverDocumentByFilename(c *fiber.Ctx, db *gorm.DB) error {
-	authUser, ok := getAuthUser(c)
-	if !ok {
-		return fiber.NewError(fiber.StatusForbidden, "Access denied")
-	}
-	filename := c.Params("filename")
-	if filename == "" || path.Base(filename) != filename {
-		return fiber.NewError(fiber.StatusBadRequest, "Invalid document filename")
-	}
-	idPart, _, found := strings.Cut(filename, "-")
-	if !found {
-		return fiber.NewError(fiber.StatusBadRequest, "Invalid document filename")
-	}
-	documentID, err := parseDocumentID(idPart)
-	if err != nil {
-		return err
+	// Unscoped() bypasses the gorm.DeletedAt soft delete and removes the row
+	if err := db.Unscoped().Delete(&document).Error; err != nil {
+		return fiber.NewError(fiber.StatusInternalServerError, "Failed to delete driver document")
 	}
 
-	var document models.DriverDocument
-	if err := db.First(&document, documentID).Error; err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return fiber.NewError(fiber.StatusNotFound, "Driver document not found")
+	storagePath, _, _, err := driverDocumentStorageInfo(document)
+	if err == nil && storagePath != "" {
+		var rmErr error
+		for attempt := 0; attempt < 5; attempt++ {
+			rmErr = os.Remove(storagePath)
+			if rmErr == nil || errors.Is(rmErr, os.ErrNotExist) {
+				break
+			}
+			time.Sleep(150 * time.Millisecond)
 		}
-		return fiber.NewError(fiber.StatusInternalServerError, "Failed to fetch driver document")
-	}
-	if _, err := loadDriverForDocuments(db, authUser.CompanyID, document.DriverID); err != nil {
-		return err
-	}
-	storagePath, storedFilename, extension, err := driverDocumentStorageInfo(document)
-	if err != nil || storedFilename != filename {
-		return fiber.NewError(fiber.StatusNotFound, "Driver document not found")
-	}
-	return sendDriverDocumentFile(c, storagePath, storedFilename, extension)
-}
-
-func sendDriverDocumentFile(c *fiber.Ctx, storagePath, filename, extension string) error {
-	file, err := os.Open(storagePath)
-	if err != nil {
-		if errors.Is(err, os.ErrNotExist) {
-			return fiber.NewError(fiber.StatusNotFound, "Document file not found")
+		if rmErr != nil && !errors.Is(rmErr, os.ErrNotExist) {
+			log.Printf("Failed to remove driver document file %q: %v", storagePath, rmErr)
 		}
-		return fiber.NewError(fiber.StatusInternalServerError, "Failed to open document")
 	}
-	defer file.Close()
 
-	info, err := file.Stat()
-	if err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, "Failed to read document")
-	}
-	contentType := mime.TypeByExtension(extension)
-	if contentType == "" {
-		contentType = "application/octet-stream"
-	}
-	disposition := mime.FormatMediaType("inline", map[string]string{"filename": filename})
-	c.Set("Content-Type", contentType)
-	c.Set("Content-Disposition", disposition)
-	c.Set("X-Content-Type-Options", "nosniff")
-	c.Set("Cache-Control", "private, no-store")
-	if extension == ".svg" {
-		c.Set("Content-Security-Policy", "sandbox; default-src 'none'; style-src 'unsafe-inline'; img-src data:")
-	}
-	return c.SendStream(file, int(info.Size()))
+	return c.JSON(fiber.Map{"status": "success", "message": "Driver document deleted successfully"})
 }

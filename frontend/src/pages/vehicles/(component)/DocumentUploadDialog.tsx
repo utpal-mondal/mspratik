@@ -268,6 +268,12 @@ const DocumentUploadDialog: React.FC<DocumentUploadDialogProps> = ({
   const typeLabelOf = (type: string) =>
     DOCUMENT_TYPES.find((t) => t.value === type)?.label || type;
 
+  // Types already used by selected files or uploaded docs can't be picked again
+  const usedTypes = new Set<string>([
+    ...files.map((f) => f.documentType),
+    ...existingDocs.map((d) => d.document_type),
+  ]);
+
   return (
     <div
       className="fixed inset-0 bg-gray-900/40 backdrop-blur-[2px] flex items-center justify-center z-50 p-3"
@@ -333,6 +339,7 @@ const DocumentUploadDialog: React.FC<DocumentUploadDialogProps> = ({
                 searchPlaceholder="Search type..."
                 labelKey="value"
                 displayKey="label"
+                isOptionDisabled={(t) => usedTypes.has(t.value)}
                 allowClear={false}
                 disabled={isUploading}
                 className="w-full"
@@ -472,6 +479,11 @@ const DocumentUploadDialog: React.FC<DocumentUploadDialogProps> = ({
                           <span className="inline-flex px-2 py-0.5 rounded-full text-[10px] font-medium bg-blue-50 text-blue-700">
                             {typeLabelOf(item.documentType)}
                           </span>
+                          {expiryDate && (
+                            <span className="text-[10px] text-gray-400">
+                              Exp: {formatExpiry(expiryDate)}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </li>

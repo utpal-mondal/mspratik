@@ -144,7 +144,7 @@ func GetDrivers(c *fiber.Ctx, db *gorm.DB) error {
 	}
 
 	var drivers []models.Driver
-	if err := query.Order("id DESC").Offset((page - 1) * limit).Limit(limit).Find(&drivers).Error; err != nil {
+	if err := query.Preload("Documents").Order("id DESC").Offset((page - 1) * limit).Limit(limit).Find(&drivers).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"status": "fail", "message": "Failed to fetch drivers"})
 	}
 
