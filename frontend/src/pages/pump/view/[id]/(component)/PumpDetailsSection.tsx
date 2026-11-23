@@ -1,4 +1,4 @@
-import { Fuel, FileText, Landmark, Calendar } from "lucide-react";
+import { Fuel, FileText, Landmark, Calendar, MapPin } from "lucide-react";
 import { PumpRecord } from "@/types/pumps/types";
 
 interface PumpDetailsSectionProps {
@@ -114,6 +114,45 @@ const PumpDetailsSection: React.FC<PumpDetailsSectionProps> = ({ pump }) => {
                   label="IFSC Code"
                   value={<span className="uppercase">{pump.ifsc_code || "-"}</span>}
                 />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div className="px-4 py-3">
+              <h2 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                <MapPin size={16} className="text-blue-600" />
+                Location
+              </h2>
+            </div>
+            <div className="px-4 pb-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="sm:col-span-2">
+                  <DetailField
+                    label="Location"
+                    value={
+                      pump.location_name ? (
+                        <a
+                          href={
+                            pump.latitude != null && pump.longitude != null
+                              ? `https://www.google.com/maps?q=${pump.latitude},${pump.longitude}`
+                              : `https://www.google.com/maps/search/${encodeURIComponent(pump.location_name)}`
+                          }
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-blue-700 hover:text-blue-500"
+                        >
+                          <MapPin size={13} />
+                          {pump.location_name}
+                        </a>
+                      ) : (
+                        "-"
+                      )
+                    }
+                  />
+                </div>
+                <DetailField label="Latitude" value={pump.latitude ?? "-"} />
+                <DetailField label="Longitude" value={pump.longitude ?? "-"} />
               </div>
             </div>
           </div>

@@ -273,7 +273,7 @@ func GetVehicle(c *fiber.Ctx, db *gorm.DB) error {
 	if authUser.CompanyID != nil {
 		query = query.Where("company_id = ?", *authUser.CompanyID)
 	}
-	if err := query.First(&vehicle, vehicleID).Error; err != nil {
+	if err := query.Preload("Documents").First(&vehicle, vehicleID).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "fail", "message": "Vehicle not found"})
 	}
 

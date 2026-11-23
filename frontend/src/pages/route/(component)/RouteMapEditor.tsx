@@ -728,7 +728,39 @@ const RouteMapEditor: React.FC<RouteMapEditorProps> = ({
         <aside className="border-b border-[#D5DDE6] p-4 lg:border-b-0 lg:border-r">
           <h2 className="mb-4 text-sm font-semibold text-[#17222E]">Route stops</h2>
           <div className="flex flex-col gap-3">
-            {stops.map((stop, index) => (
+            {readOnly ? (
+              <div className="flex flex-col">
+                {stops.map((stop, index) => {
+                  const isLast = index === stops.length - 1;
+                  return (
+                    <div key={stop.key} className="flex items-stretch gap-3">
+                      <div className="flex w-5 flex-col items-center">
+                        <div className="mt-1 flex h-9 shrink-0 items-center justify-center">
+                          {isLast ? (
+                            <MapPin
+                              size={16}
+                              className="text-red-500"
+                              fill="currentColor"
+                            />
+                          ) : (
+                            <span className="h-2.5 w-2.5 rounded-full border-2 border-[#8A96A3] bg-white" />
+                          )}
+                        </div>
+                        {!isLast && (
+                          <span className="mt-1.5 w-0.5 grow border-l-2 border-dotted border-[#6B7690]" />
+                        )}
+                      </div>
+                      <div className="min-w-0 flex-1 pb-4">
+                        <div className="mt-1 rounded-md border border-[#C5CFDB] bg-white px-3 py-2 text-[13px] text-[#17222E]">
+                          {stop.point.name || "-"}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              stops.map((stop, index) => (
               <div
                 key={stop.key}
                 data-stop-card
@@ -875,7 +907,8 @@ const RouteMapEditor: React.FC<RouteMapEditorProps> = ({
                   )}
                 </div>
               </div>
-            ))}
+            ))
+            )}
             {fieldErrors.viaPoints && (
               <p className="text-xs text-[#A12B2B]">{fieldErrors.viaPoints}</p>
             )}

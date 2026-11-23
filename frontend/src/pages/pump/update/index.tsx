@@ -217,14 +217,14 @@ const UpdatePumpPage = () => {
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-7">
               <PumpDetailsSection {...sectionProps} />
+              <TaxDetailsSection {...sectionProps} />
+              <BankDetailsSection {...sectionProps} />
               <LocationMapPicker
                 locationName={formData.locationName}
                 latitude={formData.latitude}
                 longitude={formData.longitude}
                 onChange={handleLocationChange}
               />
-              <TaxDetailsSection {...sectionProps} />
-              <BankDetailsSection {...sectionProps} />
               <UpdateFormActions saving={saving} />
             </form>
           )}

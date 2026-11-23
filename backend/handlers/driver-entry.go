@@ -179,7 +179,7 @@ func GetDriver(c *fiber.Ctx, db *gorm.DB) error {
 	if authUser.CompanyID != nil {
 		query = query.Where("company_id = ?", *authUser.CompanyID)
 	}
-	if err := query.First(&driver, driverID).Error; err != nil {
+	if err := query.Preload("Documents").First(&driver, driverID).Error; err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"status": "fail", "message": "Driver not found"})
 	}
 

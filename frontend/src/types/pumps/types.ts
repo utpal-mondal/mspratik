@@ -7,6 +7,9 @@ export interface PumpRecord {
   address_1?: string;
   address_2?: string;
   address_3?: string;
+  location_name?: string;
+  latitude?: number;
+  longitude?: number;
   opening_balance?: string;
   gstn_no?: string;
   pan_no?: string;

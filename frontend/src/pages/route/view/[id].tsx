@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Pencil } from "lucide-react";
 import { toast } from "react-toastify";
 import withAuth from "../../../components/withAuth";
 import apiService from "../../../services/api";
@@ -17,6 +17,16 @@ const ignoreViaChange = (_index: number, _point: RoutePoint) => {};
 const ignoreReorder = (_points: RoutePoint[]) => {};
 const ignoreAction = () => {};
 const ignoreRemoveVia = (_index: number) => {};
+
+const TITLE_SMALL_WORDS = new Set(["to", "and", "of", "the", "in", "at", "for", "or", "on", "via"]);
+
+// "haldia to tarapith" -> "Haldia to Tarapith"
+const toTitleCase = (value: string) =>
+  value.replace(/\S+/g, (word, index) =>
+    index > 0 && TITLE_SMALL_WORDS.has(word.toLowerCase())
+      ? word.toLowerCase()
+      : word.charAt(0).toUpperCase() + word.slice(1)
+  );
 
 const RouteViewPage = () => {
   const router = useRouter();
@@ -95,15 +105,21 @@ const RouteViewPage = () => {
           ) : route ? (
             <div className="overflow-hidden rounded-md border border-[#D5DDE6] bg-white shadow-[0_1px_2px_rgba(15,42,71,0.06),0_4px_16px_rgba(15,42,71,0.04)]">
               <div className="border-b border-[#D5DDE6] px-5 py-4">
-                <label className="mb-1.5 block text-xs font-medium text-[#3B4957]">
-                  Route Name
+                <label className="mb-1.5 block text-sm font-bold text-[#3B4957]">
+                  Route Name:
                 </label>
-                <input
-                  type="text"
-                  disabled
-                  value={route.route_name || ""}
-                  className="h-10 w-full cursor-not-allowed rounded border border-[#C5CFDB] bg-[#F8FAFC] px-3 text-[13px] text-[#17222E] opacity-100 outline-none"
-                />
+                <div className="flex items-center justify-between gap-4">
+                  <p className="text-[14px] text-[#17222E]">
+                    {route.route_name ? toTitleCase(route.route_name) : "-"}
+                  </p>
+                  <Link
+                    href={`/route/update?id=${route.id}`}
+                    className="inline-flex items-center gap-1.5 rounded bg-[#2563EB] px-4 py-2 text-sm font-medium text-white no-underline hover:bg-blue-500 transition-colors"
+                  >
+                    <Pencil size={14} />
+                    Edit
+                  </Link>
+                </div>
               </div>
               <RouteMapEditor
                 startPoint={{
