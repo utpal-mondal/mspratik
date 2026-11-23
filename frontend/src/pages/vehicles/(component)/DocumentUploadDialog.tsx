@@ -356,6 +356,7 @@ const DocumentUploadDialog: React.FC<DocumentUploadDialogProps> = ({
                   value={expiryDate ? new Date(expiryDate) : null}
                   onChange={(date) => setExpiryDate(date ? formatDate(date, "YYYY-MM-DD") : "")}
                   placeholder="DD/MM/YYYY"
+                  minDate={new Date()}
                   className="!px-3 !py-2 !pr-10 !text-[13px] !border-gray-200"
                 />
               </div>

@@ -10,6 +10,7 @@ interface CustomDatePickerProps {
   onChange: (date: Date | null) => void;
   placeholder?: string;
   className?: string;
+  minDate?: Date;
 }
 
 export default function CustomDatePicker({
@@ -19,6 +20,7 @@ export default function CustomDatePicker({
   onChange,
   placeholder = "DD/MM/YYYY",
   className,
+  minDate,
 }: CustomDatePickerProps) {
   return (
     <DatePicker
@@ -28,6 +30,7 @@ export default function CustomDatePicker({
       onChange={onChange}
       dateFormat="dd/MM/yyyy"
       placeholderText={placeholder}
+      minDate={minDate}
       showIcon
       calendarIconClassName="right-2 top-1/2 -translate-y-1/2 text-[#6B7690]"
       wrapperClassName="w-full"

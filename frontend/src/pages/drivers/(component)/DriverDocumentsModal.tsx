@@ -132,6 +132,12 @@ const DriverDocThumb: React.FC<{
   </div>
 );
 
+// Strip the "/api" suffix so /uploads/... file paths resolve on the backend origin
+const API_ORIGIN = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api").replace(
+  /\/api\/?$/,
+  ""
+);
+
 const labelCls = "block text-[11px] font-semibold tracking-wide uppercase text-gray-500 mb-2.5";
 const inputCls =
   "w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-[13px] text-gray-800 outline-none transition focus:border-[#0F2A47] focus:ring-2 focus:ring-[#0F2A47]/10 disabled:bg-gray-50";
@@ -201,9 +207,9 @@ const DriverDocumentsModal: React.FC<DriverDocumentsModalProps> = ({
 
   // Public URL for an uploaded doc — same scheme as vehicle documents
   const docFileUrl = (doc: DriverDocument) => {
-    if (doc.file_path) return `http://localhost:3001${doc.file_path}`;
+    if (doc.file_path) return `${API_ORIGIN}${doc.file_path}`;
     if (doc.document_name.startsWith("uploads/"))
-      return `http://localhost:3001/${doc.document_name}`;
+      return `${API_ORIGIN}/${doc.document_name}`;
     return null;
   };
 
@@ -400,6 +406,7 @@ const DriverDocumentsModal: React.FC<DriverDocumentsModalProps> = ({
                   value={expiryDate ? new Date(expiryDate) : null}
                   onChange={(date) => setExpiryDate(date ? formatDate(date, "YYYY-MM-DD") : "")}
                   placeholder="DD/MM/YYYY"
+                  minDate={new Date()}
                   className="!px-3 !py-2 !pr-10 !text-[13px] !border-gray-200"
                 />
               </div>

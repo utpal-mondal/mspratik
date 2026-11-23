@@ -2271,3 +2271,9 @@ body {
     margin-bottom: 20px;
   }
 }
+
+/* Disabled days in react-datepicker (e.g. past dates blocked by minDate) */
+.react-datepicker__day--disabled,
+.react-datepicker__day--disabled:hover {
+  cursor: not-allowed !important;
+}
