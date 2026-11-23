@@ -6,6 +6,7 @@ import withAuth from "../../../components/withAuth";
 import apiService from "../../../services/api";
 import UpdatePageHeader from "../(component)/UpdatePageHeader";
 import PumpDetailsSection from "../(component)/PumpDetailsSection";
+import LocationMapPicker from "../create/components/LocationMapPicker";
 import TaxDetailsSection from "../(component)/TaxDetailsSection";
 import BankDetailsSection from "../(component)/BankDetailsSection";
 import UpdateFormActions from "../(component)/UpdateFormActions";
@@ -20,6 +21,9 @@ const initialFormData: PumpFormData = {
   address1: "",
   address2: "",
   address3: "",
+  locationName: "",
+  latitude: "",
+  longitude: "",
   gstnNo: "",
   panNo: "",
   bankerName: "",
@@ -59,6 +63,9 @@ const UpdatePumpPage = () => {
             address1: pump.address_1 || "",
             address2: pump.address_2 || "",
             address3: pump.address_3 || "",
+            locationName: pump.location_name || "",
+            latitude: pump.latitude != null ? String(pump.latitude) : "",
+            longitude: pump.longitude != null ? String(pump.longitude) : "",
             gstnNo: pump.gstn_no || "",
             panNo: pump.pan_no || "",
             bankerName: pump.banker_name || "",
@@ -87,18 +94,6 @@ const UpdatePumpPage = () => {
       errors.pumpName = "Pump name is required";
     }
 
-    // if (formData.gstnNo && !/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$/.test(formData.gstnNo)) {
-    //   errors.gstnNo = "Enter a valid GSTN number";
-    // }
-
-    // if (formData.panNo && !/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(formData.panNo)) {
-    //   errors.panNo = "Enter a valid PAN number";
-    // }
-
-    // if (formData.ifscCode && !/^[A-Z]{4}0[A-Z0-9]{6}$/.test(formData.ifscCode)) {
-    //   errors.ifscCode = "Enter a valid IFSC code";
-    // }
-
     return errors;
   };
 
@@ -124,6 +119,9 @@ const UpdatePumpPage = () => {
         address_1: formData.address1,
         address_2: formData.address2,
         address_3: formData.address3,
+        location_name: formData.locationName,
+        latitude: formData.latitude,
+        longitude: formData.longitude,
         gstn_no: formData.gstnNo,
         pan_no: formData.panNo,
         banker_name: formData.bankerName,
@@ -146,6 +144,9 @@ const UpdatePumpPage = () => {
           address_1: "address1",
           address_2: "address2",
           address_3: "address3",
+          location_name: "locationName",
+          latitude: "latitude",
+          longitude: "longitude",
           gstn_no: "gstnNo",
           pan_no: "panNo",
           banker_name: "bankerName",
@@ -169,6 +170,14 @@ const UpdatePumpPage = () => {
 
   const handleChange = (field: keyof PumpFormData, value: string) => {
     setFormData({ ...formData, [field]: value });
+  };
+
+  const handleLocationChange = (next: {
+    locationName: string;
+    latitude: string;
+    longitude: string;
+  }) => {
+    setFormData((prev) => ({ ...prev, ...next }));
   };
 
   const handleClearError = (field: string) => {
@@ -208,6 +217,12 @@ const UpdatePumpPage = () => {
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-7">
               <PumpDetailsSection {...sectionProps} />
+              <LocationMapPicker
+                locationName={formData.locationName}
+                latitude={formData.latitude}
+                longitude={formData.longitude}
+                onChange={handleLocationChange}
+              />
               <TaxDetailsSection {...sectionProps} />
               <BankDetailsSection {...sectionProps} />
               <UpdateFormActions saving={saving} />

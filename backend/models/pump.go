@@ -17,6 +17,9 @@ type Pump struct {
 	Address1       string         `gorm:"type:varchar(100)" json:"address_1,omitempty"`
 	Address2       string         `gorm:"type:varchar(100)" json:"address_2,omitempty"`
 	Address3       string         `gorm:"type:varchar(100)" json:"address_3,omitempty"`
+	LocationName   string         `gorm:"type:varchar(255)" json:"location_name,omitempty"`
+	Latitude       *float64       `gorm:"type:decimal(10,7)" json:"latitude,omitempty"`
+	Longitude      *float64       `gorm:"type:decimal(11,7)" json:"longitude,omitempty"`
 	OpeningBalance *float64       `gorm:"type:decimal(15,2)" json:"opening_balance,omitempty"`
 	GstnNo         string         `gorm:"type:varchar(15)" json:"gstn_no,omitempty"`
 	PanNo          string         `gorm:"type:varchar(10)" json:"pan_no,omitempty"`

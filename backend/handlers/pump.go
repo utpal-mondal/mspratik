@@ -20,6 +20,9 @@ type pumpRequest struct {
 	Address1       string `json:"address_1"`
 	Address2       string `json:"address_2"`
 	Address3       string `json:"address_3"`
+	LocationName   string `json:"location_name"`
+	Latitude       string `json:"latitude"`
+	Longitude      string `json:"longitude"`
 	OpeningBalance string `json:"opening_balance"`
 	GstnNo         string `json:"gstn_no"`
 	PanNo          string `json:"pan_no"`
@@ -46,6 +49,9 @@ func parsePumpRequest(c *fiber.Ctx) (pumpRequest, error) {
 		Address1:       c.FormValue("address_1"),
 		Address2:       c.FormValue("address_2"),
 		Address3:       c.FormValue("address_3"),
+		LocationName:   c.FormValue("location_name"),
+		Latitude:       c.FormValue("latitude"),
+		Longitude:      c.FormValue("longitude"),
 		OpeningBalance: c.FormValue("opening_balance"),
 		GstnNo:         c.FormValue("gstn_no"),
 		PanNo:          c.FormValue("pan_no"),
@@ -56,9 +62,9 @@ func parsePumpRequest(c *fiber.Ctx) (pumpRequest, error) {
 	}, nil
 }
 
-func validatePumpRequest(req *pumpRequest) (map[string]string, *float64) {
+func validatePumpRequest(req *pumpRequest) (map[string]string, *float64, *float64, *float64) {
 	errors := map[string]string{}
-	var openingBalance *float64
+	var openingBalance, latitude, longitude *float64
 
 	req.PumpName = strings.TrimSpace(req.PumpName)
 	if req.PumpName == "" {
@@ -108,15 +114,31 @@ func validatePumpRequest(req *pumpRequest) (map[string]string, *float64) {
 		}
 	}
 
-	req.GstnNo = strings.ToUpper(strings.TrimSpace(req.GstnNo))
-	if req.GstnNo != "" && !gstnRegex.MatchString(req.GstnNo) {
-		errors["gstn_no"] = "Enter a valid GSTN number"
+	req.LocationName = strings.TrimSpace(req.LocationName)
+	if len(req.LocationName) > 255 {
+		errors["location_name"] = "Location must be less than 255 characters"
 	}
 
-	req.PanNo = strings.ToUpper(strings.TrimSpace(req.PanNo))
-	if req.PanNo != "" && !panRegex.MatchString(req.PanNo) {
-		errors["pan_no"] = "Enter a valid PAN number"
+	req.Latitude = strings.TrimSpace(req.Latitude)
+	if req.Latitude != "" {
+		if n, err := strconv.ParseFloat(req.Latitude, 64); err != nil || n < -90 || n > 90 {
+			errors["latitude"] = "Enter a valid latitude"
+		} else {
+			latitude = &n
+		}
 	}
+
+	req.Longitude = strings.TrimSpace(req.Longitude)
+	if req.Longitude != "" {
+		if n, err := strconv.ParseFloat(req.Longitude, 64); err != nil || n < -180 || n > 180 {
+			errors["longitude"] = "Enter a valid longitude"
+		} else {
+			longitude = &n
+		}
+	}
+
+	req.GstnNo = strings.ToUpper(strings.TrimSpace(req.GstnNo))
+	req.PanNo = strings.ToUpper(strings.TrimSpace(req.PanNo))
 
 	req.BankerName = strings.TrimSpace(req.BankerName)
 	if len(req.BankerName) > 50 {
@@ -134,11 +156,8 @@ func validatePumpRequest(req *pumpRequest) (map[string]string, *float64) {
 	}
 
 	req.IfscCode = strings.ToUpper(strings.TrimSpace(req.IfscCode))
-	if req.IfscCode != "" && !ifscRegex.MatchString(req.IfscCode) {
-		errors["ifsc_code"] = "Enter a valid IFSC code"
-	}
 
-	return errors, openingBalance
+	return errors, openingBalance, latitude, longitude
 }
 
 // CreatePump creates a pump for the current company
@@ -154,7 +173,7 @@ func CreatePump(c *fiber.Ctx, db *gorm.DB) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "message": "Invalid request body"})
 	}
 
-	errors, openingBalance := validatePumpRequest(&req)
+	errors, openingBalance, latitude, longitude := validatePumpRequest(&req)
 	if len(errors) > 0 {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
 	}
@@ -169,6 +188,9 @@ func CreatePump(c *fiber.Ctx, db *gorm.DB) error {
 		Address1:       req.Address1,
 		Address2:       req.Address2,
 		Address3:       req.Address3,
+		LocationName:   req.LocationName,
+		Latitude:       latitude,
+		Longitude:      longitude,
 		OpeningBalance: openingBalance,
 		GstnNo:         req.GstnNo,
 		PanNo:          req.PanNo,
@@ -289,7 +311,7 @@ func UpdatePump(c *fiber.Ctx, db *gorm.DB) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "message": "Invalid request body"})
 	}
 
-	errors, openingBalance := validatePumpRequest(&req)
+	errors, openingBalance, latitude, longitude := validatePumpRequest(&req)
 	if len(errors) > 0 {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"status": "fail", "errors": errors})
 	}
@@ -301,6 +323,9 @@ func UpdatePump(c *fiber.Ctx, db *gorm.DB) error {
 	pump.Address1 = req.Address1
 	pump.Address2 = req.Address2
 	pump.Address3 = req.Address3
+	pump.LocationName = req.LocationName
+	pump.Latitude = latitude
+	pump.Longitude = longitude
 	pump.OpeningBalance = openingBalance
 	pump.GstnNo = req.GstnNo
 	pump.PanNo = req.PanNo

@@ -6,6 +6,9 @@ export interface PumpFormData {
   address1: string;
   address2: string;
   address3: string;
+  locationName: string;
+  latitude: string;
+  longitude: string;
   gstnNo: string;
   panNo: string;
   bankerName: string;
