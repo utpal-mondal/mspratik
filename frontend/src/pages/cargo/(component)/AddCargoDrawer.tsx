@@ -76,7 +76,7 @@ const AddCargoDrawer: React.FC<AddCargoDrawerProps> = ({
         className="flex flex-col min-h-full text-[#17222E]"
         style={{ fontFamily: "'IBM Plex Sans', 'Helvetica Neue', Helvetica, sans-serif" }}
       >
-        <div className="flex-1 px-5 py-4">
+        <div className="flex-1 px-3 py-4">
           <label className="block text-[15px] font-medium text-[#3B4957] mb-1.5">
             Cargo Name <span className="text-[#A12B2B]">*</span>
           </label>

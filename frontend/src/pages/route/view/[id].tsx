@@ -105,20 +105,24 @@ const RouteViewPage = () => {
           ) : route ? (
             <div className="overflow-hidden rounded-md border border-[#D5DDE6] bg-white shadow-[0_1px_2px_rgba(15,42,71,0.06),0_4px_16px_rgba(15,42,71,0.04)]">
               <div className="border-b border-[#D5DDE6] px-5 py-4">
-                <label className="mb-1.5 block text-sm font-bold text-[#3B4957]">
-                  Route Name:
-                </label>
                 <div className="flex items-center justify-between gap-4">
-                  <p className="text-[14px] text-[#17222E]">
-                    {route.route_name ? toTitleCase(route.route_name) : "-"}
-                  </p>
-                  <Link
-                    href={`/route/update?id=${route.id}`}
-                    className="inline-flex items-center gap-1.5 rounded bg-[#2563EB] px-4 py-2 text-sm font-medium text-white no-underline hover:bg-blue-500 transition-colors"
-                  >
-                    <Pencil size={14} />
-                    Edit
-                  </Link>
+                  <div>
+                    <label className="block text-sm font-bold text-[#3B4957]">
+                      Route Name:
+                    </label>
+                    <p className="mt-0.5 text-[14px] text-[#17222E]">
+                      {route.route_name ? toTitleCase(route.route_name) : "-"}
+                    </p>
+                  </div>
+                  <div>
+                    <Link
+                      href={`/route/update?id=${route.id}`}
+                      className="mt-2 inline-flex items-center gap-1.5 rounded bg-[#2563EB] px-4 py-2 text-sm font-medium text-white no-underline hover:bg-blue-500 transition-colors"
+                    >
+                      <Pencil size={14} />
+                      Edit
+                    </Link>
+                  </div>
                 </div>
               </div>
               <RouteMapEditor
