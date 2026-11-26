@@ -1147,6 +1147,61 @@ export const settingsApi = {
   },
 };
 
+export interface BranchData {
+  id: number;
+  name: string;
+  head: string;
+  address: string;
+  phone_number?: string;
+  email?: string;
+  latitude?: number | null;
+  longitude?: number | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export type BranchTextField =
+  | "name"
+  | "head"
+  | "address"
+  | "phone_number"
+  | "email";
+
+export interface BranchInput {
+  name: string;
+  head: string;
+  address: string;
+  phone_number: string;
+  email: string;
+  latitude: number | null;
+  longitude: number | null;
+}
+
+export const branchApi = {
+  getBranches: async (query = "") => {
+    const response = await api.get("/branches", {
+      params: query.trim() ? { query: query.trim() } : undefined,
+    });
+    return response.data;
+  },
+  getBranch: async (id: number) => {
+    const response = await api.get(`/branches/${id}`);
+    return response.data;
+  },
+  createBranch: async (data: BranchInput) => {
+    const response = await api.post("/branches", data);
+    return response.data;
+  },
+  updateBranch: async (id: number, data: BranchInput) => {
+    const response = await api.put(`/branches/${id}`, data);
+    return response.data;
+  },
+  deleteBranch: async (id: number) => {
+    const response = await api.delete(`/branches/${id}`);
+    return response.data;
+  },
+};
+
 export const purchaseApi = {
   getPurchase: async (params: any) => {
     const response = await api.get("/purchases", { params });

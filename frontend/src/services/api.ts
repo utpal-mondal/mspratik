@@ -1,6 +1,50 @@
 import axios, { type AxiosInstance } from 'axios';
 import type { RoutePayload } from '@/types/route-entry/types';
 
+export interface ConsignorRecord {
+    id: number;
+    name: string;
+    address?: string;
+    email?: string;
+    phone_number?: string;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface ConsignorPayload {
+    name: string;
+    address: string;
+    email: string;
+    phone_number: string;
+}
+
+export interface FirmPayload {
+    name: string;
+    address_1: string;
+    address_2: string;
+    pan_no: string;
+    gstn_no: string;
+    cash_in_hand: number | null;
+    short_form: string;
+    tan_no: string;
+    starting_session: string;
+}
+
+export interface FirmRecord {
+    id: number;
+    name: string;
+    address_1?: string;
+    address_2?: string;
+    pan_no: string;
+    gstn_no: string;
+    cash_in_hand?: number | null;
+    short_form?: string;
+    tan_no: string;
+    starting_session?: string;
+    created_at: string;
+    updated_at: string;
+}
+
 class ApiService {
     public api: AxiosInstance;
 
@@ -145,6 +189,23 @@ class ApiService {
     createBroker = (data: any) => this.api.post('/brokers/create-broker', data);
     updateBroker = (brokerId: number, data: any) => this.api.put(`/brokers/${brokerId}/update-broker`, data);
     deleteBroker = (brokerId: number) => this.api.delete(`/brokers/${brokerId}/delete-broker`);
+
+    // Consignor methods
+    getAllConsignors = (query = '') =>
+        this.api.get('/consignors', { params: query.trim() ? { query: query.trim() } : undefined });
+    getConsignor = (consignorId: number) => this.api.get(`/consignors/${consignorId}`);
+    createConsignor = (data: ConsignorPayload) => this.api.post('/consignors', data);
+    updateConsignor = (consignorId: number, data: ConsignorPayload) =>
+        this.api.put(`/consignors/${consignorId}`, data);
+    deleteConsignor = (consignorId: number) => this.api.delete(`/consignors/${consignorId}`);
+
+    // Firm methods
+    getAllFirms = (query = '') =>
+        this.api.get('/firms', { params: query.trim() ? { query: query.trim() } : undefined });
+    getFirm = (firmId: number) => this.api.get(`/firms/${firmId}`);
+    createFirm = (data: FirmPayload) => this.api.post('/firms', data);
+    updateFirm = (firmId: number, data: FirmPayload) => this.api.put(`/firms/${firmId}`, data);
+    deleteFirm = (firmId: number) => this.api.delete(`/firms/${firmId}`);
 
     // Client methods
     getAllClients = (params: { page?: number; limit?: number; query?: string } = {}) =>

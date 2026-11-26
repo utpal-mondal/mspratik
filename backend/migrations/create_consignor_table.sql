@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS `consignor` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `address` VARCHAR(255) NULL,
+  `email` VARCHAR(100) NULL,
+  `phone_number` VARCHAR(10) NULL,
+  `created_at` DATETIME(3) NOT NULL,
+  `updated_at` DATETIME(3) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

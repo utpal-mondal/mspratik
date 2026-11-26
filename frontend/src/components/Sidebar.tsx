@@ -16,6 +16,7 @@ import {
   Package,
   Sprout,
   MapPin,
+  Warehouse,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -75,6 +76,12 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         path: "/company-details",
         adminOnly: true,
       },
+      {
+        name: "Firm",
+        icon: <Building size={20} />,
+        path: "/firm",
+        adminOnly: true,
+      },
        {
         name: "User Management",
         icon: <User size={20} />,
@@ -85,6 +92,12 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         name: "Roles",
         icon: <Shield  size={20} />,
         path: "/roles",
+        adminOnly: true,
+      },
+      {
+        name: "Branch",
+        icon: <Warehouse size={20} />,
+        path: "/branches",
         adminOnly: true,
       },
        {
@@ -104,6 +117,12 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         path: "/broker",
         
       },
+       {
+         name: "Consignors",
+         icon: <User size={20} />,
+         path: "/consignor",
+         adminOnly: true,
+       },
       {
         name: "Vessals",
         icon: <Ship  size={20} />,
