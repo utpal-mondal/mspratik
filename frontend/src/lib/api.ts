@@ -1202,6 +1202,48 @@ export const branchApi = {
   },
 };
 
+export interface PointData {
+  id: number;
+  name: string;
+  contact_person: string | null;
+  contact_person_mobile_no: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface PointInput {
+  name: string;
+  contact_person: string;
+  contact_person_mobile_no: string;
+}
+
+export type PointResource = "loading-points" | "unloading-points";
+
+export const pointApi = {
+  getPoints: async (resource: PointResource, query = "") => {
+    const response = await api.get(`/${resource}`, {
+      params: query.trim() ? { query: query.trim() } : undefined,
+    });
+    return response.data;
+  },
+  getPoint: async (resource: PointResource, id: number) => {
+    const response = await api.get(`/${resource}/${id}`);
+    return response.data;
+  },
+  createPoint: async (resource: PointResource, data: PointInput) => {
+    const response = await api.post(`/${resource}`, data);
+    return response.data;
+  },
+  updatePoint: async (resource: PointResource, id: number, data: PointInput) => {
+    const response = await api.put(`/${resource}/${id}`, data);
+    return response.data;
+  },
+  deletePoint: async (resource: PointResource, id: number) => {
+    const response = await api.delete(`/${resource}/${id}`);
+    return response.data;
+  },
+};
+
 export const purchaseApi = {
   getPurchase: async (params: any) => {
     const response = await api.get("/purchases", { params });
