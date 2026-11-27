@@ -14,6 +14,7 @@ type Folio struct {
 	Date        time.Time `gorm:"type:date;not null;index;uniqueIndex:uq_folio_date_folio_no,priority:1" json:"date"`
 	Remark      string    `gorm:"type:text" json:"remark"`
 	FolioType   string    `gorm:"type:varchar(20);not null" json:"folio_type"`
+	NoOfTrips   int       `gorm:"->;column:no_of_trips" json:"no_of_trips"`
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }

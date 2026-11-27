@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { Eye, Plus } from "lucide-react";
+import { Eye, Plus, Truck } from "lucide-react";
 import { toast } from "react-toastify";
 import withAuth from "../../components/withAuth";
 import ActionMenu from "@/components/ui/ActionMenu";
@@ -219,6 +219,11 @@ const CashAdvFolioPage = () => {
                                 icon: Eye,
                                 onClick: () => handleViewFolio(folio),
                               },
+                              {
+                                label: "Loading Entry",
+                                icon: Truck,
+                                onClick: () => void router.push(`/loading-entry/${folio.id}`),
+                              },
                             ]}
                           />
                         </td>
@@ -235,7 +240,7 @@ const CashAdvFolioPage = () => {
                           {folio.remark || "-"}
                         </td>
                         <td className={`${tdCls} text-center font-medium`}>
-                          0
+                          {folio.no_of_trips}
                         </td>
                       </tr>
                     ))
