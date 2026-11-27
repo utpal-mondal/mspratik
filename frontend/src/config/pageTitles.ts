@@ -25,6 +25,7 @@ export const pageTitles: Record<string, string> = {
   "/drivers/create": "Create Driver",
   "/drivers/update": "Update Driver",
   "/drivers/view/[id]": "Driver Details",
+  "/cash-adv-folio": "Cash Adv. Folio",
 
   // Auth & misc
   "/auth": "Login",

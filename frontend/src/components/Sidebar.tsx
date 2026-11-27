@@ -17,6 +17,7 @@ import {
   Sprout,
   MapPin,
   Warehouse,
+  BookText,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -157,6 +158,12 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         name: "Routes",
         icon: <MapPin  size={20} />,
         path: "/route",
+        
+      },
+      {
+        name: "Cash Adv. Folio",
+        icon: <BookText  size={20} />,
+        path: "/cash-adv-folio",
         
       },
     ],
