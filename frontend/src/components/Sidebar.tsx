@@ -8,9 +8,8 @@ import {
   Settings,
   ChevronDown,
   Building,
-  Shield ,
+  Shield,
   User,
-  Car,
   CarFront,
   Ship,
   Package,
@@ -18,6 +17,7 @@ import {
   MapPin,
   Warehouse,
   BookText,
+  BriefcaseBusiness,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -29,7 +29,7 @@ interface MenuItem {
   name: string;
   icon: React.ReactNode;
   path: string;
-  submenu?: { name: string; path: string }[];
+  submenu?: { name: string; path: string; adminOnly?: boolean }[];
   adminOnly?: boolean;
 }
 
@@ -71,94 +71,44 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
         icon: <LayoutDashboard size={20} />,
         path: "/dashboard",
       },
-       {
+      {
         name: "Company Details",
-        icon: <Building  size={20} />,
+        icon: <Building size={20} />,
         path: "/company-details",
         adminOnly: true,
       },
       {
-        name: "Firm",
-        icon: <Building size={20} />,
-        path: "/firm",
-        adminOnly: true,
-      },
-       {
         name: "User Management",
         icon: <User size={20} />,
         path: "/user-management",
         adminOnly: true,
       },
-       {
+      {
         name: "Roles",
-        icon: <Shield  size={20} />,
+        icon: <Shield size={20} />,
         path: "/roles",
         adminOnly: true,
       },
       {
-        name: "Branch",
-        icon: <Warehouse size={20} />,
-        path: "/branches",
-        adminOnly: true,
-      },
-       {
-        name: "Vehicles",
-        icon: <CarFront  size={20} />,
+        name: "Management",
+        icon: <BriefcaseBusiness size={20} />,
         path: "/vehicles",
-      },
-       {
-        name: "Drivers",
-        icon: <User  size={20} />,
-        path: "/drivers",
-        
-      },
-       {
-        name: "Brokers",
-        icon: <User  size={20} />,
-        path: "/broker",
-        
-      },
-       {
-         name: "Consignors",
-         icon: <User size={20} />,
-         path: "/consignor",
-         adminOnly: true,
-       },
-      {
-        name: "Vessals",
-        icon: <Ship  size={20} />,
-        path: "/vessal",
-        
-      },
-      {
-        name: "Products",
-        icon: <Package  size={20} />,
-        path: "/product",
-        
-      },
-      {
-        name: "Pumps",
-        icon: <Sprout  size={20} />,
-        path: "/pump",
-        
-      },
-      {
-        name: "Clients",
-        icon: <User  size={20} />,
-        path: "/client",
-        
-      },
-      {
-        name: "Cargos",
-        icon: <Package  size={20} />,
-        path: "/cargo",
-        
-      },
-      {
-        name: "Routes",
-        icon: <MapPin  size={20} />,
-        path: "/route",
-        
+        submenu: [
+          { name: "Firm", path: "/firm", adminOnly: true },
+          { name: "Branch", path: "/branches", adminOnly: true },
+          { name: "Loading Points", path: "/loading-points", adminOnly: true },
+          { name: "Unloading Points", path: "/unloading-points", adminOnly: true },
+          { name: "Vehicles", path: "/vehicles" },
+          { name: "Drivers", path: "/drivers" },
+          { name: "Brokers", path: "/broker" },
+          { name: "Consignors", path: "/consignor", adminOnly: true },
+          { name: "Vessals", path: "/vessal" },
+          { name: "Products", path: "/product" },
+          { name: "Pumps", path: "/pump" },
+          { name: "Clients", path: "/client" },
+          { name: "Cargos", path: "/cargo" },
+          { name: "Routes", path: "/route" },
+        ],
       },
       {
         name: "Cash Adv. Folio",
@@ -177,7 +127,9 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
       menuItems.forEach((item) => {
         if (item.submenu) {
           const hasActiveSub = item.submenu.some(
-            (sub) => router.pathname === sub.path,
+            (sub) =>
+              router.pathname === sub.path ||
+              router.pathname.startsWith(sub.path + "/"),
           );
           const isParentActive =
             router.pathname === item.path ||
@@ -194,9 +146,19 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
     });
   }, [router.pathname, menuItems]);
 
-  const visibleMenuItems = isCadmin()
-    ? menuItems
-    : menuItems.filter((item) => !item.adminOnly);
+  const isCompanyAdmin = isCadmin();
+  const visibleMenuItems = menuItems
+    .filter((item) => !item.adminOnly || isCompanyAdmin)
+    .map((item) =>
+      item.submenu
+        ? {
+            ...item,
+            submenu: item.submenu.filter(
+              (subItem) => !subItem.adminOnly || isCompanyAdmin,
+            ),
+          }
+        : item,
+    );
 
   if (!user) {
     return null;
@@ -272,7 +234,11 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
           <div className="px-3 space-y-0.5">
             {visibleMenuItems.map((item, index) => {
               const isActive = item.submenu
-                ? item.submenu.some((sub) => router.pathname === sub.path)
+                ? item.submenu.some(
+                    (sub) =>
+                      router.pathname === sub.path ||
+                      router.pathname.startsWith(sub.path + "/"),
+                  )
                 : router.pathname === item.path ||
                   router.pathname.startsWith(item.path + "/");
 
@@ -340,7 +306,9 @@ const Sidebar = ({ isOpen, isCollapsed }: SidebarProps) => {
                   {!isCollapsed && item.submenu && isExpanded && (
                     <div className="ml-4 mt-1 space-y-0.5 animate-fade-in">
                       {item.submenu.map((subItem, subIndex) => {
-                        const isSubActive = router.pathname === subItem.path;
+                        const isSubActive =
+                          router.pathname === subItem.path ||
+                          router.pathname.startsWith(subItem.path + "/");
                         return (
                           <Link
                             key={subItem.name}

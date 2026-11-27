@@ -92,6 +92,8 @@ func main() {
 	routes.SetupCompanyRoutes(api, db)
 	routes.SetupFirmRoutes(api, db)
 	routes.SetupBranchRoutes(api, db)
+	routes.SetupLoadingPointRoutes(api, db)
+	routes.SetupUnloadingPointRoutes(api, db)
 	routes.SetupVehicleRoutes(api, db)
 	routes.SetupDriverRoutes(api, db)
 	app.Get("/uploads/*", serveUpload)
