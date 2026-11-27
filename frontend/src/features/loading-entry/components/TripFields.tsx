@@ -184,7 +184,11 @@ export const TripSection = ({
     <h2 className="rounded-t-md border-b border-[#D5DDE6] bg-[#F8FAFC] px-5 py-3 text-sm font-semibold text-[#0F2A47]">
       {title}
     </h2>
-    <div className={`grid gap-4 p-5 sm:grid-cols-2 ${columns === 5 ? "lg:grid-cols-5" : "lg:grid-cols-4"}`}>
+    <div
+      className={`grid grid-cols-1 gap-4 p-5 sm:grid-cols-2 md:grid-cols-3 ${
+        columns === 5 ? "lg:grid-cols-4 xl:grid-cols-5" : "lg:grid-cols-4"
+      }`}
+    >
       {children}
     </div>
   </section>
