@@ -5,6 +5,7 @@ import { Eye, Plus } from "lucide-react";
 import { toast } from "react-toastify";
 import withAuth from "../../components/withAuth";
 import ActionMenu from "@/components/ui/ActionMenu";
+import Pagination from "@/components/ui/Pagination";
 import type { DateRange } from "@/components/ui/DateRangePicker";
 import { useDebounce } from "@/hook/useDebounce";
 import { folioApi, type FolioBranch, type FolioData } from "@/lib/api";
@@ -51,6 +52,9 @@ const CashAdvFolioPage = () => {
   const [search, setSearch] = useState("");
   const [dateRange, setDateRange] = useState<DateRange | null>(() => last30Days());
   const [folios, setFolios] = useState<FolioData[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const limit = 25;
   const [branches, setBranches] = useState<FolioBranch[]>([]);
   const [loading, setLoading] = useState(true);
   const [branchesLoading, setBranchesLoading] = useState(true);
@@ -66,11 +70,16 @@ const CashAdvFolioPage = () => {
         debouncedSearch,
         dateRange ? formatDateParam(dateRange.startDate) : undefined,
         dateRange ? formatDateParam(dateRange.endDate) : undefined,
+        page,
+        limit,
       );
       if (!Array.isArray(response?.data)) {
         throw new Error("Folio list was not returned");
       }
-      if (currentRequestId === requestId.current) setFolios(response.data);
+      if (currentRequestId === requestId.current) {
+        setFolios(response.data);
+        setTotal(response?.meta?.total ?? 0);
+      }
     } catch (error) {
       if (currentRequestId === requestId.current) {
         console.error("Error fetching folios:", error);
@@ -79,7 +88,7 @@ const CashAdvFolioPage = () => {
     } finally {
       if (currentRequestId === requestId.current) setLoading(false);
     }
-  }, [debouncedSearch, dateRange]);
+  }, [debouncedSearch, dateRange, page, limit]);
 
   useEffect(() => {
     void getFolios();
@@ -87,6 +96,14 @@ const CashAdvFolioPage = () => {
       requestId.current += 1;
     };
   }, [getFolios]);
+
+  // If the result set shrinks (e.g. filters changed elsewhere), don't strand
+  // the user on a page that no longer exists.
+  useEffect(() => {
+    if (loading) return;
+    const lastPage = Math.max(1, Math.ceil(total / limit));
+    if (page > lastPage) setPage(lastPage);
+  }, [loading, total, limit, page]);
 
   useEffect(() => {
     let active = true;
@@ -123,7 +140,26 @@ const CashAdvFolioPage = () => {
     });
     toast.success("Folio created successfully");
     setIsModalOpen(false);
-    void getFolios();
+
+    // Make sure the newly created folio is visible: if its date falls outside
+    // the active date filter, widen the range to include it. Changing the
+    // range or page re-fetches automatically via the effect.
+    const [year, month, day] = values.date.split("-").map(Number);
+    const folioDate = new Date(year, month - 1, day);
+    let filtersChanged = page !== 1;
+    setPage(1);
+    if (dateRange) {
+      const startDay = formatDateParam(dateRange.startDate);
+      const endDay = formatDateParam(dateRange.endDate);
+      if (values.date < startDay || values.date > endDay) {
+        setDateRange({
+          startDate: values.date < startDay ? folioDate : dateRange.startDate,
+          endDate: values.date > endDay ? folioDate : dateRange.endDate,
+        });
+        filtersChanged = true;
+      }
+    }
+    if (!filtersChanged) void getFolios();
   };
 
   const handleViewFolio = (folio: FolioData) => {
@@ -155,7 +191,7 @@ const CashAdvFolioPage = () => {
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              disabled={branchesLoading || branches.length === 0}
+              disabled={branchesLoading}
               className="flex h-11 items-center gap-2 rounded border border-blue-600 bg-blue-700 px-5 text-sm font-medium text-white transition-colors hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Plus size={15} />
@@ -163,17 +199,23 @@ const CashAdvFolioPage = () => {
             </button>
           </div>
 
-          <div className="overflow-hidden rounded-md border border-[#D5DDE6] bg-white shadow-[0_1px_2px_rgba(15,42,71,0.06),0_8px_24px_rgba(15,42,71,0.05)]">
-            <div className="flex flex-wrap items-end justify-between gap-3 border-b border-[#D5DDE6] px-6 py-4">
+          <div className="rounded-md border border-[#D5DDE6] bg-white shadow-[0_1px_2px_rgba(15,42,71,0.06),0_8px_24px_rgba(15,42,71,0.05)]">
+            <div className="relative z-20 flex flex-wrap items-end justify-between gap-3 rounded-t-md border-b border-[#D5DDE6] px-6 py-4">
               <div className="flex items-baseline gap-2">
                 <div className="text-base font-semibold text-[#0F2A47]">Folio List</div>
-                <div className="text-[13px] text-[#5B6A7A]">({folios.length})</div>
+                {/* <div className="text-[13px] text-[#5B6A7A]">({total})</div> */}
               </div>
               <FilterSection
                 search={search}
-                onSearchChange={setSearch}
+                onSearchChange={(value) => {
+                  setSearch(value);
+                  setPage(1);
+                }}
                 dateRange={dateRange}
-                onDateRangeChange={setDateRange}
+                onDateRangeChange={(range) => {
+                  setDateRange(range);
+                  setPage(1);
+                }}
               />
             </div>
 
@@ -244,10 +286,17 @@ const CashAdvFolioPage = () => {
               </table>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#D5DDE6] bg-white px-6 py-3.5">
-              <div className="text-[13px] text-[#5B6A7A]">
-                Showing {folios.length} {folios.length === 1 ? "entry" : "entries"}
-              </div>
+            <div className="overflow-hidden rounded-b-md">
+              <Pagination
+                currentPage={page}
+                total={total}
+                perPage={limit}
+                onPageChange={(nextPage) => {
+                  const totalPages = Math.max(1, Math.ceil(total / limit));
+                  if (nextPage < 1 || nextPage > totalPages || nextPage === page) return;
+                  setPage(nextPage);
+                }}
+              />
             </div>
           </div>
         </div>

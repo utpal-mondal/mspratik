@@ -1279,9 +1279,17 @@ export const folioApi = {
     const response = await api.get("/folios/branches");
     return response.data;
   },
-  getFolios: async (query = "", startDate?: string, endDate?: string) => {
+  getFolios: async (
+    query = "",
+    startDate?: string,
+    endDate?: string,
+    page = 1,
+    limit = 25,
+  ) => {
     const response = await api.get("/folios", {
       params: {
+        page,
+        limit,
         ...(query.trim() ? { query: query.trim() } : {}),
         ...(startDate ? { start_date: startDate } : {}),
         ...(endDate ? { end_date: endDate } : {}),

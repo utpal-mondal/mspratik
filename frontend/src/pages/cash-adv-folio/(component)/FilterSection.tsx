@@ -22,11 +22,12 @@ const FilterSection: React.FC<FilterSectionProps> = ({
 }) => {
   return (
     <div className="flex flex-wrap items-end gap-3">
-      <div className="w-full sm:w-64">
+      <div className="w-full sm:w-80">
         <label className={labelClass}>Date</label>
         <DateRangePicker
           value={dateRange}
           onChange={onDateRangeChange}
+          align="right"
           className="w-full"
           height={40}
         />

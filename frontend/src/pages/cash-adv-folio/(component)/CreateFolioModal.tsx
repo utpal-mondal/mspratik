@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { SearchableDropdown } from "@/components/ui/SearchableDropdown";
+import CustomDatePicker from "@/components/ui/DatePicker";
 import { folioApi, type FolioBranch } from "@/lib/api";
 
 interface Option {
@@ -63,6 +64,7 @@ const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
 }) => {
   const [mounted, setMounted] = useState(false);
   const [values, setValues] = useState<FolioFormValues>(initialValues);
+  const [date, setDate] = useState<Date | null>(() => new Date());
   const [loadingFolioNo, setLoadingFolioNo] = useState(false);
   const [saving, setSaving] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -73,6 +75,7 @@ const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
     if (!isOpen) return;
     let active = true;
     setValues(initialValues());
+    setDate(new Date());
     setFieldErrors({});
     setLoadingFolioNo(true);
 
@@ -171,6 +174,13 @@ const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
     }
   };
 
+  const canSave =
+    !saving &&
+    !loadingFolioNo &&
+    values.branchId > 0 &&
+    /^[0-9]{1,6}$/.test(values.folioNo) &&
+    values.date !== "";
+
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="w-full max-w-xl rounded-md bg-white shadow-2xl">
@@ -210,8 +220,14 @@ const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
               className="w-full"
               buttonClassName={dropdownButtonClass}
             />
-            {fieldErrors.branchId && (
-              <span className="mt-1 block text-xs text-red-600">{fieldErrors.branchId}</span>
+            {branches.length === 0 ? (
+              <span className="mt-1 block text-xs text-red-600">
+                No branch is present. Please create a branch first.
+              </span>
+            ) : (
+              fieldErrors.branchId && (
+                <span className="mt-1 block text-xs text-red-600">{fieldErrors.branchId}</span>
+              )
             )}
           </div>
 
@@ -278,15 +294,15 @@ const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
 
           <div>
             <label className={labelClass}>Date <span className="text-red-500">*</span></label>
-            <input
-              type="date"
-              required
-              value={values.date}
-              onChange={(event) => {
-                set("date", event.target.value);
+            <CustomDatePicker
+              value={date}
+              onChange={(selected) => {
+                setDate(selected);
+                set("date", selected ? localDateValue(selected) : "");
                 setFieldErrors((previous) => ({ ...previous, date: "" }));
               }}
-              className={inputClass}
+              placeholder="DD/MM/YYYY"
+              className="!h-9 !w-full !px-3 !py-0 !text-[13px] !border-[#C5CFDB]"
             />
             {fieldErrors.date && (
               <span className="mt-1 block text-xs text-red-600">{fieldErrors.date}</span>
@@ -340,7 +356,7 @@ const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
           <button
             type="button"
             onClick={() => void handleSave()}
-            disabled={saving || loadingFolioNo}
+            disabled={!canSave}
             className="h-9 rounded bg-[#2563EB] px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {saving ? "Saving..." : "Save"}

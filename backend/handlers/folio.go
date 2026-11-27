@@ -110,6 +110,18 @@ func validateFolioRequest(req *folioRequest) (time.Time, map[string]string) {
 }
 
 func GetFolios(c *fiber.Ctx, db *gorm.DB) error {
+	page, _ := strconv.Atoi(c.Query("page", "1"))
+	limit, _ := strconv.Atoi(c.Query("limit", "10"))
+	if page < 1 {
+		page = 1
+	}
+	if limit < 1 {
+		limit = 10
+	}
+	if limit > 100 {
+		limit = 100
+	}
+
 	query := db.Model(&models.Folio{}).Preload("Branch")
 	if search := strings.TrimSpace(c.Query("query")); search != "" {
 		like := "%" + search + "%"
@@ -147,14 +159,32 @@ func GetFolios(c *fiber.Ctx, db *gorm.DB) error {
 		})
 	}
 
+	var total int64
+	if err := query.Count(&total).Error; err != nil {
+		log.Printf("Failed to count folios: %v", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"status": "fail", "message": "Failed to fetch folios",
+		})
+	}
+
 	var folios []models.Folio
-	if err := query.Order("folio.date DESC").Order("folio.id DESC").Find(&folios).Error; err != nil {
+	if err := query.Order("folio.date DESC").Order("folio.id DESC").Offset((page - 1) * limit).Limit(limit).Find(&folios).Error; err != nil {
 		log.Printf("Failed to fetch folios: %v", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status": "fail", "message": "Failed to fetch folios",
 		})
 	}
-	return c.JSON(fiber.Map{"status": "success", "data": folios})
+	totalPages := int((total + int64(limit) - 1) / int64(limit))
+	return c.JSON(fiber.Map{
+		"status": "success",
+		"data":   folios,
+		"meta": fiber.Map{
+			"total":      total,
+			"totalPages": totalPages,
+			"page":       page,
+			"limit":      limit,
+		},
+	})
 }
 
 func GetFolio(c *fiber.Ctx, db *gorm.DB) error {

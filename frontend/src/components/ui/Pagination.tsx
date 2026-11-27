@@ -77,7 +77,7 @@ const Pagination: React.FC<PaginationProps> = ({
           <p className="text-sm text-gray-700 bg-blue-50 px-3 py-1 rounded-full shadow-inner">
             Showing{" "}
             <span className="font-medium text-blue-700">
-              {(currentPage - 1) * perPage + 1}
+              {total === 0 ? 0 : (currentPage - 1) * perPage + 1}
             </span>{" "}
             to{" "}
             <span className="font-medium text-blue-700">
