@@ -1311,6 +1311,7 @@ export interface TripInput {
   client_payment_type: string;
   client_advance: number | null;
   consignor_id: number;
+  session: string;
 }
 
 export const folioApi = {

@@ -1,5 +1,3 @@
-import type { FolioData } from "@/lib/api";
-
 export interface TripLookup {
   id: number;
   name: string;
@@ -20,6 +18,8 @@ export interface TripLookups {
   firms: TripLookup[];
   vessals: TripLookup[];
   pumps: TripLookup[];
+  sessions: string[];
+  current_session: string;
 }
 
 export interface TripFormValues {
@@ -58,9 +58,10 @@ export interface TripFormValues {
   clientPaymentType: string;
   clientAdvance: string;
   consignorId: string;
+  session: string;
 }
 
-export const initialTripForm = (date = ""): TripFormValues => ({
+export const initialTripForm = (date = "", session = ""): TripFormValues => ({
   grChallanNo: "",
   date: date.slice(0, 10),
   invoiceNo: "",
@@ -96,6 +97,7 @@ export const initialTripForm = (date = ""): TripFormValues => ({
   clientPaymentType: "Normal",
   clientAdvance: "",
   consignorId: "",
+  session,
 });
 
 export const sessionForDate = (date: string) => {
@@ -120,6 +122,7 @@ export const validateTripForm = (values: TripFormValues) => {
     errors.productConditionOnLoading = "Product condition is required";
   }
   if (!values.firmId) errors.firmId = "Firm is required";
+  if (!values.session) errors.session = "Session is required";
   if (!values.vehicleId && !values.vehicleNameFallback.trim()) {
     errors.vehicleId = "Select an RC No or enter an RC name";
   }

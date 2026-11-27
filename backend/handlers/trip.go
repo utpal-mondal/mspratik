@@ -51,6 +51,7 @@ type tripRequest struct {
 	ClientPaymentType         string   `json:"client_payment_type"`
 	ClientAdvance             *float64 `json:"client_advance"`
 	ConsignorID               uint     `json:"consignor_id"`
+	Session                   string   `json:"session"`
 }
 
 type tripLookupOption struct {
@@ -75,6 +76,7 @@ func validateTripRequest(req *tripRequest) (time.Time, map[string]string) {
 	req.VehicleNameFallback = strings.TrimSpace(req.VehicleNameFallback)
 	req.BrokerPaymentType = strings.TrimSpace(req.BrokerPaymentType)
 	req.ClientPaymentType = strings.TrimSpace(req.ClientPaymentType)
+	req.Session = strings.TrimSpace(req.Session)
 	if req.VehicleID != nil && *req.VehicleID == 0 {
 		req.VehicleID = nil
 	}
@@ -126,6 +128,9 @@ func validateTripRequest(req *tripRequest) (time.Time, map[string]string) {
 	if req.VehicleType != "" && !oneOf(req.VehicleType, "Truck", "Dumper") {
 		fieldErrors["vehicle_type"] = "Select a valid vehicle type"
 	}
+	if req.Session != "" && !oneOf(req.Session, tripSessions(time.Now())...) {
+		fieldErrors["session"] = "Select a valid session"
+	}
 	if req.Wheel != nil && *req.Wheel < 0 {
 		fieldErrors["wheel"] = "Wheel count cannot be negative"
 	}
@@ -161,11 +166,27 @@ func oneOf(value string, choices ...string) bool {
 }
 
 func sessionForDate(date time.Time) string {
-	startYear := date.Year()
-	if date.Month() < time.April {
-		startYear--
-	}
+	startYear := sessionStartYear(date)
 	return fmt.Sprintf("%d-%02d", startYear, (startYear+1)%100)
+}
+
+const firstTripSessionYear = 2020
+
+// tripSessions returns financial-year sessions (April-March) from 2020-21 up to the current one, newest first.
+func tripSessions(now time.Time) []string {
+	current := sessionStartYear(now)
+	sessions := make([]string, 0, current-firstTripSessionYear+1)
+	for year := current; year >= firstTripSessionYear; year-- {
+		sessions = append(sessions, fmt.Sprintf("%d-%02d", year, (year+1)%100))
+	}
+	return sessions
+}
+
+func sessionStartYear(date time.Time) int {
+	if date.Month() < time.April {
+		return date.Year() - 1
+	}
+	return date.Year()
 }
 
 func GetTripLookups(c *fiber.Ctx, db *gorm.DB) error {
@@ -252,6 +273,10 @@ func GetTripLookups(c *fiber.Ctx, db *gorm.DB) error {
 	}
 	lookups["pumps"] = pumps
 
+	now := time.Now()
+	lookups["sessions"] = tripSessions(now)
+	lookups["current_session"] = sessionForDate(now)
+
 	return c.JSON(fiber.Map{"status": "success", "data": lookups})
 }
 
@@ -288,13 +313,17 @@ func CreateTrip(c *fiber.Ctx, db *gorm.DB) error {
 		return err
 	}
 
+	session := req.Session
+	if session == "" {
+		session = sessionForDate(tripDate)
+	}
 	trip := models.Trip{
 		FolioID: folio.ID, GRChallanNo: req.GRChallanNo, Date: tripDate, InvoiceNo: req.InvoiceNo,
 		BillingWeighmentClient: req.BillingWeighmentClient, BillingWeighmentBroker: req.BillingWeighmentBroker,
 		WeightPort: req.WeightPort, WeightGRN: req.WeightGRN, WeightOther: req.WeightOther,
 		ProductID: req.ProductID, LoadingPointID: req.LoadingPointID, UnloadingPointID: req.UnloadingPointID,
 		ProductConditionOnLoading: req.ProductConditionOnLoading, VessalID: req.VessalID, FirmID: req.FirmID,
-		Session: sessionForDate(tripDate), VehicleID: req.VehicleID,
+		Session: session, VehicleID: req.VehicleID,
 		VehicleNameFallback: req.VehicleNameFallback, Wheel: req.Wheel, VehicleType: req.VehicleType,
 		BrokerID: req.BrokerID, UpperLimitCondition: strings.TrimSpace(req.UpperLimitCondition),
 		BrokerPaymentType: req.BrokerPaymentType, BrokerPrice: req.BrokerPrice, FuelQty: req.FuelQty,

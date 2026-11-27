@@ -1,6 +1,5 @@
 import type { TripFormValues, TripLookup } from "../types";
-import { sessionForDate } from "../types";
-import { TripField, TripSection, TripSelectField } from "./TripFields";
+import { TripDateField, TripField, TripSection, TripSelectField } from "./TripFields";
 
 interface Props {
   values: TripFormValues;
@@ -10,6 +9,7 @@ interface Props {
     unloading_points: TripLookup[];
     vessals: TripLookup[];
     firms: TripLookup[];
+    sessions: string[];
   };
   errors: Record<string, string>;
   onChange: <K extends keyof TripFormValues>(key: K, value: TripFormValues[K]) => void;
@@ -19,7 +19,7 @@ const GRChallanDetails = ({ values, lookups, errors, onChange }: Props) => (
   <TripSection title="Enter GR/Challan Details">
     <TripField label="GR/Challan No" value={values.grChallanNo} required
       onChange={(value) => onChange("grChallanNo", value)} error={errors.grChallanNo} />
-    <TripField label="Date" type="date" value={values.date} required
+    <TripDateField label="Date" value={values.date} required
       onChange={(value) => onChange("date", value)} error={errors.date} />
     <TripField label="Invoice No" value={values.invoiceNo} required
       onChange={(value) => onChange("invoiceNo", value)} error={errors.invoiceNo} />
@@ -49,7 +49,8 @@ const GRChallanDetails = ({ values, lookups, errors, onChange }: Props) => (
       onChange={(value) => onChange("vessalId", value)} />
     <TripField label="Firm" value={values.firmId} options={lookups.firms}
       required onChange={(value) => onChange("firmId", value)} error={errors.firmId} />
-    <TripField label="Session" value={sessionForDate(values.date)} readOnly onChange={() => undefined} />
+    <TripSelectField label="Session" value={values.session} options={lookups.sessions}
+      required onChange={(value) => onChange("session", value)} error={errors.session} />
   </TripSection>
 );
 

@@ -30,6 +30,8 @@ const emptyLookups: TripLookups = {
   firms: [],
   vessals: [],
   pumps: [],
+  sessions: [],
+  current_session: "",
 };
 
 const toNullableId = (value: string) => (value ? Number(value) : null);
@@ -60,8 +62,9 @@ const LoadingEntryPage = ({ folioId }: { folioId: number }) => {
         }
         if (active) {
           setFolio(folioData);
-          setLookups(lookupData);
-          setValues(initialTripForm(folioData.date));
+          const sessions = Array.isArray(lookupData.sessions) ? lookupData.sessions : [];
+          setLookups({ ...lookupData, sessions });
+          setValues(initialTripForm(folioData.date, lookupData.current_session || sessions[0] || ""));
         }
       } catch (error) {
         console.error("Error loading entry page data:", error);
@@ -146,6 +149,7 @@ const LoadingEntryPage = ({ folioId }: { folioId: number }) => {
       client_payment_type: values.clientPaymentType,
       client_advance: toNullableNumber(values.clientAdvance),
       consignor_id: Number(values.consignorId),
+      session: values.session,
     };
 
     try {

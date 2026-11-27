@@ -30,6 +30,7 @@ const VehicleDetails = ({
       onChange={(value) => onChange("wheel", value)} />
     <TripField
       label="Enter RC name if not found in database"
+      placeholder="Enter RC name"
       value={values.vehicleNameFallback}
       required={!values.vehicleId}
       onChange={(value) => {
