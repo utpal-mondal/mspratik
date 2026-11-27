@@ -158,7 +158,7 @@ const PointManagementPage = ({ resource, title }: PointManagementPageProps) => {
               <table className="w-full min-w-[700px] border-collapse text-sm [font-variant-numeric:tabular-nums]">
                 <thead>
                   <tr>
-                    <th scope="col" className={`${tableHead} w-14 pl-6`}>ID</th>
+                    <th scope="col" className={`${tableHead} w-14 pl-6`}>SL No.</th>
                     <th scope="col" className={tableHead}>Name</th>
                     <th scope="col" className={tableHead}>Contact person</th>
                     <th scope="col" className={tableHead}>Contact person mobile no</th>
@@ -177,7 +177,9 @@ const PointManagementPage = ({ resource, title }: PointManagementPageProps) => {
                     </tr>
                   ) : pagePoints.map((point, index) => (
                     <tr key={point.id} className={`transition-colors hover:bg-[#EAF0F7] ${index % 2 ? "bg-[#F8FAFC]" : "bg-white"}`}>
-                      <td className={`${tableCell} pl-6 text-[#7B8896]`}>{point.id}</td>
+                      <td className={`${tableCell} pl-6 text-[#7B8896]`}>
+                        {(page - 1) * pageSize + index + 1}
+                      </td>
                       <td className={`${tableCell} font-semibold text-[#0F2A47]`}>
                         <button
                           type="button"

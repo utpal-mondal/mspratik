@@ -5,6 +5,7 @@ import type { ConsignorRecord } from "@/services/api";
 interface ConsignorTableProps {
   consignors: ConsignorRecord[];
   loading: boolean;
+  serialOffset: number;
   onView: (consignorId: number) => void;
   onEdit: (consignor: ConsignorRecord) => void;
   onDelete: (consignor: ConsignorRecord) => void;
@@ -18,6 +19,7 @@ const tdBase =
 const ConsignorTable: React.FC<ConsignorTableProps> = ({
   consignors,
   loading,
+  serialOffset,
   onView,
   onEdit,
   onDelete,
@@ -38,7 +40,7 @@ const ConsignorTable: React.FC<ConsignorTableProps> = ({
       <table className="w-full min-w-[760px] border-collapse text-sm [font-variant-numeric:tabular-nums]">
         <thead>
           <tr>
-            <th scope="col" className={`${thBase} w-14 pl-6`}>ID</th>
+            <th scope="col" className={`${thBase} w-14 pl-6`}>SL No.</th>
             <th scope="col" className={thBase}>Consignor Name</th>
             <th scope="col" className={thBase}>Address</th>
             <th scope="col" className={thBase}>Email</th>
@@ -68,7 +70,9 @@ const ConsignorTable: React.FC<ConsignorTableProps> = ({
                   index % 2 === 1 ? "bg-[#F8FAFC]" : "bg-white"
                 }`}
               >
-                <td className={`${tdBase} pl-6 text-[#7B8896]`}>{consignor.id}</td>
+                <td className={`${tdBase} pl-6 text-[#7B8896]`}>
+                  {serialOffset + index + 1}
+                </td>
                 <td className={`${tdBase} font-semibold text-[#0F2A47]`}>
                   <button
                     type="button"

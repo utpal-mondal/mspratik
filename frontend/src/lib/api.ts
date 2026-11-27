@@ -1244,6 +1244,65 @@ export const pointApi = {
   },
 };
 
+export interface FolioBranch {
+  id: number;
+  name: string;
+  head: string;
+}
+
+export interface FolioData {
+  id: number;
+  branch_id: number;
+  branch: FolioBranch;
+  folio_no: string;
+  amount: number | null;
+  bank_payment: number | null;
+  date: string;
+  remark: string;
+  folio_type: "Normal" | "Other";
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FolioInput {
+  branch_id: number;
+  folio_no: string;
+  amount: string;
+  bank_payment: string;
+  date: string;
+  remark: string;
+  folio_type: "Normal" | "Other";
+}
+
+export const folioApi = {
+  getBranches: async () => {
+    const response = await api.get("/folios/branches");
+    return response.data;
+  },
+  getFolios: async (query = "", startDate?: string, endDate?: string) => {
+    const response = await api.get("/folios", {
+      params: {
+        ...(query.trim() ? { query: query.trim() } : {}),
+        ...(startDate ? { start_date: startDate } : {}),
+        ...(endDate ? { end_date: endDate } : {}),
+      },
+    });
+    return response.data;
+  },
+  getFolio: async (id: number) => {
+    const response = await api.get(`/folios/${id}`);
+    return response.data;
+  },
+  getNextFolioNumber: async () => {
+    const response = await api.get("/folios/next-number");
+    return response.data;
+  },
+  createFolio: async (data: FolioInput) => {
+    const response = await api.post("/folios", data);
+    return response.data;
+  },
+};
+
 export const purchaseApi = {
   getPurchase: async (params: any) => {
     const response = await api.get("/purchases", { params });

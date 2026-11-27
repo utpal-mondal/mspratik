@@ -148,6 +148,7 @@ const ConsignorsPage = () => {
             <ConsignorTable
               consignors={pageConsignors}
               loading={loading}
+              serialOffset={(page - 1) * limit}
               onView={(consignorId) =>
                 void router.push(`/consignor/view/${consignorId}`)
               }

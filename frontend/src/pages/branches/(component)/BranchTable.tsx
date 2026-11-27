@@ -5,6 +5,7 @@ import type { BranchData } from "@/lib/api";
 interface BranchTableProps {
   branches: BranchData[];
   loading: boolean;
+  serialOffset: number;
   onView: (branchId: number) => void;
   onEdit: (branch: BranchData) => void;
   onDelete: (branch: BranchData) => void;
@@ -18,6 +19,7 @@ const tdBase =
 const BranchTable: React.FC<BranchTableProps> = ({
   branches,
   loading,
+  serialOffset,
   onView,
   onEdit,
   onDelete,
@@ -38,7 +40,7 @@ const BranchTable: React.FC<BranchTableProps> = ({
       <table className="w-full min-w-[900px] border-collapse text-sm [font-variant-numeric:tabular-nums]">
         <thead>
           <tr>
-            <th scope="col" className={`${thBase} pl-6 w-14`}>ID</th>
+            <th scope="col" className={`${thBase} pl-6 w-14`}>SL No.</th>
             <th scope="col" className={thBase}>Name</th>
             <th scope="col" className={thBase}>Head</th>
             <th scope="col" className={thBase}>Address</th>
@@ -69,7 +71,7 @@ const BranchTable: React.FC<BranchTableProps> = ({
                   index % 2 === 1 ? "bg-[#F8FAFC]" : "bg-white"
                 }`}
               >
-                <td className={`${tdBase} pl-6 text-[#7B8896]`}>{branch.id}</td>
+                <td className={`${tdBase} pl-6 text-[#7B8896]`}>{serialOffset + index + 1}</td>
                 <td className={`${tdBase} font-semibold text-[#0F2A47]`}>
                   <button
                     type="button"

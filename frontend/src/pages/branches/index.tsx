@@ -143,6 +143,7 @@ const BranchesPage = () => {
             <BranchTable
               branches={pageBranches}
               loading={loading}
+              serialOffset={(page - 1) * limit}
               onView={(branchId) => void router.push(`/branches/view/${branchId}`)}
               onEdit={(branch) => {
                 setCreateOpen(false);

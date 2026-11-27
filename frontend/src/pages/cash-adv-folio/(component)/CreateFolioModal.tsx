@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
+import axios from "axios";
+import { toast } from "react-toastify";
 import { SearchableDropdown } from "@/components/ui/SearchableDropdown";
-import DateRangePicker, { type DateRange } from "@/components/ui/DateRangePicker";
+import { folioApi, type FolioBranch } from "@/lib/api";
 
 interface Option {
   value: string;
@@ -10,20 +12,20 @@ interface Option {
 }
 
 export interface FolioFormValues {
-  branch: string;
+  branchId: number;
   folioNo: string;
   amount: string;
   bankPayment: string;
-  dateRange: DateRange;
+  date: string;
   remark: string;
-  folioType: string;
+  folioType: "Normal" | "Other";
 }
 
 interface CreateFolioModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (values: FolioFormValues) => void;
-  branchOptions?: string[];
+  onSave: (values: FolioFormValues) => Promise<void>;
+  branches: FolioBranch[];
 }
 
 const FOLIO_TYPE_OPTIONS: Option[] = [
@@ -31,50 +33,75 @@ const FOLIO_TYPE_OPTIONS: Option[] = [
   { value: "Other", label: "Other" },
 ];
 
-const last30Days = (): DateRange => {
-  const endDate = new Date();
-  const startDate = new Date(endDate);
-  startDate.setDate(startDate.getDate() - 29);
-  return { startDate, endDate };
+const localDateValue = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 };
 
-const inputClass =
-  "h-9 w-full rounded border border-[#C5CFDB] bg-white px-3 text-[13px] text-[#17222E] outline-none transition focus:border-[#0F2A47] focus:ring-2 focus:ring-[#0F2A47]/10";
-
-const labelClass = "mb-1 block text-[13px] font-semibold text-[#3B4957]";
-const dropdownButtonClass = "!h-9 !rounded !border-[#C5CFDB] !text-[13px]";
-
-const initialValues = (): Omit<FolioFormValues, "dateRange"> & { dateRange: DateRange | null } => ({
-  branch: "",
+const initialValues = (): FolioFormValues => ({
+  branchId: 0,
   folioNo: "",
   amount: "",
   bankPayment: "",
-  dateRange: null,
+  date: localDateValue(new Date()),
   remark: "",
   folioType: "Normal",
 });
+
+const inputClass =
+  "h-9 w-full rounded border border-[#C5CFDB] bg-white px-3 text-[13px] text-[#17222E] outline-none transition focus:border-[#0F2A47] focus:ring-2 focus:ring-[#0F2A47]/10";
+const labelClass = "mb-1 block text-[13px] font-semibold text-[#3B4957]";
+const dropdownButtonClass = "!h-9 !rounded !border-[#C5CFDB] !text-[13px]";
 
 const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
   isOpen,
   onClose,
   onSave,
-  branchOptions = [],
+  branches,
 }) => {
   const [mounted, setMounted] = useState(false);
-  const [values, setValues] = useState(initialValues);
+  const [values, setValues] = useState<FolioFormValues>(initialValues);
+  const [loadingFolioNo, setLoadingFolioNo] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    if (isOpen) {
-      setValues({ ...initialValues(), dateRange: last30Days() });
-    }
+    if (!isOpen) return;
+    let active = true;
+    setValues(initialValues());
+    setFieldErrors({});
+    setLoadingFolioNo(true);
+
+    const fetchNextNumber = async () => {
+      try {
+        const response = await folioApi.getNextFolioNumber();
+        const folioNo = response?.data?.folio_no;
+        if (typeof folioNo !== "string" || folioNo === "") {
+          throw new Error("Folio number was not returned");
+        }
+        if (active) setValues((previous) => ({ ...previous, folioNo }));
+      } catch (error) {
+        console.error("Error generating folio number:", error);
+        if (active) toast.error("Failed to generate folio number");
+      } finally {
+        if (active) setLoadingFolioNo(false);
+      }
+    };
+
+    void fetchNextNumber();
+    return () => {
+      active = false;
+    };
   }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !saving) onClose();
     };
     document.addEventListener("keydown", onKey);
     const originalOverflow = document.body.style.overflow;
@@ -83,32 +110,65 @@ const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = originalOverflow;
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, saving]);
 
   if (!mounted || typeof document === "undefined" || !isOpen) return null;
 
-  const branchOpts: Option[] = branchOptions.map((item) => ({
-    value: item,
-    label: item,
+  const branchOptions: Option[] = branches.map((branch) => ({
+    value: String(branch.id),
+    label: branch.name,
   }));
-  const selectedBranch = branchOpts.find((o) => o.value === values.branch) || null;
+  const selectedBranch =
+    branchOptions.find((option) => option.value === String(values.branchId)) || null;
   const selectedFolioType =
-    FOLIO_TYPE_OPTIONS.find((o) => o.value === values.folioType) || null;
+    FOLIO_TYPE_OPTIONS.find((option) => option.value === values.folioType) || null;
 
-  const set = <K extends keyof typeof values>(key: K, value: (typeof values)[K]) =>
-    setValues((prev) => ({ ...prev, [key]: value }));
+  const set = <K extends keyof FolioFormValues>(
+    key: K,
+    value: FolioFormValues[K],
+  ) => setValues((previous) => ({ ...previous, [key]: value }));
 
-  const handleSave = () => {
-    if (!values.dateRange) return;
-    onSave({
-      branch: values.branch,
-      folioNo: values.folioNo.trim(),
-      amount: values.amount.trim(),
-      bankPayment: values.bankPayment.trim(),
-      dateRange: values.dateRange,
-      remark: values.remark.trim(),
-      folioType: values.folioType,
-    });
+  const handleSave = async () => {
+    const errors: Record<string, string> = {};
+    if (!values.branchId) errors.branchId = "Branch is required";
+    if (!/^[0-9]{1,6}$/.test(values.folioNo)) {
+      errors.folioNo = "Enter a folio number with up to 6 digits";
+    }
+    if (!values.date) errors.date = "Date is required";
+    if (!values.folioType) errors.folioType = "Folio type is required";
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      toast.error("Please fill the required fields");
+      return;
+    }
+
+    try {
+      setSaving(true);
+      await onSave(values);
+    } catch (error) {
+      if (axios.isAxiosError<{ errors?: Record<string, string>; message?: string }>(error)) {
+        const responseErrors = error.response?.data?.errors;
+        if (responseErrors?.folio_no) {
+          setFieldErrors((previous) => ({
+            ...previous,
+            folioNo: responseErrors.folio_no,
+          }));
+        }
+        if (!error.response || error.response.status >= 500) {
+          console.error("Error creating folio:", error);
+        }
+        toast.error(
+          responseErrors?.folio_no ||
+            error.response?.data?.message ||
+            "Failed to create folio",
+        );
+      } else {
+        console.error("Error creating folio:", error);
+        toast.error("Failed to create folio");
+      }
+    } finally {
+      setSaving(false);
+    }
   };
 
   return createPortal(
@@ -128,11 +188,21 @@ const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
 
         <div className="grid grid-cols-1 gap-3 p-4 md:grid-cols-2">
           <div>
-            <label className={labelClass}>Branch</label>
+            <label className={labelClass}>Branch <span className="text-red-500">*</span></label>
             <SearchableDropdown
-              options={branchOpts}
+              options={branchOptions}
               value={selectedBranch}
-              onChange={(option) => set("branch", option ? option.value : "")}
+              onChange={(option) => {
+                const branch = branches.find(
+                  (item) => String(item.id) === option?.value,
+                );
+                setValues((previous) => ({
+                  ...previous,
+                  branchId: branch?.id || 0,
+                  remark: branch?.head || "",
+                }));
+                setFieldErrors((previous) => ({ ...previous, branchId: "" }));
+              }}
               placeholder="Select branch"
               searchPlaceholder="Search branch..."
               labelKey="value"
@@ -140,26 +210,54 @@ const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
               className="w-full"
               buttonClassName={dropdownButtonClass}
             />
+            {fieldErrors.branchId && (
+              <span className="mt-1 block text-xs text-red-600">{fieldErrors.branchId}</span>
+            )}
           </div>
 
           <div>
-            <label className={labelClass}>Folio No</label>
+            <label className={labelClass}>Folio No <span className="text-red-500">*</span></label>
             <input
               type="text"
-              value={values.folioNo}
-              onChange={(e) => set("folioNo", e.target.value)}
-              placeholder="Enter Folio No"
+              required
+              inputMode="numeric"
+              disabled={loadingFolioNo}
+              value={loadingFolioNo ? "Generating..." : values.folioNo}
+              onChange={(event) => {
+                const folioNo = event.target.value;
+                if (!/^[0-9]*$/.test(folioNo)) {
+                  setFieldErrors((previous) => ({
+                    ...previous,
+                    folioNo: "Folio number must contain digits only",
+                  }));
+                  return;
+                }
+                if (folioNo.length > 6) {
+                  setFieldErrors((previous) => ({
+                    ...previous,
+                    folioNo: "Folio number must be six digits or fewer",
+                  }));
+                  return;
+                }
+                set("folioNo", folioNo);
+                setFieldErrors((previous) => ({ ...previous, folioNo: "" }));
+              }}
+              placeholder="Enter up to 6 digits"
               className={inputClass}
             />
+            {fieldErrors.folioNo && (
+              <span className="mt-1 block text-xs text-red-600">{fieldErrors.folioNo}</span>
+            )}
           </div>
 
           <div>
             <label className={labelClass}>Amount</label>
             <input
-              type="text"
-              inputMode="numeric"
+              type="number"
+              min="0"
+              step="0.01"
               value={values.amount}
-              onChange={(e) => set("amount", e.target.value)}
+              onChange={(event) => set("amount", event.target.value)}
               placeholder="Enter Amount"
               className={inputClass}
             />
@@ -168,22 +266,54 @@ const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
           <div>
             <label className={labelClass}>Bank Payment</label>
             <input
-              type="text"
+              type="number"
+              min="0"
+              step="0.01"
               value={values.bankPayment}
-              onChange={(e) => set("bankPayment", e.target.value)}
+              onChange={(event) => set("bankPayment", event.target.value)}
               placeholder="Bank Payment"
               className={inputClass}
             />
           </div>
 
-          <div className="md:col-span-2">
-            <label className={labelClass}>Date</label>
-            <DateRangePicker
-              value={values.dateRange}
-              onChange={(range) => set("dateRange", range)}
-              className="w-full"
-              height={36}
+          <div>
+            <label className={labelClass}>Date <span className="text-red-500">*</span></label>
+            <input
+              type="date"
+              required
+              value={values.date}
+              onChange={(event) => {
+                set("date", event.target.value);
+                setFieldErrors((previous) => ({ ...previous, date: "" }));
+              }}
+              className={inputClass}
             />
+            {fieldErrors.date && (
+              <span className="mt-1 block text-xs text-red-600">{fieldErrors.date}</span>
+            )}
+          </div>
+
+          <div>
+            <label className={labelClass}>Folio Type <span className="text-red-500">*</span></label>
+            <SearchableDropdown
+              options={FOLIO_TYPE_OPTIONS}
+              value={selectedFolioType}
+              onChange={(option) => {
+                if (option?.value === "Normal" || option?.value === "Other") {
+                  set("folioType", option.value);
+                }
+                setFieldErrors((previous) => ({ ...previous, folioType: "" }));
+              }}
+              placeholder="Select type"
+              searchPlaceholder="Search type..."
+              labelKey="value"
+              displayKey="label"
+              className="w-full"
+              buttonClassName={dropdownButtonClass}
+            />
+            {fieldErrors.folioType && (
+              <span className="mt-1 block text-xs text-red-600">{fieldErrors.folioType}</span>
+            )}
           </div>
 
           <div className="md:col-span-2">
@@ -191,24 +321,9 @@ const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
             <input
               type="text"
               value={values.remark}
-              onChange={(e) => set("remark", e.target.value)}
+              onChange={(event) => set("remark", event.target.value)}
               placeholder="Enter Remark"
               className={inputClass}
-            />
-          </div>
-
-          <div>
-            <label className={labelClass}>Folio Type</label>
-            <SearchableDropdown
-              options={FOLIO_TYPE_OPTIONS}
-              value={selectedFolioType}
-              onChange={(option) => set("folioType", option ? option.value : "")}
-              placeholder="Select type"
-              searchPlaceholder="Search type..."
-              labelKey="value"
-              displayKey="label"
-              className="w-full"
-              buttonClassName={dropdownButtonClass}
             />
           </div>
         </div>
@@ -217,22 +332,23 @@ const CreateFolioModal: React.FC<CreateFolioModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="h-9 rounded border border-[#C5CFDB] bg-white px-4 text-sm font-medium text-[#0F2A47] transition-colors hover:bg-[#F8FAFC]"
+            disabled={saving}
+            className="h-9 rounded border border-[#C5CFDB] bg-white px-4 text-sm font-medium text-[#0F2A47] transition-colors hover:bg-[#F8FAFC] disabled:opacity-50"
           >
             Cancel
           </button>
           <button
             type="button"
-            onClick={handleSave}
-            disabled={!values.dateRange}
+            onClick={() => void handleSave()}
+            disabled={saving || loadingFolioNo}
             className="h-9 rounded bg-[#2563EB] px-4 text-sm font-medium text-white transition-colors hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Save
+            {saving ? "Saving..." : "Save"}
           </button>
         </div>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 };
 
