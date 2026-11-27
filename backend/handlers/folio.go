@@ -169,6 +169,8 @@ func GetFolios(c *fiber.Ctx, db *gorm.DB) error {
 
 	var folios []models.Folio
 	if err := query.Order("folio.date DESC").Order("folio.id DESC").Offset((page - 1) * limit).Limit(limit).Find(&folios).Error; err != nil {
+	if err := query.Select("folio.*, (SELECT COUNT(*) FROM trip WHERE trip.folio_id = folio.id) AS no_of_trips").
+		Order("folio.date DESC").Order("folio.id DESC").Find(&folios).Error; err != nil {
 		log.Printf("Failed to fetch folios: %v", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status": "fail", "message": "Failed to fetch folios",
@@ -196,7 +198,9 @@ func GetFolio(c *fiber.Ctx, db *gorm.DB) error {
 	}
 
 	var folio models.Folio
-	if err := db.Preload("Branch").First(&folio, folioID).Error; err != nil {
+	if err := db.Model(&models.Folio{}).
+		Select("folio.*, (SELECT COUNT(*) FROM trip WHERE trip.folio_id = folio.id) AS no_of_trips").
+		Preload("Branch").First(&folio, folioID).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 				"status": "fail", "message": "Folio not found",

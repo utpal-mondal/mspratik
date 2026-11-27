@@ -1260,6 +1260,7 @@ export interface FolioData {
   date: string;
   remark: string;
   folio_type: "Normal" | "Other";
+  no_of_trips: number;
   created_at: string;
   updated_at: string;
 }
@@ -1272,6 +1273,44 @@ export interface FolioInput {
   date: string;
   remark: string;
   folio_type: "Normal" | "Other";
+}
+
+export interface TripInput {
+  gr_challan_no: string;
+  date: string;
+  invoice_no: string;
+  billing_weighment_client: string;
+  billing_weighment_broker: string;
+  weight_port: number | null;
+  weight_grn: number | null;
+  weight_other: number | null;
+  product_id: number;
+  loading_point_id: number;
+  unloading_point_id: number;
+  product_condition_on_loading: string;
+  vessal_id: number | null;
+  firm_id: number;
+  vehicle_id: number | null;
+  vehicle_name_fallback: string;
+  wheel: number | null;
+  vehicle_type: string;
+  broker_id: number;
+  upper_limit_condition: string;
+  broker_payment_type: string;
+  broker_price: number | null;
+  fuel_qty: number | null;
+  fuel_price: number | null;
+  fuel_advance: number | null;
+  pump_id: number | null;
+  cash_advance: number | null;
+  advance_from_client: number | null;
+  transporting_charges: number | null;
+  total_advance: number | null;
+  client_id: number;
+  client_price: number | null;
+  client_payment_type: string;
+  client_advance: number | null;
+  consignor_id: number;
 }
 
 export const folioApi = {
@@ -1307,6 +1346,17 @@ export const folioApi = {
   },
   createFolio: async (data: FolioInput) => {
     const response = await api.post("/folios", data);
+    return response.data;
+  },
+};
+
+export const tripApi = {
+  getLookups: async () => {
+    const response = await api.get("/trips/lookups");
+    return response.data;
+  },
+  createTrip: async (folioId: number, data: TripInput) => {
+    const response = await api.post(`/folios/${folioId}/trips`, data);
     return response.data;
   },
 };

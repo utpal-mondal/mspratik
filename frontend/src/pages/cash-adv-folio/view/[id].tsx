@@ -108,7 +108,7 @@ const FolioViewPage = () => {
                 <FolioDetail label="Amount" value={formatINR(folio.amount)} />
                 <FolioDetail label="Bank Amount" value={formatINR(folio.bank_payment)} />
                 <FolioDetail label="Remark" value={folio.remark || "-"} />
-                <FolioDetail label="No Of Trips" value="0" />
+                <FolioDetail label="No Of Trips" value={String(folio.no_of_trips)} />
               </div>
             </section>
           ) : null}
