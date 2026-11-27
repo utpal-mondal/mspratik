@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
 import withAuth from "../../components/withAuth";
-import LoadingEntryPage from "./LoadingEntryPage";
+import LoadingEntryPage from "@/features/loading-entry/LoadingEntryPage";
 
 const LoadingEntryRoute = () => {
   const router = useRouter();
