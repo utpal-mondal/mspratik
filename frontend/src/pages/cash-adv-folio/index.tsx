@@ -60,6 +60,7 @@ const CashAdvFolioPage = () => {
   const [branchesLoading, setBranchesLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const requestId = useRef(0);
+  const dateRangeEdited = useRef(false);
   const debouncedSearch = useDebounce(search, 400);
 
   const getFolios = useCallback(async () => {
@@ -78,7 +79,28 @@ const CashAdvFolioPage = () => {
       }
       if (currentRequestId === requestId.current) {
         setFolios(response.data);
-        setTotal(response?.meta?.total ?? 0);
+        const totalCount = Number(response?.meta?.total);
+        setTotal(
+          Number.isFinite(totalCount)
+            ? Math.max(totalCount, response.data.length)
+            : response.data.length,
+        );
+
+        const latestDate = response?.meta?.latest_date;
+        const currentEndDate = dateRange ? formatDateParam(dateRange.endDate) : "";
+        if (
+          !dateRangeEdited.current &&
+          dateRange &&
+          typeof latestDate === "string" &&
+          latestDate > currentEndDate
+        ) {
+          const [year, month, day] = latestDate.split("-").map(Number);
+          setDateRange((previous) =>
+            previous
+              ? { ...previous, endDate: new Date(year, month - 1, day) }
+              : previous,
+          );
+        }
       }
     } catch (error) {
       if (currentRequestId === requestId.current) {
@@ -213,6 +235,7 @@ const CashAdvFolioPage = () => {
                 }}
                 dateRange={dateRange}
                 onDateRangeChange={(range) => {
+                  dateRangeEdited.current = true;
                   setDateRange(range);
                   setPage(1);
                 }}

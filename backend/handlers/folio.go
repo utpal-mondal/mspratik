@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"database/sql"
 	"errors"
 	"fmt"
 	"log"
@@ -167,24 +168,37 @@ func GetFolios(c *fiber.Ctx, db *gorm.DB) error {
 		})
 	}
 
+	var latestDate sql.NullTime
+	if err := db.Model(&models.Folio{}).Select("MAX(date)").Scan(&latestDate).Error; err != nil {
+		log.Printf("Failed to find latest folio date: %v", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"status": "fail", "message": "Failed to fetch folios",
+		})
+	}
+
 	var folios []models.Folio
-	if err := query.Order("folio.date DESC").Order("folio.id DESC").Offset((page - 1) * limit).Limit(limit).Find(&folios).Error; err != nil {
 	if err := query.Select("folio.*, (SELECT COUNT(*) FROM trip WHERE trip.folio_id = folio.id) AS no_of_trips").
-		Order("folio.date DESC").Order("folio.id DESC").Find(&folios).Error; err != nil {
+		Order("folio.date DESC").Order("folio.id DESC").
+		Offset((page - 1) * limit).Limit(limit).Find(&folios).Error; err != nil {
 		log.Printf("Failed to fetch folios: %v", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
 			"status": "fail", "message": "Failed to fetch folios",
 		})
 	}
 	totalPages := int((total + int64(limit) - 1) / int64(limit))
+	var latestDateValue interface{}
+	if latestDate.Valid {
+		latestDateValue = latestDate.Time.Format("2006-01-02")
+	}
 	return c.JSON(fiber.Map{
 		"status": "success",
 		"data":   folios,
 		"meta": fiber.Map{
-			"total":      total,
-			"totalPages": totalPages,
-			"page":       page,
-			"limit":      limit,
+			"total":       total,
+			"totalPages":  totalPages,
+			"page":        page,
+			"limit":       limit,
+			"latest_date": latestDateValue,
 		},
 	})
 }
