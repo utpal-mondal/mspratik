@@ -41,7 +41,7 @@ const GRChallanDetails = ({ values, lookups, errors, onChange }: Props) => (
       required onChange={(value) => onChange("loadingPointId", value)} error={errors.loadingPointId} />
     <TripField label="Unloading Point" value={values.unloadingPointId} options={lookups.unloading_points}
       required onChange={(value) => onChange("unloadingPointId", value)} error={errors.unloadingPointId} />
-    <TripSelectField label="Product Condition On Loading Time" value={values.productConditionOnLoading}
+    <TripSelectField label="Product Condition" value={values.productConditionOnLoading}
       onChange={(value) => onChange("productConditionOnLoading", value)}
       options={["Normal", "Heavy Moisture", "Sweeping", "Water Drop"]}
       required error={errors.productConditionOnLoading} />

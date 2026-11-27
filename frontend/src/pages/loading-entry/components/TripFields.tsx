@@ -6,11 +6,12 @@ import type { TripLookup } from "../types";
 interface FieldProps {
   label: string;
   value: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   required?: boolean;
   type?: "text" | "number" | "date";
   placeholder?: string;
   readOnly?: boolean;
+  disabled?: boolean;
   options?: TripLookup[];
   error?: string;
 }
@@ -21,7 +22,7 @@ type DropdownOption = {
 };
 
 const inputClass =
-  "h-9 w-full rounded border border-[#C5CFDB] bg-white px-3 text-[13px] text-[#17222E] outline-none focus:border-[#0F2A47] focus:ring-2 focus:ring-[#0F2A47]/10 disabled:bg-[#F1F4F8] disabled:text-[#64748B]";
+  "h-9 w-full rounded border border-[#C5CFDB] bg-white px-3 text-[13px] text-[#17222E] outline-none focus:border-[#0F2A47] focus:ring-2 focus:ring-[#0F2A47]/10 disabled:cursor-not-allowed disabled:bg-[#F1F4F8] disabled:text-[#64748B]";
 
 const dropdownButtonClass =
   "!h-9 !rounded !border-[#C5CFDB] !px-3 !text-[13px] !text-[#17222E]";
@@ -40,6 +41,7 @@ export const TripField = ({
   type = "text",
   placeholder,
   readOnly = false,
+  disabled = false,
   options,
   error,
 }: FieldProps) => {
@@ -56,12 +58,12 @@ export const TripField = ({
         <SearchableDropdown<DropdownOption>
           options={dropdownOptions}
           value={selectedOption}
-          onChange={(option) => onChange(option?.value ?? "")}
+          onChange={(option) => onChange?.(option?.value ?? "")}
           placeholder={placeholder || `Select ${label.toLowerCase()}`}
           searchPlaceholder={`Search ${label.toLowerCase()}...`}
           labelKey="value"
           displayKey="label"
-          disabled={readOnly}
+          disabled={disabled || readOnly}
           buttonClassName={dropdownButtonClass}
         />
       ) : (
@@ -80,8 +82,9 @@ export const TripField = ({
                 : `Enter ${label}`)
           }
           readOnly={readOnly}
-          onChange={(event) => onChange(event.target.value)}
-          className={`${inputClass} ${readOnly ? "bg-[#F1F4F8]" : ""}`}
+          disabled={disabled}
+          onChange={(event) => onChange?.(event.target.value)}
+          className={`${inputClass} ${readOnly || disabled ? "bg-[#F1F4F8]" : ""}`}
         />
       )}
       {error && <span className="mt-1 block text-xs text-red-600">{error}</span>}

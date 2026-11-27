@@ -12,7 +12,9 @@ import FolioDetails from "./components/FolioDetails";
 import GRChallanDetails from "./components/GRChallanDetails";
 import VehicleDetails from "./components/VehicleDetails";
 import {
+  calculateTotalAdvance,
   initialTripForm,
+  sessionForDate,
   toNullableNumber,
   validateTripForm,
   type TripFormValues,
@@ -35,6 +37,14 @@ const emptyLookups: TripLookups = {
 };
 
 const toNullableId = (value: string) => (value ? Number(value) : null);
+
+const getTodayDate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
 
 const LoadingEntryPage = ({ folioId }: { folioId: number }) => {
   const router = useRouter();
@@ -64,7 +74,12 @@ const LoadingEntryPage = ({ folioId }: { folioId: number }) => {
           setFolio(folioData);
           const sessions = Array.isArray(lookupData.sessions) ? lookupData.sessions : [];
           setLookups({ ...lookupData, sessions });
-          setValues(initialTripForm(folioData.date, lookupData.current_session || sessions[0] || ""));
+          const today = getTodayDate();
+          const todaySession = sessionForDate(today);
+          const defaultSession = sessions.includes(todaySession)
+            ? todaySession
+            : lookupData.current_session || sessions[0] || todaySession;
+          setValues(initialTripForm(today, defaultSession));
         }
       } catch (error) {
         console.error("Error loading entry page data:", error);
@@ -104,7 +119,6 @@ const LoadingEntryPage = ({ folioId }: { folioId: number }) => {
       values.cashAdvance,
       values.advanceFromClient,
       values.transportingCharges,
-      values.totalAdvance,
       values.clientPrice,
       values.clientAdvance,
     ];
@@ -143,7 +157,7 @@ const LoadingEntryPage = ({ folioId }: { folioId: number }) => {
       cash_advance: toNullableNumber(values.cashAdvance),
       advance_from_client: toNullableNumber(values.advanceFromClient),
       transporting_charges: toNullableNumber(values.transportingCharges),
-      total_advance: toNullableNumber(values.totalAdvance),
+      total_advance: toNullableNumber(calculateTotalAdvance(values)),
       client_id: Number(values.clientId),
       client_price: toNullableNumber(values.clientPrice),
       client_payment_type: values.clientPaymentType,

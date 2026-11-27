@@ -52,7 +52,6 @@ export interface TripFormValues {
   cashAdvance: string;
   advanceFromClient: string;
   transportingCharges: string;
-  totalAdvance: string;
   clientId: string;
   clientPrice: string;
   clientPaymentType: string;
@@ -91,7 +90,6 @@ export const initialTripForm = (date = "", session = ""): TripFormValues => ({
   cashAdvance: "",
   advanceFromClient: "",
   transportingCharges: "",
-  totalAdvance: "",
   clientId: "",
   clientPrice: "",
   clientPaymentType: "Normal",
@@ -99,6 +97,25 @@ export const initialTripForm = (date = "", session = ""): TripFormValues => ({
   consignorId: "",
   session,
 });
+
+export const calculateTotalAdvance = (
+  values: Pick<
+    TripFormValues,
+    "fuelAdvance" | "cashAdvance" | "advanceFromClient" | "transportingCharges"
+  >,
+) => {
+  const total = [
+    values.fuelAdvance,
+    values.cashAdvance,
+    values.advanceFromClient,
+    values.transportingCharges,
+  ].reduce((sum, value) => {
+    const amount = Number(value);
+    return sum + (Number.isFinite(amount) ? amount : 0);
+  }, 0);
+
+  return String(Number(total.toFixed(2)));
+};
 
 export const sessionForDate = (date: string) => {
   if (!date) return "";

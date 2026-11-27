@@ -1,4 +1,4 @@
-import type { TripFormValues, TripLookup } from "../types";
+import { calculateTotalAdvance, type TripFormValues, type TripLookup } from "../types";
 import { TripField, TripSection, TripSelectField } from "./TripFields";
 
 const BrokerDetails = ({
@@ -38,8 +38,7 @@ const BrokerDetails = ({
       onChange={(value) => onChange("advanceFromClient", value)} />
     <TripField label="Transporting Charges" type="number" value={values.transportingCharges}
       onChange={(value) => onChange("transportingCharges", value)} />
-    <TripField label="Total Advance" type="number" value={values.totalAdvance}
-      onChange={(value) => onChange("totalAdvance", value)} />
+    <TripField label="Total Advance" type="number" value={calculateTotalAdvance(values)} disabled />
   </TripSection>
 );
 
